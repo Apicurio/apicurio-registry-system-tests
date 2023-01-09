@@ -23,7 +23,7 @@
         <lombok.version>1.18.26</lombok.version>
         <operator.version>1.0.0-v2.0.0.final</operator.version>
         <version.hamcrest>2.2</version.hamcrest>
-        <version.slf4.simple>2.0.7</version.slf4.simple>
+        <version.slf4>2.0.7</version.slf4>
         <version.strimzi.api>0.34.0</version.strimzi.api>
         <version.eclipse.jgit>6.5.0.202303070854-r</version.eclipse.jgit>
         <version.org.json>20230227</version.org.json>
@@ -72,12 +72,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${version.slf4.api}</version>
+            <version>${version.slf4}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${version.slf4.simple}</version>
+            <version>${version.slf4}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -564,6 +564,16 @@
             <id>olm-live-test</id>
             <properties>
                 <groups>olm &amp; live-test</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
+        <!-- Interop tests -->
+
+        <profile>
+            <id>interop</id>
+            <properties>
+                <groups>interop</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
