@@ -72,12 +72,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${version.slf4.api}</version>
+            <version>${version.slf4}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${version.slf4.simple}</version>
+            <version>${version.slf4}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -564,6 +564,16 @@
             <id>olm-live-test</id>
             <properties>
                 <groups>olm &amp; live-test</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
+        <!-- Interop tests -->
+
+        <profile>
+            <id>interop</id>
+            <properties>
+                <groups>interop</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
