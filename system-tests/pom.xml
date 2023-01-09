@@ -582,6 +582,7 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+<<<<<<< HEAD
 
         <!-- Upgrade tests -->
 
@@ -606,5 +607,7 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+=======
+>>>>>>> 679a44af9 (Update: pom.xml)
     </profiles>
 </project>
