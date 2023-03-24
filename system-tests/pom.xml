@@ -15,9 +15,9 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <version.junit.jupiter>5.8.2</version.junit.jupiter>
-        <version.junit.platform>1.7.0</version.junit.platform>
-        <version.fabric8>5.12.2</version.fabric8>
+        <version.junit.jupiter>5.9.2</version.junit.jupiter>
+        <version.junit.platform>1.9.2</version.junit.platform>
+        <version.fabric8>6.7.2</version.fabric8>
         <version.fabric8-java-gen>6.8.0</version.fabric8-java-gen>
         <sundrio.version>0.95.0</sundrio.version>
         <lombok.version>1.18.28</lombok.version>
@@ -76,12 +76,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${version.slf4}</version>
+            <version>${version.slf4j}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${version.slf4}</version>
+            <version>${version.slf4j}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -251,7 +251,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>java-generator-maven-plugin</artifactId>
-                <version>${version.fabric8-java-gen}</version>
+                <version>${version.fabric8}</version>
                 <executions>
                   <execution>
                     <phase>generate-sources</phase>
