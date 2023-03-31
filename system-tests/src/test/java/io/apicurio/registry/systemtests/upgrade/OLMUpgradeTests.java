@@ -13,7 +13,7 @@ import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -28,7 +28,7 @@ public class OLMUpgradeTests extends TestBase {
 
     public void runUpgradeTest(boolean clusterWide) throws InterruptedException {
         // Install operator from default catalog (do not use catalog source image, it will be used for upgrade)
-        ApicurioRegistryOLMOperatorType registryOLMOperator = new ApicurioRegistryOLMOperatorType(clusterWide);
+        ApicurioRegistryOLMOperatorType registryOLMOperator = new ApicurioRegistryOLMOperatorType(null, clusterWide);
         operatorManager.installOperator(registryOLMOperator);
 
         // Save current (pre-upgrade) ClusterServiceVersion of operator
@@ -104,13 +104,15 @@ public class OLMUpgradeTests extends TestBase {
     }
 
     @Test
-    @Disabled
+    @Tag("olm-upgrade")
+    @Tag("olm-clusterwide-upgrade")
     public void testUpgradeClusterWide() throws InterruptedException {
         runUpgradeTest(true);
     }
 
     @Test
-    @Disabled
+    @Tag("olm-upgrade")
+    @Tag("olm-namespace-upgrade")
     public void testUpgradeNamespaced() throws InterruptedException {
         runUpgradeTest(false);
     }
