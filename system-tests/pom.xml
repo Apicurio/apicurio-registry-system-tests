@@ -581,5 +581,29 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+
+        <!-- Upgrade tests -->
+
+        <profile>
+            <id>olm-upgrade</id>
+            <properties>
+                <groups>olm-upgrade</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-clusterwide-upgrade</id>
+            <properties>
+                <groups>olm-clusterwide-upgrade</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-upgrade</id>
+            <properties>
+                <groups>olm-namespace-upgrade</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
     </profiles>
 </project>
