@@ -78,7 +78,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         LOGGER.info("Waiting for catalog source {} to be created...", info);
         OperatorUtils.waitCatalogSourceExists(namespace, name);
 
-        LOGGER.info("Waiting for pod(s) of catalog source {} to be created...", info);
+        /*LOGGER.info("Waiting for pod(s) of catalog source {} to be created...", info);
         OperatorUtils.waitPodsExist(namespace, "olm.catalogSource", name);
 
         LOGGER.info("Deleting pod(s) of catalog source {}...", info);
@@ -89,7 +89,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         }
 
         LOGGER.info("Waiting for pod(s) of catalog source {} to be ready...", info);
-        OperatorUtils.waitPodsReady(namespace, "olm.catalogSource", name);
+        OperatorUtils.waitPodsReady(namespace, "olm.catalogSource", name);*/
 
         LOGGER.info("Waiting for catalog source {} to be ready...", info);
         OperatorUtils.waitCatalogSourceReady(namespace, name);
