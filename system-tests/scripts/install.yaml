@@ -1477,9 +1477,9 @@ spec:
         - name: REGISTRY_VERSION
           value: 2.3.3.Final-redhat-00001
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: brew.registry.redhat.io/rh-osbs/integration-service-registry-kafkasql-rhel8:2.3.3-5
+          value: brew.registry.redhat.io/rh-osbs/integration-service-registry-kafkasql-rhel8:2.3.3-7
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: brew.registry.redhat.io/rh-osbs/integration-service-registry-sql-rhel8:2.3.3-4
+          value: brew.registry.redhat.io/rh-osbs/integration-service-registry-sql-rhel8:2.3.3-6
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
