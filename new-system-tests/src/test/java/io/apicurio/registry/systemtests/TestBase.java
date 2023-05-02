@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class TestBase {
     /** {@link Logger} instance for logging in tests. */
-    protected Logger logger = LoggerFactory.getLogger(getClass().getName());
+    protected Logger logger = LoggerFactory.getLogger(getClass().getName()); // TODO Use io.apicurio.registry.systemtests.infra.SystemTestsExtension
 
     /**
      * We can add test(s) that will be shared between multiple subclasses in the future here.

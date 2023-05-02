@@ -1,15 +1,12 @@
 package io.apicurio.registry.systemtests;
 
-import io.apicur.registry.v1.ApicurioRegistry;
 import io.fabric8.junit.jupiter.api.KubernetesTest;
 import io.fabric8.junit.jupiter.api.LoadKubernetesManifests;
 import io.fabric8.openshift.client.OpenShiftClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.apicurio.registry.systemtests.Utils.findOperatorDeployment;
-import static io.apicurio.registry.systemtests.Utils.isDeploymentReady;
-import static io.apicurio.registry.systemtests.Utils.waitDeploymentReady;
+import static io.apicurio.registry.systemtests.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @KubernetesTest
@@ -57,7 +54,7 @@ public class SqlKeycloak extends TestBase {
     }
 
     /**
-     * Tests that {@link ApicurioRegistry} with PostgreSQL database storage and Keycloak IAM becomes ready.
+     * Tests that Apicurio Registry with PostgreSQL database storage and Keycloak IAM becomes ready.
      */
     @Test
     public void testDeploy() {
