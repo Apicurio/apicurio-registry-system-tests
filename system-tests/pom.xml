@@ -244,6 +244,7 @@
                         <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/${operator.version}/packagemanifests/${operator.version}/registry.apicur.io_apicurioregistries.yaml</url>
                         <outputFileName>registry.apicur.io_apicurioregistries.yaml</outputFileName>
                         <outputDirectory>${project.build.directory}</outputDirectory>
+                        <skipCache>true</skipCache>
                     </configuration>
                     </execution>
                 </executions>
