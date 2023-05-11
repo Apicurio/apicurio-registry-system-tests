@@ -1477,9 +1477,9 @@ spec:
         - name: REGISTRY_VERSION
           value: 2.3.3.Final-redhat-00001
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: brew.registry.redhat.io/rh-osbs/integration-service-registry-kafkasql-rhel8:2.3.3-7
+          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.3.3-7
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: brew.registry.redhat.io/rh-osbs/integration-service-registry-sql-rhel8:2.3.3-6
+          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.3.3-6
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
@@ -1494,7 +1494,7 @@ spec:
               fieldPath: metadata.namespace
         - name: OPERATOR_NAME
           value: apicurio-registry-operator
-        image: brew.registry.redhat.io/rh-osbs/integration-service-registry-rhel8-operator:2.1.0-4
+        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.1.0-4
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
