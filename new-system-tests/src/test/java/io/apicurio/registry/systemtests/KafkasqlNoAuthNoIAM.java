@@ -1,17 +1,12 @@
 package io.apicurio.registry.systemtests;
 
-import io.apicur.registry.v1.ApicurioRegistry;
 import io.fabric8.junit.jupiter.api.KubernetesTest;
 import io.fabric8.junit.jupiter.api.LoadKubernetesManifests;
 import io.fabric8.openshift.client.OpenShiftClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static io.apicurio.registry.systemtests.Utils.findOperatorDeployment;
-import static io.apicurio.registry.systemtests.Utils.isDeploymentReady;
-import static io.apicurio.registry.systemtests.Utils.waitDeploymentExists;
-import static io.apicurio.registry.systemtests.Utils.waitDeploymentReady;
-import static io.apicurio.registry.systemtests.Utils.waitKafkaReady;
+import static io.apicurio.registry.systemtests.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @KubernetesTest
@@ -62,7 +57,7 @@ public class KafkasqlNoAuthNoIAM extends TestBase {
     }
 
     /**
-     * Tests that {@link ApicurioRegistry} with KafkaSQL storage becomes ready.
+     * Tests that Apicurio Registry with KafkaSQL storage becomes ready.
      */
     @Test
     public void testDeploy() {
