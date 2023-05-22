@@ -1,10 +1,11 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.Container;
 import io.fabric8.kubernetes.api.model.ContainerBuilder;
+import io.fabric8.kubernetes.api.model.EmptyDirVolumeSource;
 import io.fabric8.kubernetes.api.model.EnvVar;
-import io.fabric8.kubernetes.api.model.PersistentVolumeClaimVolumeSource;
 import io.fabric8.kubernetes.api.model.Volume;
 import io.fabric8.kubernetes.api.model.VolumeMount;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
@@ -72,10 +73,11 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
     private static List<EnvVar> getDefaultPostgresqlEnvVars() {
         List<EnvVar> envVars = new ArrayList<>();
 
-        envVars.add(new EnvVar("POSTGRESQL_ADMIN_PASSWORD", "adminpassword", null));
-        envVars.add(new EnvVar("POSTGRESQL_DATABASE", "postgresdb", null));
-        envVars.add(new EnvVar("POSTGRESQL_USER", "postgresuser", null));
-        envVars.add(new EnvVar("POSTGRESQL_PASSWORD", "postgrespassword", null));
+        envVars.add(new EnvVar("POSTGRES_ADMIN_PASSWORD", "adminpassword", null));
+        envVars.add(new EnvVar("POSTGRES_DB", "postgresdb", null));
+        envVars.add(new EnvVar("POSTGRES_USER", "postgresuser", null));
+        envVars.add(new EnvVar("POSTGRES_PASSWORD", "postgrespassword", null));
+        envVars.add(new EnvVar("PGDATA", "/postgresql/data", null));
 
         return envVars;
     }
@@ -83,8 +85,8 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
     private static Container getDefaultPostgresqlContainer(String name) {
         return new ContainerBuilder()
                 .withEnv(getDefaultPostgresqlEnvVars())
-                .withImage("quay.io/centos7/postgresql-12-centos7:latest")
-                .withImagePullPolicy("Always")
+                .withImage("postgres:" + Environment.POSTGRESQL_VERSION)
+                .withImagePullPolicy("IfNotPresent")
                 .withName(name)
                 .addNewPort()
                     .withContainerPort(5432)
@@ -102,7 +104,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                     .endTcpSocket()
                 .endLivenessProbe()
                 .withVolumeMounts(new VolumeMount() {{
-                    setMountPath("/var/lib/pgsql/data");
+                    setMountPath("/postgresql");
                     setName(name);
                 }})
                 .build();
@@ -128,9 +130,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                             .withContainers(getDefaultPostgresqlContainer(name))
                             .withVolumes(new Volume() {{
                                 setName(name);
-                                setPersistentVolumeClaim(new PersistentVolumeClaimVolumeSource() {{
-                                    setClaimName(name);
-                                }});
+                                setEmptyDir(new EmptyDirVolumeSource());
                             }})
                             .withRestartPolicy("Always")
                         .endSpec()
