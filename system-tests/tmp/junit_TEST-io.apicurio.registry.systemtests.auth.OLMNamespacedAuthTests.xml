@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests" time="1,538.283" tests="3" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="ANSI_X3.4-1968"/>
+    <property name="java.class.path" value="/tmp/tests/apicurio-registry-system-tests/system-tests/target/test-classes:/tmp/tests/apicurio-registry-system-tests/system-tests/target/classes:/tmp/m2/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/tmp/m2/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/tmp/m2/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/tmp/m2/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:/tmp/m2/io/fabric8/openshift-client/6.3.1/openshift-client-6.3.1.jar:/tmp/m2/io/fabric8/openshift-client-api/6.3.1/openshift-client-api-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model/6.3.1/openshift-model-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-clusterautoscaling/6.3.1/openshift-model-clusterautoscaling-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-operator/6.3.1/openshift-model-operator-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-operatorhub/6.3.1/openshift-model-operatorhub-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-machine/6.3.1/openshift-model-machine-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-whereabouts/6.3.1/openshift-model-whereabouts-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-monitoring/6.3.1/openshift-model-monitoring-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-storageversionmigrator/6.3.1/openshift-model-storageversionmigrator-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-tuned/6.3.1/openshift-model-tuned-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-console/6.3.1/openshift-model-console-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-config/6.3.1/openshift-model-config-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-machineconfig/6.3.1/openshift-model-machineconfig-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-miscellaneous/6.3.1/openshift-model-miscellaneous-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-hive/6.3.1/openshift-model-hive-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-installer/6.3.1/openshift-model-installer-6.3.1.jar:/tmp/m2/com/github/mifmif/generex/1.0.2/generex-1.0.2.jar:/tmp/m2/dk/brics/automaton/automaton/1.11-8/automaton-1.11-8.jar:/tmp/m2/io/fabric8/kubernetes-client/6.3.1/kubernetes-client-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-client-api/6.3.1/kubernetes-client-api-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-gatewayapi/6.3.1/kubernetes-model-gatewayapi-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-rbac/6.3.1/kubernetes-model-rbac-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-admissionregistration/6.3.1/kubernetes-model-admissionregistration-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-apps/6.3.1/kubernetes-model-apps-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-autoscaling/6.3.1/kubernetes-model-autoscaling-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-batch/6.3.1/kubernetes-model-batch-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-certificates/6.3.1/kubernetes-model-certificates-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-coordination/6.3.1/kubernetes-model-coordination-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-discovery/6.3.1/kubernetes-model-discovery-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-events/6.3.1/kubernetes-model-events-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-extensions/6.3.1/kubernetes-model-extensions-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-flowcontrol/6.3.1/kubernetes-model-flowcontrol-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-metrics/6.3.1/kubernetes-model-metrics-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-policy/6.3.1/kubernetes-model-policy-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-scheduling/6.3.1/kubernetes-model-scheduling-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-storageclass/6.3.1/kubernetes-model-storageclass-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-node/6.3.1/kubernetes-model-node-6.3.1.jar:/tmp/m2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.14.2/jackson-datatype-jsr310-2.14.2.jar:/tmp/m2/io/fabric8/kubernetes-httpclient-okhttp/6.3.1/kubernetes-httpclient-okhttp-6.3.1.jar:/tmp/m2/com/squareup/okhttp3/okhttp/3.14.9/okhttp-3.14.9.jar:/tmp/m2/com/squareup/okio/okio/3.3.0/okio-3.3.0.jar:/tmp/m2/com/squareup/okio/okio-jvm/3.3.0/okio-jvm-3.3.0.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.7.22/kotlin-stdlib-jdk8-1.7.22.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib/1.7.22/kotlin-stdlib-1.7.22.jar:/tmp/m2/org/jetbrains/annotations/24.0.0/annotations-24.0.0.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.7.22/kotlin-stdlib-jdk7-1.7.22.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib-common/1.7.22/kotlin-stdlib-common-1.7.22.jar:/tmp/m2/com/squareup/okhttp3/logging-interceptor/3.14.9/logging-interceptor-3.14.9.jar:/tmp/m2/io/fabric8/zjsonpatch/0.3.0/zjsonpatch-0.3.0.jar:/tmp/m2/io/fabric8/kubernetes-model-core/6.3.1/kubernetes-model-core-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-networking/6.3.1/kubernetes-model-networking-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-common/6.3.1/kubernetes-model-common-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-apiextensions/6.3.1/kubernetes-model-apiextensions-6.3.1.jar:/tmp/m2/io/fabric8/generator-annotations/6.3.1/generator-annotations-6.3.1.jar:/tmp/m2/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/tmp/m2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar:/tmp/m2/org/slf4j/slf4j-simple/2.0.7/slf4j-simple-2.0.7.jar:/tmp/m2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/tmp/m2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/tmp/m2/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/tmp/m2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2/io/strimzi/api/0.34.0/api-0.34.0.jar:/tmp/m2/org/eclipse/jgit/org.eclipse.jgit/6.5.0.202303070854-r/org.eclipse.jgit-6.5.0.202303070854-r.jar:/tmp/m2/com/googlecode/javaewah/JavaEWAH/1.1.13/JavaEWAH-1.1.13.jar:/tmp/m2/org/json/json/20230227/json-20230227.jar:/tmp/m2/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar:/tmp/m2/org/apache/httpcomponents/core5/httpcore5/5.2.1/httpcore5-5.2.1.jar:/tmp/m2/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/tmp/m2/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/tmp/m2/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/tmp/m2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.13.4/jackson-dataformat-yaml-2.13.4.jar:/tmp/m2/org/yaml/snakeyaml/1.33/snakeyaml-1.33.jar:/tmp/m2/org/apache/maven/maven-artifact/3.9.2/maven-artifact-3.9.2.jar:/tmp/m2/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar:/tmp/m2/io/sundr/builder-annotations/0.94.0/builder-annotations-0.94.0.jar:/tmp/m2/io/sundr/sundr-codegen-apt/0.94.0/sundr-codegen-apt-0.94.0.jar:/tmp/m2/io/sundr/sundr-codegen-api/0.94.0/sundr-codegen-api-0.94.0.jar:/tmp/m2/io/sundr/sundr-adapter-apt/0.94.0/sundr-adapter-apt-0.94.0.jar:/tmp/m2/io/sundr/sundr-model-utils/0.94.0/sundr-model-utils-0.94.0.jar:/tmp/m2/io/sundr/sundr-model-repo/0.94.0/sundr-model-repo-0.94.0.jar:/tmp/m2/io/sundr/sundr-adapter-reflect/0.94.0/sundr-adapter-reflect-0.94.0.jar:/tmp/m2/io/sundr/sundr-model/0.94.0/sundr-model-0.94.0.jar:/tmp/m2/io/sundr/sundr-core/0.94.0/sundr-core-0.94.0.jar:/tmp/m2/io/sundr/sundr-model-base/0.94.0/sundr-model-base-0.94.0.jar:/tmp/m2/io/sundr/sundr-adapter-api/0.94.0/sundr-adapter-api-0.94.0.jar:/tmp/m2/io/sundr/resourcecify-annotations/0.94.0/resourcecify-annotations-0.94.0.jar:/tmp/m2/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar:/tmp/m2/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final.jar:"/>
+    <property name="java.vm.vendor" value="Red Hat, Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://www.redhat.com/"/>
+    <property name="user.timezone" value="GMT"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Linux"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-11.0.19.0.7-1.fc38.x86_64/lib"/>
+    <property name="sun.java.command" value="/tmp/tests/apicurio-registry-system-tests/system-tests/target/surefire/surefirebooter-20230522144056006_3.jar /tmp/tests/apicurio-registry-system-tests/system-tests/target/surefire 2023-05-22T14-40-54_687-jvmRun1 surefire-20230522144056006_1tmp surefire_0-20230522144056006_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/tmp/tests/apicurio-registry-system-tests/system-tests/target/test-classes:/tmp/tests/apicurio-registry-system-tests/system-tests/target/classes:/tmp/m2/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/tmp/m2/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/tmp/m2/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/tmp/m2/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:/tmp/m2/io/fabric8/openshift-client/6.3.1/openshift-client-6.3.1.jar:/tmp/m2/io/fabric8/openshift-client-api/6.3.1/openshift-client-api-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model/6.3.1/openshift-model-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-clusterautoscaling/6.3.1/openshift-model-clusterautoscaling-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-operator/6.3.1/openshift-model-operator-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-operatorhub/6.3.1/openshift-model-operatorhub-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-machine/6.3.1/openshift-model-machine-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-whereabouts/6.3.1/openshift-model-whereabouts-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-monitoring/6.3.1/openshift-model-monitoring-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-storageversionmigrator/6.3.1/openshift-model-storageversionmigrator-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-tuned/6.3.1/openshift-model-tuned-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-console/6.3.1/openshift-model-console-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-config/6.3.1/openshift-model-config-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-machineconfig/6.3.1/openshift-model-machineconfig-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-miscellaneous/6.3.1/openshift-model-miscellaneous-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-hive/6.3.1/openshift-model-hive-6.3.1.jar:/tmp/m2/io/fabric8/openshift-model-installer/6.3.1/openshift-model-installer-6.3.1.jar:/tmp/m2/com/github/mifmif/generex/1.0.2/generex-1.0.2.jar:/tmp/m2/dk/brics/automaton/automaton/1.11-8/automaton-1.11-8.jar:/tmp/m2/io/fabric8/kubernetes-client/6.3.1/kubernetes-client-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-client-api/6.3.1/kubernetes-client-api-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-gatewayapi/6.3.1/kubernetes-model-gatewayapi-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-rbac/6.3.1/kubernetes-model-rbac-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-admissionregistration/6.3.1/kubernetes-model-admissionregistration-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-apps/6.3.1/kubernetes-model-apps-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-autoscaling/6.3.1/kubernetes-model-autoscaling-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-batch/6.3.1/kubernetes-model-batch-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-certificates/6.3.1/kubernetes-model-certificates-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-coordination/6.3.1/kubernetes-model-coordination-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-discovery/6.3.1/kubernetes-model-discovery-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-events/6.3.1/kubernetes-model-events-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-extensions/6.3.1/kubernetes-model-extensions-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-flowcontrol/6.3.1/kubernetes-model-flowcontrol-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-metrics/6.3.1/kubernetes-model-metrics-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-policy/6.3.1/kubernetes-model-policy-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-scheduling/6.3.1/kubernetes-model-scheduling-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-storageclass/6.3.1/kubernetes-model-storageclass-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-node/6.3.1/kubernetes-model-node-6.3.1.jar:/tmp/m2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.14.2/jackson-datatype-jsr310-2.14.2.jar:/tmp/m2/io/fabric8/kubernetes-httpclient-okhttp/6.3.1/kubernetes-httpclient-okhttp-6.3.1.jar:/tmp/m2/com/squareup/okhttp3/okhttp/3.14.9/okhttp-3.14.9.jar:/tmp/m2/com/squareup/okio/okio/3.3.0/okio-3.3.0.jar:/tmp/m2/com/squareup/okio/okio-jvm/3.3.0/okio-jvm-3.3.0.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.7.22/kotlin-stdlib-jdk8-1.7.22.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib/1.7.22/kotlin-stdlib-1.7.22.jar:/tmp/m2/org/jetbrains/annotations/24.0.0/annotations-24.0.0.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.7.22/kotlin-stdlib-jdk7-1.7.22.jar:/tmp/m2/org/jetbrains/kotlin/kotlin-stdlib-common/1.7.22/kotlin-stdlib-common-1.7.22.jar:/tmp/m2/com/squareup/okhttp3/logging-interceptor/3.14.9/logging-interceptor-3.14.9.jar:/tmp/m2/io/fabric8/zjsonpatch/0.3.0/zjsonpatch-0.3.0.jar:/tmp/m2/io/fabric8/kubernetes-model-core/6.3.1/kubernetes-model-core-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-networking/6.3.1/kubernetes-model-networking-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-common/6.3.1/kubernetes-model-common-6.3.1.jar:/tmp/m2/io/fabric8/kubernetes-model-apiextensions/6.3.1/kubernetes-model-apiextensions-6.3.1.jar:/tmp/m2/io/fabric8/generator-annotations/6.3.1/generator-annotations-6.3.1.jar:/tmp/m2/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/tmp/m2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar:/tmp/m2/org/slf4j/slf4j-simple/2.0.7/slf4j-simple-2.0.7.jar:/tmp/m2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/tmp/m2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/tmp/m2/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/tmp/m2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/tmp/m2/io/strimzi/api/0.34.0/api-0.34.0.jar:/tmp/m2/org/eclipse/jgit/org.eclipse.jgit/6.5.0.202303070854-r/org.eclipse.jgit-6.5.0.202303070854-r.jar:/tmp/m2/com/googlecode/javaewah/JavaEWAH/1.1.13/JavaEWAH-1.1.13.jar:/tmp/m2/org/json/json/20230227/json-20230227.jar:/tmp/m2/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar:/tmp/m2/org/apache/httpcomponents/core5/httpcore5/5.2.1/httpcore5-5.2.1.jar:/tmp/m2/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/tmp/m2/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/tmp/m2/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/tmp/m2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.13.4/jackson-dataformat-yaml-2.13.4.jar:/tmp/m2/org/yaml/snakeyaml/1.33/snakeyaml-1.33.jar:/tmp/m2/org/apache/maven/maven-artifact/3.9.2/maven-artifact-3.9.2.jar:/tmp/m2/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar:/tmp/m2/io/sundr/builder-annotations/0.94.0/builder-annotations-0.94.0.jar:/tmp/m2/io/sundr/sundr-codegen-apt/0.94.0/sundr-codegen-apt-0.94.0.jar:/tmp/m2/io/sundr/sundr-codegen-api/0.94.0/sundr-codegen-api-0.94.0.jar:/tmp/m2/io/sundr/sundr-adapter-apt/0.94.0/sundr-adapter-apt-0.94.0.jar:/tmp/m2/io/sundr/sundr-model-utils/0.94.0/sundr-model-utils-0.94.0.jar:/tmp/m2/io/sundr/sundr-model-repo/0.94.0/sundr-model-repo-0.94.0.jar:/tmp/m2/io/sundr/sundr-adapter-reflect/0.94.0/sundr-adapter-reflect-0.94.0.jar:/tmp/m2/io/sundr/sundr-model/0.94.0/sundr-model-0.94.0.jar:/tmp/m2/io/sundr/sundr-core/0.94.0/sundr-core-0.94.0.jar:/tmp/m2/io/sundr/sundr-model-base/0.94.0/sundr-model-base-0.94.0.jar:/tmp/m2/io/sundr/sundr-adapter-api/0.94.0/sundr-adapter-api-0.94.0.jar:/tmp/m2/io/sundr/resourcecify-annotations/0.94.0/resourcecify-annotations-0.94.0.jar:/tmp/m2/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar:/tmp/m2/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2023-04-18"/>
+    <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-11.0.19.0.7-1.fc38.x86_64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/tmp/tests/apicurio-registry-system-tests/system-tests"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/tmp/tests/apicurio-registry-system-tests/system-tests/target/surefire/surefirebooter-20230522144056006_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.19+7"/>
+    <property name="user.name" value="1007040000"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="5.14.0-284.13.1.el9_2.x86_64"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="ANSI_X3.4-1968"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="(Red_Hat-11.0.19.0.7-2.fc38)"/>
+    <property name="localRepository" value="/tmp/m2"/>
+    <property name="java.vendor.url.bug" value="https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&amp;component=java-11-openjdk-portable&amp;version=38"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="11.0.19"/>
+    <property name="user.dir" value="/tmp/tests/apicurio-registry-system-tests/system-tests"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Red Hat, Inc."/>
+    <property name="java.vm.version" value="11.0.19+7"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="/tmp/m2"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="testRegistrySqlKeycloakBasicAuthentication" classname="io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests" time="288.14">
+    <system-err><![CDATA[[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - Deploying shared keycloak operator and instance!
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Creating new namespace interop-test-namespace for operator...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource Namespace with name interop-test-namespace in namespace null...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Namespace with name interop-test-namespace in namespace null created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Namespace to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Namespace with name interop-test-namespace in namespace null is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Installing operator KEYCLOAK_OLM_OPERATOR with name keycloak-operator in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Creating operator group interop-test-namespace-operator-group in namespace interop-test-namespace targeting namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource OperatorGroup with name interop-test-namespace-operator-group in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource OperatorGroup with name interop-test-namespace-operator-group in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource OperatorGroup to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource OperatorGroup with name interop-test-namespace-operator-group in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.types.KeycloakOLMOperatorType - OLM operator CSV: keycloak-operator.v19.0.3
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource Subscription with name sso-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Subscription with name sso-subscription in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Subscription with name sso-subscription in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator KEYCLOAK_OLM_OPERATOR with name keycloak-operator in namespace interop-test-namespace installed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator KEYCLOAK_OLM_OPERATOR with name keycloak-operator in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator KEYCLOAK_OLM_OPERATOR with name keycloak-operator in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Deploying Keycloak...
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - Command - oc apply -n interop-test-namespace -f /tmp/tests/apicurio-registry-system-tests/system-tests/kubefiles/keycloak/keycloak.yaml
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - Return code: 0
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - ======STDOUT START=======
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - 
+keycloak.keycloak.org/registry-sso created
+
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - ======STDOUT END======
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource Service with name sso-http in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Service with name sso-http in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Service to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Service with name sso-http in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource Route with name sso-http in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Route with name sso-http in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Route to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Route with name sso-http in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Keycloak URL: http://sso-http-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - Command - oc apply -n interop-test-namespace -f /tmp/tests/apicurio-registry-system-tests/system-tests/kubefiles/keycloak/keycloak-realm.yaml
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - Return code: 0
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - ======STDOUT START=======
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - 
+keycloakrealm.keycloak.org/registry-sso-realm created
+
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - ======STDOUT END======
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Requesting admin access token from https://keycloak-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth/realms/master/protocol/openid-connect/token...
+[main] INFO io.apicurio.registry.systemtests.client.KeycloakAdminApiClient - Creating org-admin client scope...
+[main] INFO io.apicurio.registry.systemtests.client.KeycloakAdminApiClient - Response: code=201, body=
+[main] INFO io.apicurio.registry.systemtests.client.KeycloakAdminApiClient - Adding default client scope 274c94aa-dd39-4e7a-874e-905377a36215 to client 9795224f-9a6c-45b7-abd1-9cbed2350ef2...
+[main] INFO io.apicurio.registry.systemtests.client.KeycloakAdminApiClient - Response: code=204, body=
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Keycloak should be deployed.
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - Deploying shared strimzi operator and kafka
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Namespace openshift-operators for operator STRIMZI_OLM_OPERATOR with name amq-streams-cluster-operator already exists.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Installing operator STRIMZI_OLM_OPERATOR with name amq-streams-cluster-operator in namespace openshift-operators...
+[main] INFO io.apicurio.registry.systemtests.operator.types.StrimziClusterOLMOperatorType - Installing cluster wide OLM operator STRIMZI_OLM_OPERATOR in namespace openshift-operators...
+[main] INFO io.apicurio.registry.systemtests.operator.types.StrimziClusterOLMOperatorType - OLM operator CSV: amqstreams.v2.4.0-0
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource Subscription with name kafka-subscription in namespace openshift-operators...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Subscription with name kafka-subscription in namespace openshift-operators created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Subscription with name kafka-subscription in namespace openshift-operators is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator STRIMZI_OLM_OPERATOR with name amq-streams-cluster-operator in namespace openshift-operators installed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator STRIMZI_OLM_OPERATOR with name amq-streams-cluster-operator in namespace openshift-operators to be ready...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator STRIMZI_OLM_OPERATOR with name amq-streams-cluster-operator in namespace openshift-operators is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - Deployment of shared resources is done!
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - [TEST-START] io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests.testRegistrySqlKeycloakBasicAuthentication-STARTED
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - 
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - BeforeEach: testRegistrySqlKeycloakBasicAuthentication
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Namespace interop-test-namespace for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 already exists.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Installing operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType - Installing namespaced OLM operator REGISTRY_OLM_OPERATOR in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType - OLM operator CSV: service-registry-operator.v2.1.5
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Subscription with name registry-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace installed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Deployment with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating shared resource Namespace with name postgresql in namespace null...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Namespace with name postgresql in namespace null created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Namespace to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Shared resource Namespace with name postgresql in namespace null is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Deployment with name postgresql in namespace postgresql created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Deployment to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Deployment with name postgresql in namespace postgresql is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Service with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Service with name postgresql in namespace postgresql created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Do not wait for resource Service with name postgresql in namespace postgresql to be ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource ApicurioRegistry with name registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource ApicurioRegistry to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils - Waiting for hostname of ApicurioRegistry with name registry in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Requesting access token from http://sso-http-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth/realms/registry/protocol/openid-connect/token...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Requesting admin access token from https://keycloak-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth/realms/master/protocol/openid-connect/token...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"registry-admin","createdOn":"2023-05-22T15:40:39+0000","modifiedBy":"registry-admin","modifiedOn":"2023-05-22T15:40:39+0000","id":"basic-authentication-test","version":"1","type":"JSON","globalId":1,"state":"ENABLED","groupId":"basicAuthenticationTest","contentId":1,"references":[]}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.framework.DeploymentUtils - Adding environment variable CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED with value true to deployment registry-deployment.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"artifacts":[{"id":"basic-authentication-test","createdOn":"2023-05-22T15:40:39+0000","createdBy":"registry-admin","type":"JSON","state":"ENABLED","modifiedOn":"2023-05-22T15:40:39+0000","modifiedBy":"registry-admin","groupId":"basicAuthenticationTest"}],"count":1}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-succeed-true-value, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"service-account-test-client-api","createdOn":"2023-05-22T15:41:02+0000","modifiedBy":"service-account-test-client-api","modifiedOn":"2023-05-22T15:41:02+0000","id":"basic-authentication-test-succeed-true-value","version":"1","type":"JSON","globalId":2,"state":"ENABLED","groupId":"basicAuthenticationTest","contentId":1,"references":[]}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-succeed-true-value.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"service-account-test-client-api","createdOn":"2023-05-22T15:41:02+0000","modifiedBy":"service-account-test-client-api","modifiedOn":"2023-05-22T15:41:02+0000","id":"basic-authentication-test-succeed-true-value","version":"2","type":"JSON","globalId":3,"state":"ENABLED","groupId":"basicAuthenticationTest","contentId":3,"references":[]}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-succeed-true-value.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 204.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=204, body=
+[main] INFO io.apicurio.registry.systemtests.framework.DeploymentUtils - Setting environment variable CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED of deployment registry-deployment to false.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Going to clear test resources.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource ApicurioRegistry with name registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource ApicurioRegistry to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Service with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Service to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Service with name postgresql in namespace postgresql is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Deployment with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Deployment to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Deployment with name postgresql in namespace postgresql is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Subscription with name registry-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - 
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Going to uninstall all operators.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Uninstalling operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Subscription registry-subscription in namespace interop-test-namespace: packageName=service-registry-operator, catalogSourceName=redhat-operators, catalogSourceNamespace=openshift-marketplace, startingCSV=service-registry-operator.v2.1.5, channel=2.x, installPlanApproval=Automatic already removed.
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Removing ClusterServiceVersion service-registry-operator.v2.1.5 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - ClusterServiceVersion service-registry-operator.v2.1.5 in namespace interop-test-namespace removed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace to be uninstalled...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace uninstalled.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - 
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - 
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - [TEST-END] io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests.testRegistrySqlKeycloakBasicAuthentication-FINISHED
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+]]></system-err>
+  </testcase>
+  <testcase name="testRegistrySqlKeycloakAnonymousReadAccess" classname="io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests" time="288.139">
+    <system-err><![CDATA[[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - [TEST-START] io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests.testRegistrySqlKeycloakAnonymousReadAccess-STARTED
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - 
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - BeforeEach: testRegistrySqlKeycloakAnonymousReadAccess
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Namespace interop-test-namespace for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 already exists.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Installing operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType - Installing namespaced OLM operator REGISTRY_OLM_OPERATOR in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType - OLM operator CSV: service-registry-operator.v2.1.5
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Subscription with name registry-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace installed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Deployment with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Deployment with name postgresql in namespace postgresql created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Deployment to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Deployment with name postgresql in namespace postgresql is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Service with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Service with name postgresql in namespace postgresql created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Do not wait for resource Service with name postgresql in namespace postgresql to be ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource ApicurioRegistry with name registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource ApicurioRegistry to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils - Waiting for hostname of ApicurioRegistry with name registry in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Requesting access token from http://sso-http-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth/realms/registry/protocol/openid-connect/token...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"registry-admin","createdOn":"2023-05-22T15:45:26+0000","modifiedBy":"registry-admin","modifiedOn":"2023-05-22T15:45:26+0000","id":"anonymous-read-access-test","version":"1","type":"JSON","globalId":1,"state":"ENABLED","groupId":"anonymousReadAccessTest","contentId":1,"references":[]}
+[main] WARN io.apicurio.registry.systemtests.framework.DeploymentUtils - Environment variable AUTH_ENABLED of deployment registry-deployment is already set to true.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Trying unauthorized access...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.framework.DeploymentUtils - Adding environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED with value true to deployment registry-deployment.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"artifacts":[{"id":"anonymous-read-access-test","createdOn":"2023-05-22T15:45:26+0000","createdBy":"registry-admin","type":"JSON","state":"ENABLED","modifiedOn":"2023-05-22T15:45:26+0000","modifiedBy":"registry-admin","groupId":"anonymousReadAccessTest"}],"count":1}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.framework.DeploymentUtils - Setting environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED of deployment registry-deployment to false.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Trying unauthorized access...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=anonymousReadAccessTest, id=anonymous-read-access-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - No authentication header needed.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Going to clear test resources.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource ApicurioRegistry with name registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource ApicurioRegistry to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Service with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Service to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Service with name postgresql in namespace postgresql is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Deployment with name postgresql in namespace postgresql...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Deployment to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Deployment with name postgresql in namespace postgresql is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Subscription with name registry-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - 
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Going to uninstall all operators.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Uninstalling operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Subscription registry-subscription in namespace interop-test-namespace: packageName=service-registry-operator, catalogSourceName=redhat-operators, catalogSourceNamespace=openshift-marketplace, startingCSV=service-registry-operator.v2.1.5, channel=2.x, installPlanApproval=Automatic already removed.
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Removing ClusterServiceVersion service-registry-operator.v2.1.5 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - ClusterServiceVersion service-registry-operator.v2.1.5 in namespace interop-test-namespace removed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace to be uninstalled...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace uninstalled.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - 
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - 
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - [TEST-END] io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests.testRegistrySqlKeycloakAnonymousReadAccess-FINISHED
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+]]></system-err>
+  </testcase>
+  <testcase name="testRegistryKafkasqlSCRAMKeycloakBasicAuthentication" classname="io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests" time="360.179">
+    <system-err><![CDATA[[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - [TEST-START] io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests.testRegistryKafkasqlSCRAMKeycloakBasicAuthentication-STARTED
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - 
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - BeforeEach: testRegistryKafkasqlSCRAMKeycloakBasicAuthentication
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Namespace interop-test-namespace for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 already exists.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Installing operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType - Installing namespaced OLM operator REGISTRY_OLM_OPERATOR in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType - OLM operator CSV: service-registry-operator.v2.1.5
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Subscription with name registry-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace installed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Kafka with name kafka-for-registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Kafka with name kafka-for-registry in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Kafka to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Kafka with name kafka-for-registry in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.KafkaUtils - Secret with name kafka-for-registry-cluster-ca-cert present in namespace interop-test-namespace.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource KafkaUser with name kafka-user-for-registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource KafkaUser with name kafka-user-for-registry in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource KafkaUser to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource KafkaUser with name kafka-user-for-registry in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.CertificateUtils - Preparing truststore...
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - Command - keytool -keystore /tmp/truststore-1684770564.p12 -storepass ewBDTuFGuoJp02rCNAmzpsrgxNqrcdKs -noprompt -alias ca -import -file /tmp/ca-1684770564.crt -storetype PKCS12
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - Return code: 0
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - ======STDERR START=======
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - 
+Certificate was added to keystore
+
+[main] INFO io.apicurio.registry.systemtests.executor.Exec - ======STDERR END======
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource Secret with name kafka-for-registry-cluster-ca-truststore in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Secret with name kafka-for-registry-cluster-ca-truststore in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Secret to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Secret with name kafka-for-registry-cluster-ca-truststore in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Creating resource ApicurioRegistry with name registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace created.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource ApicurioRegistry to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils - Waiting for hostname of ApicurioRegistry with name registry in namespace interop-test-namespace to be ready...
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Requesting access token from http://sso-http-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth/realms/registry/protocol/openid-connect/token...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.framework.KeycloakUtils - Requesting admin access token from https://keycloak-interop-test-namespace.apps.ci-op-g9r7idjl-4b118.cspilp.interop.ccitredhat.com/auth/realms/master/protocol/openid-connect/token...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"registry-admin","createdOn":"2023-05-22T15:51:26+0000","modifiedBy":"registry-admin","modifiedOn":"2023-05-22T15:51:26+0000","id":"basic-authentication-test","version":"1","type":"JSON","globalId":1,"state":"ENABLED","groupId":"basicAuthenticationTest","contentId":1,"references":[]}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.framework.DeploymentUtils - Adding environment variable CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED with value true to deployment registry-deployment.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"artifacts":[{"id":"basic-authentication-test","createdOn":"2023-05-22T15:51:26+0000","createdBy":"registry-admin","type":"JSON","state":"ENABLED","modifiedOn":"2023-05-22T15:51:26+0000","modifiedBy":"registry-admin","groupId":"basicAuthenticationTest"}],"count":1}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-succeed-true-value, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"service-account-test-client-api","createdOn":"2023-05-22T15:51:49+0000","modifiedBy":"service-account-test-client-api","modifiedOn":"2023-05-22T15:51:49+0000","id":"basic-authentication-test-succeed-true-value","version":"1","type":"JSON","globalId":2,"state":"ENABLED","groupId":"basicAuthenticationTest","contentId":1,"references":[]}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-succeed-true-value.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 200.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200, body={"createdBy":"service-account-test-client-api","createdOn":"2023-05-22T15:51:49+0000","modifiedBy":"service-account-test-client-api","modifiedOn":"2023-05-22T15:51:49+0000","id":"basic-authentication-test-succeed-true-value","version":"2","type":"JSON","globalId":3,"state":"ENABLED","groupId":"basicAuthenticationTest","contentId":2,"references":[]}
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-succeed-true-value.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 204.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=204, body=
+[main] INFO io.apicurio.registry.systemtests.framework.DeploymentUtils - Setting environment variable CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED of deployment registry-deployment to false.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Waiting for API to be ready...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Checking if API is available...
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=200
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - API is ready.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Listing all artifacts.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Creating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test-fail, type=JSON.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Updating artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Deleting artifact: groupId=basicAuthenticationTest, id=basic-authentication-test.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Expected status code: 401.
+[main] INFO io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient - Response: code=401, body=
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Going to clear test resources.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource ApicurioRegistry with name registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource ApicurioRegistry to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource ApicurioRegistry with name registry in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Secret with name kafka-for-registry-cluster-ca-truststore in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Secret to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Secret with name kafka-for-registry-cluster-ca-truststore in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource KafkaUser with name kafka-user-for-registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource KafkaUser to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource KafkaUser with name kafka-user-for-registry in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Kafka with name kafka-for-registry in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Kafka to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Kafka with name kafka-for-registry in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Deleting resource Subscription with name registry-subscription in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Waiting for resource Subscription to meet the condition...
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - Resource Subscription with name registry-subscription in namespace interop-test-namespace is deleted.
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.registryinfra.ResourceManager - 
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Going to uninstall all operators.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Uninstalling operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Subscription registry-subscription in namespace interop-test-namespace: packageName=service-registry-operator, catalogSourceName=redhat-operators, catalogSourceNamespace=openshift-marketplace, startingCSV=service-registry-operator.v2.1.5, channel=2.x, installPlanApproval=Automatic already removed.
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - Removing ClusterServiceVersion service-registry-operator.v2.1.5 in namespace interop-test-namespace...
+[main] INFO io.apicurio.registry.systemtests.framework.OperatorUtils - ClusterServiceVersion service-registry-operator.v2.1.5 in namespace interop-test-namespace removed.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Waiting for operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace to be uninstalled...
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - Operator REGISTRY_OLM_OPERATOR with name apicurio-registry-operator-v1.1.0-redhat.1 in namespace interop-test-namespace uninstalled.
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - ----------------------------------------------
+[main] INFO io.apicurio.registry.systemtests.operator.OperatorManager - 
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - 
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+[main] INFO io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests - [TEST-END] io.apicurio.registry.systemtests.auth.OLMNamespacedAuthTests.testRegistryKafkasqlSCRAMKeycloakBasicAuthentication-FINISHED
+[main] INFO io.apicurio.registry.systemtests.framework.LoggerUtils - ####################################################################################################
+]]></system-err>
+  </testcase>
+</testsuite>
