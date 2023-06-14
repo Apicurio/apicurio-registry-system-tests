@@ -7,7 +7,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
   name: apicurioregistries.registry.apicur.io
 spec:
   group: registry.apicur.io
@@ -21,7 +21,7 @@ spec:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: ApicurioRegistry represents an Apicurio Registry instance
+        description: ApicurioRegistry represents a Red Hat Integration Service Registry instance
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -39,8 +39,11 @@ spec:
             description: ApicurioRegistrySpec defines the desired state of ApicurioRegistry
             properties:
               configuration:
+                description: Service Registry application configuration
                 properties:
                   env:
+                    description: "Environment variables: \n List of additional environment
+                      variables that will be provided to the Service Registry application."
                     items:
                       description: EnvVar represents an environment variable present
                         in a Container.
@@ -150,71 +153,139 @@ spec:
                       type: object
                     type: array
                   kafkasql:
+                    description: Configuration of Service Registry KafkaSQL storage
                     properties:
                       bootstrapServers:
+                        description: "Kafka bootstrap servers URL: \n URL of one of
+                          the Kafka brokers, which provide initial metadata about
+                          the Kafka cluster, for example: `<service name>.<namespace>.svc:9092`."
                         type: string
                       security:
+                        description: "Kafka security configuration: \n Provide the
+                          following configuration options if your Kafka cluster is
+                          secured using TLS or SCRAM."
                         properties:
                           scram:
+                            description: "SCRAM: \n Kafka is secured using SCRAM."
                             properties:
                               mechanism:
+                                description: "Mechanism: \n Name of the SCRAM mechanism,
+                                  default value is SCRAM-SHA-512."
                                 type: string
                               passwordSecretName:
+                                description: "User password Secret name: \n Name of
+                                  a Secret that contains password of the SCRAM user
+                                  under the `password` key."
                                 type: string
                               truststoreSecretName:
+                                description: "Truststore Secret name: \n Name of a
+                                  Secret that contains TLS truststore (in PKCS12 format)
+                                  under the `ca.p12` key, and truststore password
+                                  under the `ca.password` key."
                                 type: string
                               user:
+                                description: User name
                                 type: string
                             type: object
                           tls:
+                            description: "TLS: \n Kafka is secured using TLS."
                             properties:
                               keystoreSecretName:
+                                description: "Keystore Secret name: \n Name of a Secret
+                                  that contains TLS keystore (in PKCS12 format) under
+                                  the `user.p12` key, and keystore password under
+                                  the `user.password` key."
                                 type: string
                               truststoreSecretName:
+                                description: "Truststore Secret name: \n Name of a
+                                  Secret that contains TLS truststore (in PKCS12 format)
+                                  under the `ca.p12` key, and truststore password
+                                  under the `ca.password` key."
                                 type: string
                             type: object
                         type: object
                     type: object
                   logLevel:
+                    description: Third-party (non-Apicurio) library log level
                     type: string
                   persistence:
+                    description: "Storage: \n Type of storage used by Service Registry,
+                      one of: sql, kafkasql."
+                    type: string
+                  registryLogLevel:
+                    description: Service Registry application log level
                     type: string
                   security:
+                    description: Security configuration
                     properties:
+                      https:
+                        description: "HTTPS: \n Configure Service Registry to be accessible
+                          using HTTPS."
+                        properties:
+                          disableHttp:
+                            description: "Disable HTTP: \n Disable HTTP if HTTPS is
+                              enabled."
+                            type: boolean
+                          secretName:
+                            description: "HTTPS certificate and private key Secret
+                              name: \n Name of a Secret that contains HTTPS certificate
+                              under the `tls.crt` key, and the private key under the
+                              `tls.key` key."
+                            type: string
+                        type: object
                       keycloak:
+                        description: "Keycloak: \n Configure Service Registry to use
+                          Keycloak for Identity and Access Management (IAM)."
                         properties:
                           apiClientId:
+                            description: Client ID for the REST API
                             type: string
                           realm:
+                            description: Keycloak realm
                             type: string
                           uiClientId:
+                            description: Client ID for the UI
                             type: string
                           url:
+                            description: "Keycloak auth URL: \n URL of the Keycloak
+                              auth endpoint, must end with `/auth`."
                             type: string
                         type: object
                     type: object
                   sql:
+                    description: Configuration of Service Registry SQL storage
                     properties:
                       dataSource:
+                        description: SQL data source
                         properties:
                           password:
+                            description: Data source password
                             type: string
                           url:
+                            description: "Data source URL: \n URL of the PostgreSQL
+                              database, for example: `jdbc:postgresql://<service name>.<namespace>.svc:5432/<database
+                              name>`."
                             type: string
                           userName:
+                            description: Data source username
                             type: string
                         type: object
                     type: object
                   ui:
+                    description: Configuration of Service Registry web console
                     properties:
                       readOnly:
+                        description: "Read-only: \n Set the web console to read-only
+                          mode. WARNING: This does not affect access to the Apicurio
+                          REST API."
                         type: boolean
                     type: object
                 type: object
               deployment:
+                description: Service Registry deployment configuration
                 properties:
                   affinity:
-                    description: Affinity is a group of affinity scheduling rules.
+                    description: Affinity
                     properties:
                       nodeAffinity:
                         description: Describes node affinity scheduling rules for
@@ -1079,10 +1150,16 @@ spec:
                         type: object
                     type: object
                   host:
+                    description: "Hostname: \n Service Registry application hostname
+                      (part of the URL without the protocol and path)."
+                    type: string
+                  image:
+                    description: "Service Registry image: \n This configuration option
+                      is not supported by Service Registry Operator."
                     type: string
                   imagePullSecrets:
-                    description: List of secrets in the same namespace to use for
-                      pulling the Deployment pod image.
+                    description: "Service Registry image pull secrets: \n List of
+                      Secrets to use when pulling the Service Registry image."
                     items:
                       description: LocalObjectReference contains enough information
                         to let you locate the referenced object inside the same namespace.
@@ -1093,24 +1170,3169 @@ spec:
                           type: string
                       type: object
                     type: array
+                  managedResources:
+                    description: "Service Registry managed resources: \n Configure
+                      how the Operator manages Kubernetes resources."
+                    properties:
+                      disableIngress:
+                        description: "Disable Ingress: \n Operator will not create
+                          or manage an Ingress for Service Registry, so it can be
+                          done manually."
+                        type: boolean
+                      disableNetworkPolicy:
+                        description: "Disable NetworkPolicy: \n Operator will not
+                          create or manage a NetworkPolicy for Service Registry, so
+                          it can be done manually."
+                        type: boolean
+                      disablePodDisruptionBudget:
+                        description: "Disable PodDisruptionBudget: \n Operator will
+                          not create or manage a PodDisruptionBudget for Service Registry,
+                          so it can be done manually."
+                        type: boolean
+                    type: object
                   metadata:
-                    description: Metadata applied to the Deployment pod template.
+                    description: Metadata of the Service Registry pod
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Annotations added to the Deployment pod template.
+                        description: "Annotations: \n Additional Service Registry
+                          Pod annotations."
                         type: object
                       labels:
                         additionalProperties:
                           type: string
-                        description: Labels added to the Deployment pod template.
+                        description: "Labels: \n Additional Service Registry Pod labels."
+                        type: object
+                    type: object
+                  podTemplateSpecPreview:
+                    properties:
+                      metadata:
+                        properties:
+                          annotations:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          clusterName:
+                            type: string
+                          creationTimestamp:
+                            format: date-time
+                            type: string
+                          deletionGracePeriodSeconds:
+                            format: int64
+                            type: integer
+                          deletionTimestamp:
+                            format: date-time
+                            type: string
+                          finalizers:
+                            items:
+                              type: string
+                            type: array
+                          generateName:
+                            type: string
+                          generation:
+                            format: int64
+                            type: integer
+                          labels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          managedFields:
+                            items:
+                              properties:
+                                apiVersion:
+                                  type: string
+                                fieldsType:
+                                  type: string
+                                fieldsV1:
+                                  type: object
+                                manager:
+                                  type: string
+                                operation:
+                                  type: string
+                                subresource:
+                                  type: string
+                                time:
+                                  format: date-time
+                                  type: string
+                              type: object
+                            type: array
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          ownerReferences:
+                            items:
+                              properties:
+                                apiVersion:
+                                  type: string
+                                blockOwnerDeletion:
+                                  type: boolean
+                                controller:
+                                  type: boolean
+                                kind:
+                                  type: string
+                                name:
+                                  type: string
+                                uid:
+                                  type: string
+                              required:
+                              - apiVersion
+                              - kind
+                              - name
+                              - uid
+                              type: object
+                            type: array
+                          resourceVersion:
+                            type: string
+                          selfLink:
+                            type: string
+                          uid:
+                            type: string
+                        type: object
+                      spec:
+                        properties:
+                          activeDeadlineSeconds:
+                            format: int64
+                            type: integer
+                          affinity:
+                            properties:
+                              nodeAffinity:
+                                properties:
+                                  preferredDuringSchedulingIgnoredDuringExecution:
+                                    items:
+                                      properties:
+                                        preference:
+                                          properties:
+                                            matchExpressions:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                            matchFields:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                          type: object
+                                        weight:
+                                          format: int32
+                                          type: integer
+                                      required:
+                                      - preference
+                                      - weight
+                                      type: object
+                                    type: array
+                                  requiredDuringSchedulingIgnoredDuringExecution:
+                                    properties:
+                                      nodeSelectorTerms:
+                                        items:
+                                          properties:
+                                            matchExpressions:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                            matchFields:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                          type: object
+                                        type: array
+                                    required:
+                                    - nodeSelectorTerms
+                                    type: object
+                                type: object
+                              podAffinity:
+                                properties:
+                                  preferredDuringSchedulingIgnoredDuringExecution:
+                                    items:
+                                      properties:
+                                        podAffinityTerm:
+                                          properties:
+                                            labelSelector:
+                                              properties:
+                                                matchExpressions:
+                                                  items:
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        items:
+                                                          type: string
+                                                        type: array
+                                                    required:
+                                                    - key
+                                                    - operator
+                                                    type: object
+                                                  type: array
+                                                matchLabels:
+                                                  additionalProperties:
+                                                    type: string
+                                                  type: object
+                                              type: object
+                                            namespaceSelector:
+                                              properties:
+                                                matchExpressions:
+                                                  items:
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        items:
+                                                          type: string
+                                                        type: array
+                                                    required:
+                                                    - key
+                                                    - operator
+                                                    type: object
+                                                  type: array
+                                                matchLabels:
+                                                  additionalProperties:
+                                                    type: string
+                                                  type: object
+                                              type: object
+                                            namespaces:
+                                              items:
+                                                type: string
+                                              type: array
+                                            topologyKey:
+                                              type: string
+                                          required:
+                                          - topologyKey
+                                          type: object
+                                        weight:
+                                          format: int32
+                                          type: integer
+                                      required:
+                                      - podAffinityTerm
+                                      - weight
+                                      type: object
+                                    type: array
+                                  requiredDuringSchedulingIgnoredDuringExecution:
+                                    items:
+                                      properties:
+                                        labelSelector:
+                                          properties:
+                                            matchExpressions:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                            matchLabels:
+                                              additionalProperties:
+                                                type: string
+                                              type: object
+                                          type: object
+                                        namespaceSelector:
+                                          properties:
+                                            matchExpressions:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                            matchLabels:
+                                              additionalProperties:
+                                                type: string
+                                              type: object
+                                          type: object
+                                        namespaces:
+                                          items:
+                                            type: string
+                                          type: array
+                                        topologyKey:
+                                          type: string
+                                      required:
+                                      - topologyKey
+                                      type: object
+                                    type: array
+                                type: object
+                              podAntiAffinity:
+                                properties:
+                                  preferredDuringSchedulingIgnoredDuringExecution:
+                                    items:
+                                      properties:
+                                        podAffinityTerm:
+                                          properties:
+                                            labelSelector:
+                                              properties:
+                                                matchExpressions:
+                                                  items:
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        items:
+                                                          type: string
+                                                        type: array
+                                                    required:
+                                                    - key
+                                                    - operator
+                                                    type: object
+                                                  type: array
+                                                matchLabels:
+                                                  additionalProperties:
+                                                    type: string
+                                                  type: object
+                                              type: object
+                                            namespaceSelector:
+                                              properties:
+                                                matchExpressions:
+                                                  items:
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        items:
+                                                          type: string
+                                                        type: array
+                                                    required:
+                                                    - key
+                                                    - operator
+                                                    type: object
+                                                  type: array
+                                                matchLabels:
+                                                  additionalProperties:
+                                                    type: string
+                                                  type: object
+                                              type: object
+                                            namespaces:
+                                              items:
+                                                type: string
+                                              type: array
+                                            topologyKey:
+                                              type: string
+                                          required:
+                                          - topologyKey
+                                          type: object
+                                        weight:
+                                          format: int32
+                                          type: integer
+                                      required:
+                                      - podAffinityTerm
+                                      - weight
+                                      type: object
+                                    type: array
+                                  requiredDuringSchedulingIgnoredDuringExecution:
+                                    items:
+                                      properties:
+                                        labelSelector:
+                                          properties:
+                                            matchExpressions:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                            matchLabels:
+                                              additionalProperties:
+                                                type: string
+                                              type: object
+                                          type: object
+                                        namespaceSelector:
+                                          properties:
+                                            matchExpressions:
+                                              items:
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    items:
+                                                      type: string
+                                                    type: array
+                                                required:
+                                                - key
+                                                - operator
+                                                type: object
+                                              type: array
+                                            matchLabels:
+                                              additionalProperties:
+                                                type: string
+                                              type: object
+                                          type: object
+                                        namespaces:
+                                          items:
+                                            type: string
+                                          type: array
+                                        topologyKey:
+                                          type: string
+                                      required:
+                                      - topologyKey
+                                      type: object
+                                    type: array
+                                type: object
+                            type: object
+                          automountServiceAccountToken:
+                            type: boolean
+                          containers:
+                            items:
+                              properties:
+                                args:
+                                  items:
+                                    type: string
+                                  type: array
+                                command:
+                                  items:
+                                    type: string
+                                  type: array
+                                env:
+                                  items:
+                                    properties:
+                                      name:
+                                        type: string
+                                      value:
+                                        type: string
+                                      valueFrom:
+                                        properties:
+                                          configMapKeyRef:
+                                            properties:
+                                              key:
+                                                type: string
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            required:
+                                            - key
+                                            type: object
+                                          fieldRef:
+                                            properties:
+                                              apiVersion:
+                                                type: string
+                                              fieldPath:
+                                                type: string
+                                            required:
+                                            - fieldPath
+                                            type: object
+                                          resourceFieldRef:
+                                            properties:
+                                              containerName:
+                                                type: string
+                                              divisor:
+                                                anyOf:
+                                                - type: integer
+                                                - type: string
+                                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                x-kubernetes-int-or-string: true
+                                              resource:
+                                                type: string
+                                            required:
+                                            - resource
+                                            type: object
+                                          secretKeyRef:
+                                            properties:
+                                              key:
+                                                type: string
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            required:
+                                            - key
+                                            type: object
+                                        type: object
+                                    required:
+                                    - name
+                                    type: object
+                                  type: array
+                                envFrom:
+                                  items:
+                                    properties:
+                                      configMapRef:
+                                        properties:
+                                          name:
+                                            type: string
+                                          optional:
+                                            type: boolean
+                                        type: object
+                                      prefix:
+                                        type: string
+                                      secretRef:
+                                        properties:
+                                          name:
+                                            type: string
+                                          optional:
+                                            type: boolean
+                                        type: object
+                                    type: object
+                                  type: array
+                                image:
+                                  type: string
+                                imagePullPolicy:
+                                  type: string
+                                lifecycle:
+                                  properties:
+                                    postStart:
+                                      properties:
+                                        exec:
+                                          properties:
+                                            command:
+                                              items:
+                                                type: string
+                                              type: array
+                                          type: object
+                                        httpGet:
+                                          properties:
+                                            host:
+                                              type: string
+                                            httpHeaders:
+                                              items:
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  value:
+                                                    type: string
+                                                required:
+                                                - name
+                                                - value
+                                                type: object
+                                              type: array
+                                            path:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                            scheme:
+                                              type: string
+                                          required:
+                                          - port
+                                          type: object
+                                        tcpSocket:
+                                          properties:
+                                            host:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                          required:
+                                          - port
+                                          type: object
+                                      type: object
+                                    preStop:
+                                      properties:
+                                        exec:
+                                          properties:
+                                            command:
+                                              items:
+                                                type: string
+                                              type: array
+                                          type: object
+                                        httpGet:
+                                          properties:
+                                            host:
+                                              type: string
+                                            httpHeaders:
+                                              items:
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  value:
+                                                    type: string
+                                                required:
+                                                - name
+                                                - value
+                                                type: object
+                                              type: array
+                                            path:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                            scheme:
+                                              type: string
+                                          required:
+                                          - port
+                                          type: object
+                                        tcpSocket:
+                                          properties:
+                                            host:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                          required:
+                                          - port
+                                          type: object
+                                      type: object
+                                  type: object
+                                livenessProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                name:
+                                  type: string
+                                ports:
+                                  items:
+                                    properties:
+                                      containerPort:
+                                        format: int32
+                                        type: integer
+                                      hostIP:
+                                        type: string
+                                      hostPort:
+                                        format: int32
+                                        type: integer
+                                      name:
+                                        type: string
+                                      protocol:
+                                        default: TCP
+                                        type: string
+                                    required:
+                                    - containerPort
+                                    type: object
+                                  type: array
+                                  x-kubernetes-list-map-keys:
+                                  - containerPort
+                                  - protocol
+                                  x-kubernetes-list-type: map
+                                readinessProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                resources:
+                                  properties:
+                                    limits:
+                                      additionalProperties:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                        x-kubernetes-int-or-string: true
+                                      type: object
+                                    requests:
+                                      additionalProperties:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                        x-kubernetes-int-or-string: true
+                                      type: object
+                                  type: object
+                                securityContext:
+                                  properties:
+                                    allowPrivilegeEscalation:
+                                      type: boolean
+                                    capabilities:
+                                      properties:
+                                        add:
+                                          items:
+                                            type: string
+                                          type: array
+                                        drop:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    privileged:
+                                      type: boolean
+                                    procMount:
+                                      type: string
+                                    readOnlyRootFilesystem:
+                                      type: boolean
+                                    runAsGroup:
+                                      format: int64
+                                      type: integer
+                                    runAsNonRoot:
+                                      type: boolean
+                                    runAsUser:
+                                      format: int64
+                                      type: integer
+                                    seLinuxOptions:
+                                      properties:
+                                        level:
+                                          type: string
+                                        role:
+                                          type: string
+                                        type:
+                                          type: string
+                                        user:
+                                          type: string
+                                      type: object
+                                    seccompProfile:
+                                      properties:
+                                        localhostProfile:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - type
+                                      type: object
+                                    windowsOptions:
+                                      properties:
+                                        gmsaCredentialSpec:
+                                          type: string
+                                        gmsaCredentialSpecName:
+                                          type: string
+                                        hostProcess:
+                                          type: boolean
+                                        runAsUserName:
+                                          type: string
+                                      type: object
+                                  type: object
+                                startupProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                stdin:
+                                  type: boolean
+                                stdinOnce:
+                                  type: boolean
+                                terminationMessagePath:
+                                  type: string
+                                terminationMessagePolicy:
+                                  type: string
+                                tty:
+                                  type: boolean
+                                volumeDevices:
+                                  items:
+                                    properties:
+                                      devicePath:
+                                        type: string
+                                      name:
+                                        type: string
+                                    required:
+                                    - devicePath
+                                    - name
+                                    type: object
+                                  type: array
+                                volumeMounts:
+                                  items:
+                                    properties:
+                                      mountPath:
+                                        type: string
+                                      mountPropagation:
+                                        type: string
+                                      name:
+                                        type: string
+                                      readOnly:
+                                        type: boolean
+                                      subPath:
+                                        type: string
+                                      subPathExpr:
+                                        type: string
+                                    required:
+                                    - mountPath
+                                    - name
+                                    type: object
+                                  type: array
+                                workingDir:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                          dnsConfig:
+                            properties:
+                              nameservers:
+                                items:
+                                  type: string
+                                type: array
+                              options:
+                                items:
+                                  properties:
+                                    name:
+                                      type: string
+                                    value:
+                                      type: string
+                                  type: object
+                                type: array
+                              searches:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          dnsPolicy:
+                            type: string
+                          enableServiceLinks:
+                            type: boolean
+                          ephemeralContainers:
+                            items:
+                              properties:
+                                args:
+                                  items:
+                                    type: string
+                                  type: array
+                                command:
+                                  items:
+                                    type: string
+                                  type: array
+                                env:
+                                  items:
+                                    properties:
+                                      name:
+                                        type: string
+                                      value:
+                                        type: string
+                                      valueFrom:
+                                        properties:
+                                          configMapKeyRef:
+                                            properties:
+                                              key:
+                                                type: string
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            required:
+                                            - key
+                                            type: object
+                                          fieldRef:
+                                            properties:
+                                              apiVersion:
+                                                type: string
+                                              fieldPath:
+                                                type: string
+                                            required:
+                                            - fieldPath
+                                            type: object
+                                          resourceFieldRef:
+                                            properties:
+                                              containerName:
+                                                type: string
+                                              divisor:
+                                                anyOf:
+                                                - type: integer
+                                                - type: string
+                                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                x-kubernetes-int-or-string: true
+                                              resource:
+                                                type: string
+                                            required:
+                                            - resource
+                                            type: object
+                                          secretKeyRef:
+                                            properties:
+                                              key:
+                                                type: string
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            required:
+                                            - key
+                                            type: object
+                                        type: object
+                                    required:
+                                    - name
+                                    type: object
+                                  type: array
+                                envFrom:
+                                  items:
+                                    properties:
+                                      configMapRef:
+                                        properties:
+                                          name:
+                                            type: string
+                                          optional:
+                                            type: boolean
+                                        type: object
+                                      prefix:
+                                        type: string
+                                      secretRef:
+                                        properties:
+                                          name:
+                                            type: string
+                                          optional:
+                                            type: boolean
+                                        type: object
+                                    type: object
+                                  type: array
+                                image:
+                                  type: string
+                                imagePullPolicy:
+                                  type: string
+                                lifecycle:
+                                  properties:
+                                    postStart:
+                                      properties:
+                                        exec:
+                                          properties:
+                                            command:
+                                              items:
+                                                type: string
+                                              type: array
+                                          type: object
+                                        httpGet:
+                                          properties:
+                                            host:
+                                              type: string
+                                            httpHeaders:
+                                              items:
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  value:
+                                                    type: string
+                                                required:
+                                                - name
+                                                - value
+                                                type: object
+                                              type: array
+                                            path:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                            scheme:
+                                              type: string
+                                          required:
+                                          - port
+                                          type: object
+                                        tcpSocket:
+                                          properties:
+                                            host:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                          required:
+                                          - port
+                                          type: object
+                                      type: object
+                                    preStop:
+                                      properties:
+                                        exec:
+                                          properties:
+                                            command:
+                                              items:
+                                                type: string
+                                              type: array
+                                          type: object
+                                        httpGet:
+                                          properties:
+                                            host:
+                                              type: string
+                                            httpHeaders:
+                                              items:
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  value:
+                                                    type: string
+                                                required:
+                                                - name
+                                                - value
+                                                type: object
+                                              type: array
+                                            path:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                            scheme:
+                                              type: string
+                                          required:
+                                          - port
+                                          type: object
+                                        tcpSocket:
+                                          properties:
+                                            host:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                          required:
+                                          - port
+                                          type: object
+                                      type: object
+                                  type: object
+                                livenessProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                name:
+                                  type: string
+                                ports:
+                                  items:
+                                    properties:
+                                      containerPort:
+                                        format: int32
+                                        type: integer
+                                      hostIP:
+                                        type: string
+                                      hostPort:
+                                        format: int32
+                                        type: integer
+                                      name:
+                                        type: string
+                                      protocol:
+                                        default: TCP
+                                        type: string
+                                    required:
+                                    - containerPort
+                                    type: object
+                                  type: array
+                                  x-kubernetes-list-map-keys:
+                                  - containerPort
+                                  - protocol
+                                  x-kubernetes-list-type: map
+                                readinessProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                resources:
+                                  properties:
+                                    limits:
+                                      additionalProperties:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                        x-kubernetes-int-or-string: true
+                                      type: object
+                                    requests:
+                                      additionalProperties:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                        x-kubernetes-int-or-string: true
+                                      type: object
+                                  type: object
+                                securityContext:
+                                  properties:
+                                    allowPrivilegeEscalation:
+                                      type: boolean
+                                    capabilities:
+                                      properties:
+                                        add:
+                                          items:
+                                            type: string
+                                          type: array
+                                        drop:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    privileged:
+                                      type: boolean
+                                    procMount:
+                                      type: string
+                                    readOnlyRootFilesystem:
+                                      type: boolean
+                                    runAsGroup:
+                                      format: int64
+                                      type: integer
+                                    runAsNonRoot:
+                                      type: boolean
+                                    runAsUser:
+                                      format: int64
+                                      type: integer
+                                    seLinuxOptions:
+                                      properties:
+                                        level:
+                                          type: string
+                                        role:
+                                          type: string
+                                        type:
+                                          type: string
+                                        user:
+                                          type: string
+                                      type: object
+                                    seccompProfile:
+                                      properties:
+                                        localhostProfile:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - type
+                                      type: object
+                                    windowsOptions:
+                                      properties:
+                                        gmsaCredentialSpec:
+                                          type: string
+                                        gmsaCredentialSpecName:
+                                          type: string
+                                        hostProcess:
+                                          type: boolean
+                                        runAsUserName:
+                                          type: string
+                                      type: object
+                                  type: object
+                                startupProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                stdin:
+                                  type: boolean
+                                stdinOnce:
+                                  type: boolean
+                                targetContainerName:
+                                  type: string
+                                terminationMessagePath:
+                                  type: string
+                                terminationMessagePolicy:
+                                  type: string
+                                tty:
+                                  type: boolean
+                                volumeDevices:
+                                  items:
+                                    properties:
+                                      devicePath:
+                                        type: string
+                                      name:
+                                        type: string
+                                    required:
+                                    - devicePath
+                                    - name
+                                    type: object
+                                  type: array
+                                volumeMounts:
+                                  items:
+                                    properties:
+                                      mountPath:
+                                        type: string
+                                      mountPropagation:
+                                        type: string
+                                      name:
+                                        type: string
+                                      readOnly:
+                                        type: boolean
+                                      subPath:
+                                        type: string
+                                      subPathExpr:
+                                        type: string
+                                    required:
+                                    - mountPath
+                                    - name
+                                    type: object
+                                  type: array
+                                workingDir:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                          hostAliases:
+                            items:
+                              properties:
+                                hostnames:
+                                  items:
+                                    type: string
+                                  type: array
+                                ip:
+                                  type: string
+                              type: object
+                            type: array
+                          hostIPC:
+                            type: boolean
+                          hostNetwork:
+                            type: boolean
+                          hostPID:
+                            type: boolean
+                          hostname:
+                            type: string
+                          imagePullSecrets:
+                            items:
+                              properties:
+                                name:
+                                  type: string
+                              type: object
+                            type: array
+                          initContainers:
+                            items:
+                              properties:
+                                args:
+                                  items:
+                                    type: string
+                                  type: array
+                                command:
+                                  items:
+                                    type: string
+                                  type: array
+                                env:
+                                  items:
+                                    properties:
+                                      name:
+                                        type: string
+                                      value:
+                                        type: string
+                                      valueFrom:
+                                        properties:
+                                          configMapKeyRef:
+                                            properties:
+                                              key:
+                                                type: string
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            required:
+                                            - key
+                                            type: object
+                                          fieldRef:
+                                            properties:
+                                              apiVersion:
+                                                type: string
+                                              fieldPath:
+                                                type: string
+                                            required:
+                                            - fieldPath
+                                            type: object
+                                          resourceFieldRef:
+                                            properties:
+                                              containerName:
+                                                type: string
+                                              divisor:
+                                                anyOf:
+                                                - type: integer
+                                                - type: string
+                                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                x-kubernetes-int-or-string: true
+                                              resource:
+                                                type: string
+                                            required:
+                                            - resource
+                                            type: object
+                                          secretKeyRef:
+                                            properties:
+                                              key:
+                                                type: string
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            required:
+                                            - key
+                                            type: object
+                                        type: object
+                                    required:
+                                    - name
+                                    type: object
+                                  type: array
+                                envFrom:
+                                  items:
+                                    properties:
+                                      configMapRef:
+                                        properties:
+                                          name:
+                                            type: string
+                                          optional:
+                                            type: boolean
+                                        type: object
+                                      prefix:
+                                        type: string
+                                      secretRef:
+                                        properties:
+                                          name:
+                                            type: string
+                                          optional:
+                                            type: boolean
+                                        type: object
+                                    type: object
+                                  type: array
+                                image:
+                                  type: string
+                                imagePullPolicy:
+                                  type: string
+                                lifecycle:
+                                  properties:
+                                    postStart:
+                                      properties:
+                                        exec:
+                                          properties:
+                                            command:
+                                              items:
+                                                type: string
+                                              type: array
+                                          type: object
+                                        httpGet:
+                                          properties:
+                                            host:
+                                              type: string
+                                            httpHeaders:
+                                              items:
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  value:
+                                                    type: string
+                                                required:
+                                                - name
+                                                - value
+                                                type: object
+                                              type: array
+                                            path:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                            scheme:
+                                              type: string
+                                          required:
+                                          - port
+                                          type: object
+                                        tcpSocket:
+                                          properties:
+                                            host:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                          required:
+                                          - port
+                                          type: object
+                                      type: object
+                                    preStop:
+                                      properties:
+                                        exec:
+                                          properties:
+                                            command:
+                                              items:
+                                                type: string
+                                              type: array
+                                          type: object
+                                        httpGet:
+                                          properties:
+                                            host:
+                                              type: string
+                                            httpHeaders:
+                                              items:
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  value:
+                                                    type: string
+                                                required:
+                                                - name
+                                                - value
+                                                type: object
+                                              type: array
+                                            path:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                            scheme:
+                                              type: string
+                                          required:
+                                          - port
+                                          type: object
+                                        tcpSocket:
+                                          properties:
+                                            host:
+                                              type: string
+                                            port:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              x-kubernetes-int-or-string: true
+                                          required:
+                                          - port
+                                          type: object
+                                      type: object
+                                  type: object
+                                livenessProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                name:
+                                  type: string
+                                ports:
+                                  items:
+                                    properties:
+                                      containerPort:
+                                        format: int32
+                                        type: integer
+                                      hostIP:
+                                        type: string
+                                      hostPort:
+                                        format: int32
+                                        type: integer
+                                      name:
+                                        type: string
+                                      protocol:
+                                        default: TCP
+                                        type: string
+                                    required:
+                                    - containerPort
+                                    type: object
+                                  type: array
+                                  x-kubernetes-list-map-keys:
+                                  - containerPort
+                                  - protocol
+                                  x-kubernetes-list-type: map
+                                readinessProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                resources:
+                                  properties:
+                                    limits:
+                                      additionalProperties:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                        x-kubernetes-int-or-string: true
+                                      type: object
+                                    requests:
+                                      additionalProperties:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                        x-kubernetes-int-or-string: true
+                                      type: object
+                                  type: object
+                                securityContext:
+                                  properties:
+                                    allowPrivilegeEscalation:
+                                      type: boolean
+                                    capabilities:
+                                      properties:
+                                        add:
+                                          items:
+                                            type: string
+                                          type: array
+                                        drop:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    privileged:
+                                      type: boolean
+                                    procMount:
+                                      type: string
+                                    readOnlyRootFilesystem:
+                                      type: boolean
+                                    runAsGroup:
+                                      format: int64
+                                      type: integer
+                                    runAsNonRoot:
+                                      type: boolean
+                                    runAsUser:
+                                      format: int64
+                                      type: integer
+                                    seLinuxOptions:
+                                      properties:
+                                        level:
+                                          type: string
+                                        role:
+                                          type: string
+                                        type:
+                                          type: string
+                                        user:
+                                          type: string
+                                      type: object
+                                    seccompProfile:
+                                      properties:
+                                        localhostProfile:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - type
+                                      type: object
+                                    windowsOptions:
+                                      properties:
+                                        gmsaCredentialSpec:
+                                          type: string
+                                        gmsaCredentialSpecName:
+                                          type: string
+                                        hostProcess:
+                                          type: boolean
+                                        runAsUserName:
+                                          type: string
+                                      type: object
+                                  type: object
+                                startupProbe:
+                                  properties:
+                                    exec:
+                                      properties:
+                                        command:
+                                          items:
+                                            type: string
+                                          type: array
+                                      type: object
+                                    failureThreshold:
+                                      format: int32
+                                      type: integer
+                                    grpc:
+                                      properties:
+                                        port:
+                                          format: int32
+                                          type: integer
+                                        service:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    httpGet:
+                                      properties:
+                                        host:
+                                          type: string
+                                        httpHeaders:
+                                          items:
+                                            properties:
+                                              name:
+                                                type: string
+                                              value:
+                                                type: string
+                                            required:
+                                            - name
+                                            - value
+                                            type: object
+                                          type: array
+                                        path:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                        scheme:
+                                          type: string
+                                      required:
+                                      - port
+                                      type: object
+                                    initialDelaySeconds:
+                                      format: int32
+                                      type: integer
+                                    periodSeconds:
+                                      format: int32
+                                      type: integer
+                                    successThreshold:
+                                      format: int32
+                                      type: integer
+                                    tcpSocket:
+                                      properties:
+                                        host:
+                                          type: string
+                                        port:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          x-kubernetes-int-or-string: true
+                                      required:
+                                      - port
+                                      type: object
+                                    terminationGracePeriodSeconds:
+                                      format: int64
+                                      type: integer
+                                    timeoutSeconds:
+                                      format: int32
+                                      type: integer
+                                  type: object
+                                stdin:
+                                  type: boolean
+                                stdinOnce:
+                                  type: boolean
+                                terminationMessagePath:
+                                  type: string
+                                terminationMessagePolicy:
+                                  type: string
+                                tty:
+                                  type: boolean
+                                volumeDevices:
+                                  items:
+                                    properties:
+                                      devicePath:
+                                        type: string
+                                      name:
+                                        type: string
+                                    required:
+                                    - devicePath
+                                    - name
+                                    type: object
+                                  type: array
+                                volumeMounts:
+                                  items:
+                                    properties:
+                                      mountPath:
+                                        type: string
+                                      mountPropagation:
+                                        type: string
+                                      name:
+                                        type: string
+                                      readOnly:
+                                        type: boolean
+                                      subPath:
+                                        type: string
+                                      subPathExpr:
+                                        type: string
+                                    required:
+                                    - mountPath
+                                    - name
+                                    type: object
+                                  type: array
+                                workingDir:
+                                  type: string
+                              required:
+                              - name
+                              type: object
+                            type: array
+                          nodeName:
+                            type: string
+                          nodeSelector:
+                            additionalProperties:
+                              type: string
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          os:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                          overhead:
+                            additionalProperties:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
+                            type: object
+                          preemptionPolicy:
+                            type: string
+                          priority:
+                            format: int32
+                            type: integer
+                          priorityClassName:
+                            type: string
+                          readinessGates:
+                            items:
+                              properties:
+                                conditionType:
+                                  type: string
+                              required:
+                              - conditionType
+                              type: object
+                            type: array
+                          restartPolicy:
+                            type: string
+                          runtimeClassName:
+                            type: string
+                          schedulerName:
+                            type: string
+                          securityContext:
+                            properties:
+                              fsGroup:
+                                format: int64
+                                type: integer
+                              fsGroupChangePolicy:
+                                type: string
+                              runAsGroup:
+                                format: int64
+                                type: integer
+                              runAsNonRoot:
+                                type: boolean
+                              runAsUser:
+                                format: int64
+                                type: integer
+                              seLinuxOptions:
+                                properties:
+                                  level:
+                                    type: string
+                                  role:
+                                    type: string
+                                  type:
+                                    type: string
+                                  user:
+                                    type: string
+                                type: object
+                              seccompProfile:
+                                properties:
+                                  localhostProfile:
+                                    type: string
+                                  type:
+                                    type: string
+                                required:
+                                - type
+                                type: object
+                              supplementalGroups:
+                                items:
+                                  format: int64
+                                  type: integer
+                                type: array
+                              sysctls:
+                                items:
+                                  properties:
+                                    name:
+                                      type: string
+                                    value:
+                                      type: string
+                                  required:
+                                  - name
+                                  - value
+                                  type: object
+                                type: array
+                              windowsOptions:
+                                properties:
+                                  gmsaCredentialSpec:
+                                    type: string
+                                  gmsaCredentialSpecName:
+                                    type: string
+                                  hostProcess:
+                                    type: boolean
+                                  runAsUserName:
+                                    type: string
+                                type: object
+                            type: object
+                          serviceAccount:
+                            type: string
+                          serviceAccountName:
+                            type: string
+                          setHostnameAsFQDN:
+                            type: boolean
+                          shareProcessNamespace:
+                            type: boolean
+                          subdomain:
+                            type: string
+                          terminationGracePeriodSeconds:
+                            format: int64
+                            type: integer
+                          tolerations:
+                            items:
+                              properties:
+                                effect:
+                                  type: string
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                tolerationSeconds:
+                                  format: int64
+                                  type: integer
+                                value:
+                                  type: string
+                              type: object
+                            type: array
+                          topologySpreadConstraints:
+                            items:
+                              properties:
+                                labelSelector:
+                                  properties:
+                                    matchExpressions:
+                                      items:
+                                        properties:
+                                          key:
+                                            type: string
+                                          operator:
+                                            type: string
+                                          values:
+                                            items:
+                                              type: string
+                                            type: array
+                                        required:
+                                        - key
+                                        - operator
+                                        type: object
+                                      type: array
+                                    matchLabels:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  type: object
+                                maxSkew:
+                                  format: int32
+                                  type: integer
+                                topologyKey:
+                                  type: string
+                                whenUnsatisfiable:
+                                  type: string
+                              required:
+                              - maxSkew
+                              - topologyKey
+                              - whenUnsatisfiable
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - topologyKey
+                            - whenUnsatisfiable
+                            x-kubernetes-list-type: map
+                          volumes:
+                            items:
+                              properties:
+                                awsElasticBlockStore:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    partition:
+                                      format: int32
+                                      type: integer
+                                    readOnly:
+                                      type: boolean
+                                    volumeID:
+                                      type: string
+                                  required:
+                                  - volumeID
+                                  type: object
+                                azureDisk:
+                                  properties:
+                                    cachingMode:
+                                      type: string
+                                    diskName:
+                                      type: string
+                                    diskURI:
+                                      type: string
+                                    fsType:
+                                      type: string
+                                    kind:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                  required:
+                                  - diskName
+                                  - diskURI
+                                  type: object
+                                azureFile:
+                                  properties:
+                                    readOnly:
+                                      type: boolean
+                                    secretName:
+                                      type: string
+                                    shareName:
+                                      type: string
+                                  required:
+                                  - secretName
+                                  - shareName
+                                  type: object
+                                cephfs:
+                                  properties:
+                                    monitors:
+                                      items:
+                                        type: string
+                                      type: array
+                                    path:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    secretFile:
+                                      type: string
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    user:
+                                      type: string
+                                  required:
+                                  - monitors
+                                  type: object
+                                cinder:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    volumeID:
+                                      type: string
+                                  required:
+                                  - volumeID
+                                  type: object
+                                configMap:
+                                  properties:
+                                    defaultMode:
+                                      format: int32
+                                      type: integer
+                                    items:
+                                      items:
+                                        properties:
+                                          key:
+                                            type: string
+                                          mode:
+                                            format: int32
+                                            type: integer
+                                          path:
+                                            type: string
+                                        required:
+                                        - key
+                                        - path
+                                        type: object
+                                      type: array
+                                    name:
+                                      type: string
+                                    optional:
+                                      type: boolean
+                                  type: object
+                                csi:
+                                  properties:
+                                    driver:
+                                      type: string
+                                    fsType:
+                                      type: string
+                                    nodePublishSecretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    readOnly:
+                                      type: boolean
+                                    volumeAttributes:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  required:
+                                  - driver
+                                  type: object
+                                downwardAPI:
+                                  properties:
+                                    defaultMode:
+                                      format: int32
+                                      type: integer
+                                    items:
+                                      items:
+                                        properties:
+                                          fieldRef:
+                                            properties:
+                                              apiVersion:
+                                                type: string
+                                              fieldPath:
+                                                type: string
+                                            required:
+                                            - fieldPath
+                                            type: object
+                                          mode:
+                                            format: int32
+                                            type: integer
+                                          path:
+                                            type: string
+                                          resourceFieldRef:
+                                            properties:
+                                              containerName:
+                                                type: string
+                                              divisor:
+                                                anyOf:
+                                                - type: integer
+                                                - type: string
+                                                pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                x-kubernetes-int-or-string: true
+                                              resource:
+                                                type: string
+                                            required:
+                                            - resource
+                                            type: object
+                                        required:
+                                        - path
+                                        type: object
+                                      type: array
+                                  type: object
+                                emptyDir:
+                                  properties:
+                                    medium:
+                                      type: string
+                                    sizeLimit:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                      x-kubernetes-int-or-string: true
+                                  type: object
+                                ephemeral:
+                                  properties:
+                                    volumeClaimTemplate:
+                                      properties:
+                                        metadata:
+                                          type: object
+                                        spec:
+                                          properties:
+                                            accessModes:
+                                              items:
+                                                type: string
+                                              type: array
+                                            dataSource:
+                                              properties:
+                                                apiGroup:
+                                                  type: string
+                                                kind:
+                                                  type: string
+                                                name:
+                                                  type: string
+                                              required:
+                                              - kind
+                                              - name
+                                              type: object
+                                            dataSourceRef:
+                                              properties:
+                                                apiGroup:
+                                                  type: string
+                                                kind:
+                                                  type: string
+                                                name:
+                                                  type: string
+                                              required:
+                                              - kind
+                                              - name
+                                              type: object
+                                            resources:
+                                              properties:
+                                                limits:
+                                                  additionalProperties:
+                                                    anyOf:
+                                                    - type: integer
+                                                    - type: string
+                                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                    x-kubernetes-int-or-string: true
+                                                  type: object
+                                                requests:
+                                                  additionalProperties:
+                                                    anyOf:
+                                                    - type: integer
+                                                    - type: string
+                                                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                    x-kubernetes-int-or-string: true
+                                                  type: object
+                                              type: object
+                                            selector:
+                                              properties:
+                                                matchExpressions:
+                                                  items:
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        items:
+                                                          type: string
+                                                        type: array
+                                                    required:
+                                                    - key
+                                                    - operator
+                                                    type: object
+                                                  type: array
+                                                matchLabels:
+                                                  additionalProperties:
+                                                    type: string
+                                                  type: object
+                                              type: object
+                                            storageClassName:
+                                              type: string
+                                            volumeMode:
+                                              type: string
+                                            volumeName:
+                                              type: string
+                                          type: object
+                                      required:
+                                      - spec
+                                      type: object
+                                  type: object
+                                fc:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    lun:
+                                      format: int32
+                                      type: integer
+                                    readOnly:
+                                      type: boolean
+                                    targetWWNs:
+                                      items:
+                                        type: string
+                                      type: array
+                                    wwids:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                                flexVolume:
+                                  properties:
+                                    driver:
+                                      type: string
+                                    fsType:
+                                      type: string
+                                    options:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                    readOnly:
+                                      type: boolean
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                  required:
+                                  - driver
+                                  type: object
+                                flocker:
+                                  properties:
+                                    datasetName:
+                                      type: string
+                                    datasetUUID:
+                                      type: string
+                                  type: object
+                                gcePersistentDisk:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    partition:
+                                      format: int32
+                                      type: integer
+                                    pdName:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                  required:
+                                  - pdName
+                                  type: object
+                                gitRepo:
+                                  properties:
+                                    directory:
+                                      type: string
+                                    repository:
+                                      type: string
+                                    revision:
+                                      type: string
+                                  required:
+                                  - repository
+                                  type: object
+                                glusterfs:
+                                  properties:
+                                    endpoints:
+                                      type: string
+                                    path:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                  required:
+                                  - endpoints
+                                  - path
+                                  type: object
+                                hostPath:
+                                  properties:
+                                    path:
+                                      type: string
+                                    type:
+                                      type: string
+                                  required:
+                                  - path
+                                  type: object
+                                iscsi:
+                                  properties:
+                                    chapAuthDiscovery:
+                                      type: boolean
+                                    chapAuthSession:
+                                      type: boolean
+                                    fsType:
+                                      type: string
+                                    initiatorName:
+                                      type: string
+                                    iqn:
+                                      type: string
+                                    iscsiInterface:
+                                      type: string
+                                    lun:
+                                      format: int32
+                                      type: integer
+                                    portals:
+                                      items:
+                                        type: string
+                                      type: array
+                                    readOnly:
+                                      type: boolean
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    targetPortal:
+                                      type: string
+                                  required:
+                                  - iqn
+                                  - lun
+                                  - targetPortal
+                                  type: object
+                                name:
+                                  type: string
+                                nfs:
+                                  properties:
+                                    path:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    server:
+                                      type: string
+                                  required:
+                                  - path
+                                  - server
+                                  type: object
+                                persistentVolumeClaim:
+                                  properties:
+                                    claimName:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                  required:
+                                  - claimName
+                                  type: object
+                                photonPersistentDisk:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    pdID:
+                                      type: string
+                                  required:
+                                  - pdID
+                                  type: object
+                                portworxVolume:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    volumeID:
+                                      type: string
+                                  required:
+                                  - volumeID
+                                  type: object
+                                projected:
+                                  properties:
+                                    defaultMode:
+                                      format: int32
+                                      type: integer
+                                    sources:
+                                      items:
+                                        properties:
+                                          configMap:
+                                            properties:
+                                              items:
+                                                items:
+                                                  properties:
+                                                    key:
+                                                      type: string
+                                                    mode:
+                                                      format: int32
+                                                      type: integer
+                                                    path:
+                                                      type: string
+                                                  required:
+                                                  - key
+                                                  - path
+                                                  type: object
+                                                type: array
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            type: object
+                                          downwardAPI:
+                                            properties:
+                                              items:
+                                                items:
+                                                  properties:
+                                                    fieldRef:
+                                                      properties:
+                                                        apiVersion:
+                                                          type: string
+                                                        fieldPath:
+                                                          type: string
+                                                      required:
+                                                      - fieldPath
+                                                      type: object
+                                                    mode:
+                                                      format: int32
+                                                      type: integer
+                                                    path:
+                                                      type: string
+                                                    resourceFieldRef:
+                                                      properties:
+                                                        containerName:
+                                                          type: string
+                                                        divisor:
+                                                          anyOf:
+                                                          - type: integer
+                                                          - type: string
+                                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                          x-kubernetes-int-or-string: true
+                                                        resource:
+                                                          type: string
+                                                      required:
+                                                      - resource
+                                                      type: object
+                                                  required:
+                                                  - path
+                                                  type: object
+                                                type: array
+                                            type: object
+                                          secret:
+                                            properties:
+                                              items:
+                                                items:
+                                                  properties:
+                                                    key:
+                                                      type: string
+                                                    mode:
+                                                      format: int32
+                                                      type: integer
+                                                    path:
+                                                      type: string
+                                                  required:
+                                                  - key
+                                                  - path
+                                                  type: object
+                                                type: array
+                                              name:
+                                                type: string
+                                              optional:
+                                                type: boolean
+                                            type: object
+                                          serviceAccountToken:
+                                            properties:
+                                              audience:
+                                                type: string
+                                              expirationSeconds:
+                                                format: int64
+                                                type: integer
+                                              path:
+                                                type: string
+                                            required:
+                                            - path
+                                            type: object
+                                        type: object
+                                      type: array
+                                  type: object
+                                quobyte:
+                                  properties:
+                                    group:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    registry:
+                                      type: string
+                                    tenant:
+                                      type: string
+                                    user:
+                                      type: string
+                                    volume:
+                                      type: string
+                                  required:
+                                  - registry
+                                  - volume
+                                  type: object
+                                rbd:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    image:
+                                      type: string
+                                    keyring:
+                                      type: string
+                                    monitors:
+                                      items:
+                                        type: string
+                                      type: array
+                                    pool:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    user:
+                                      type: string
+                                  required:
+                                  - image
+                                  - monitors
+                                  type: object
+                                scaleIO:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    gateway:
+                                      type: string
+                                    protectionDomain:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    sslEnabled:
+                                      type: boolean
+                                    storageMode:
+                                      type: string
+                                    storagePool:
+                                      type: string
+                                    system:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                  - gateway
+                                  - secretRef
+                                  - system
+                                  type: object
+                                secret:
+                                  properties:
+                                    defaultMode:
+                                      format: int32
+                                      type: integer
+                                    items:
+                                      items:
+                                        properties:
+                                          key:
+                                            type: string
+                                          mode:
+                                            format: int32
+                                            type: integer
+                                          path:
+                                            type: string
+                                        required:
+                                        - key
+                                        - path
+                                        type: object
+                                      type: array
+                                    optional:
+                                      type: boolean
+                                    secretName:
+                                      type: string
+                                  type: object
+                                storageos:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    readOnly:
+                                      type: boolean
+                                    secretRef:
+                                      properties:
+                                        name:
+                                          type: string
+                                      type: object
+                                    volumeName:
+                                      type: string
+                                    volumeNamespace:
+                                      type: string
+                                  type: object
+                                vsphereVolume:
+                                  properties:
+                                    fsType:
+                                      type: string
+                                    storagePolicyID:
+                                      type: string
+                                    storagePolicyName:
+                                      type: string
+                                    volumePath:
+                                      type: string
+                                  required:
+                                  - volumePath
+                                  type: object
+                              required:
+                              - name
+                              type: object
+                            type: array
                         type: object
                     type: object
                   replicas:
+                    description: "Replicas: \n The required number of Service Registry
+                      pods. Default value is 1."
                     format: int32
                     type: integer
                   tolerations:
+                    description: Tolerations
                     items:
                       description: The pod this Toleration is attached to tolerates
                         any taint that matches the triple <key,value,effect> using
@@ -1155,7 +4377,8 @@ spec:
           status:
             properties:
               conditions:
-                description: List of status conditions.
+                description: "Conditions: \n Service Registry application and Operator
+                  conditions."
                 items:
                   description: "Condition contains details for one aspect of the current
                     state of this API Resource. --- This struct is intended for direct
@@ -1224,13 +4447,15 @@ spec:
                   type: object
                 type: array
               info:
-                description: Information about the deployed application.
+                description: Information about the Service Registry application
                 properties:
                   host:
+                    description: Service Registry URL
                     type: string
                 type: object
               managedResources:
-                description: List of resources managed by this operator.
+                description: "Managed Resources: \n Kubernetes resources managed by
+                  the Service Registry Operator."
                 items:
                   properties:
                     kind:
@@ -1260,7 +4485,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
   name: apicurio-registry-operator
   namespace: apicurio-registry-operator-namespace
 ---
@@ -1270,7 +4495,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
   name: apicurio-registry-operator-leader-election-role
   namespace: apicurio-registry-operator-namespace
 rules:
@@ -1313,7 +4538,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
   name: apicurio-registry-operator-role
 rules:
 - apiGroups:
@@ -1407,7 +4632,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
   name: apicurio-registry-operator-leader-election-rolebinding
   namespace: apicurio-registry-operator-namespace
 roleRef:
@@ -1425,7 +4650,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
   name: apicurio-registry-operator-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1442,7 +4667,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.1.0-redhat.1
+    apicur.io/version: 1.2.0-redhat.1
     name: apicurio-registry-operator
   name: apicurio-registry-operator
   namespace: apicurio-registry-operator-namespace
@@ -1452,21 +4677,21 @@ spec:
     matchLabels:
       apicur.io/name: apicurio-registry-operator
       apicur.io/type: operator
-      apicur.io/version: 1.1.0-redhat.1
+      apicur.io/version: 1.2.0-redhat.1
       name: apicurio-registry-operator
   template:
     metadata:
       labels:
         apicur.io/name: apicurio-registry-operator
         apicur.io/type: operator
-        apicur.io/version: 1.1.0-redhat.1
+        apicur.io/version: 1.2.0-redhat.1
         com.company: Red_Hat
         name: apicurio-registry-operator
         rht.comp: Service_Registry
         rht.comp_t: infrastructure
-        rht.comp_ver: "2.3"
+        rht.comp_ver: "2.4"
         rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: "2.3"
+        rht.prod_ver: "2.4"
     spec:
       containers:
       - args:
@@ -1475,11 +4700,11 @@ spec:
         - /manager
         env:
         - name: REGISTRY_VERSION
-          value: 2.3.3.Final-redhat-00001
+          value: 2.4.3.Final-redhat-00006
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.3.3-7
+          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.4.3-6
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.3.3-6
+          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.4.3-6
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
@@ -1494,7 +4719,7 @@ spec:
               fieldPath: metadata.namespace
         - name: OPERATOR_NAME
           value: apicurio-registry-operator
-        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.1.0-4
+        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.2.0-1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
