@@ -207,8 +207,9 @@ public abstract class AuthTests extends TestBase {
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @ParameterizedTest
-    @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
     @Tag("sql")
+    @Tag("extended")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
@@ -412,8 +413,9 @@ public abstract class AuthTests extends TestBase {
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @ParameterizedTest
-    @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
     @Tag("kafkasql")
+    @Tag("extended")
     public void testRegistryKafkasqlNoAuthKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
@@ -431,8 +433,9 @@ public abstract class AuthTests extends TestBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
     @Tag("kafkasql")
+    @Tag("extended")
     public void testRegistryKafkasqlTLSKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
@@ -450,8 +453,9 @@ public abstract class AuthTests extends TestBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
     @Tag("kafkasql")
+    @Tag("extended")
     public void testRegistryKafkasqlSCRAMKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,

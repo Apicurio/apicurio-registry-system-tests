@@ -338,7 +338,7 @@
         <profile>
             <id>bundle-auth</id>
             <properties>
-                <groups>bundle-auth</groups>
+                <groups>bundle-auth &amp; extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
