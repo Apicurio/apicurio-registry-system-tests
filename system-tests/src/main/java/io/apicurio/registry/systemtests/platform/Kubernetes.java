@@ -101,6 +101,11 @@ public final class Kubernetes {
                     .resource(r)
                     .inNamespace(namespace)
                     .createOrReplace();
+            try {
+                Thread.sleep(1_500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
