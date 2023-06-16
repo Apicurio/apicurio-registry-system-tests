@@ -96,10 +96,12 @@ public final class Kubernetes {
     }
 
     public static void createOrReplaceResources(String namespace, Collection<HasMetadata> resourcesList) {
-        getClient()
-                .resourceList(resourcesList)
-                .inNamespace(namespace)
-                .createOrReplace();
+        for (HasMetadata r : resourcesList) {
+            getClient()
+                    .resource(r)
+                    .inNamespace(namespace)
+                    .createOrReplace();
+        }
     }
 
     public static void deleteResources(String namespace, Collection<HasMetadata> resourcesList) {
