@@ -1,6 +1,7 @@
 package io.apicurio.registry.systemtests.platform;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
@@ -97,6 +98,7 @@ public final class Kubernetes {
 
     public static void createOrReplaceResources(String namespace, Collection<HasMetadata> resourcesList) {
         for (HasMetadata r : resourcesList) {
+            LoggerUtils.getLogger().info(r.getKind());
             getClient()
                     .resource(r)
                     .inNamespace(namespace)
