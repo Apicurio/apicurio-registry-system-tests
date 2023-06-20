@@ -338,21 +338,28 @@
         <profile>
             <id>bundle-auth</id>
             <properties>
-                <groups>bundle-auth</groups>
+                <groups>bundle-auth &amp; !extended</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>bundle-auth-extended</id>
+            <properties>
+                <groups>bundle-auth &amp; extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-clusterwide-auth</id>
             <properties>
-                <groups>olm-clusterwide-auth</groups>
+                <groups>olm-clusterwide-auth &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-namespace-auth</id>
             <properties>
-                <groups>olm-namespace-auth</groups>
+                <groups>olm-namespace-auth &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
@@ -434,21 +441,21 @@
         <profile>
             <id>bundle-auth-kafkasql</id>
             <properties>
-                <groups>bundle-auth &amp; kafkasql</groups>
+                <groups>bundle-auth &amp; kafkasql &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-clusterwide-auth-kafkasql</id>
             <properties>
-                <groups>olm-clusterwide-auth &amp; kafkasql</groups>
+                <groups>olm-clusterwide-auth &amp; kafkasql &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-namespace-auth-kafkasql</id>
             <properties>
-                <groups>olm-namespace-auth &amp; kafkasql</groups>
+                <groups>olm-namespace-auth &amp; kafkasql &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
@@ -506,21 +513,21 @@
         <profile>
             <id>bundle-auth-sql</id>
             <properties>
-                <groups>bundle-auth &amp; sql</groups>
+                <groups>bundle-auth &amp; sql &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-clusterwide-auth-sql</id>
             <properties>
-                <groups>olm-clusterwide-auth &amp; sql</groups>
+                <groups>olm-clusterwide-auth &amp; sql &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-namespace-auth-sql</id>
             <properties>
-                <groups>olm-namespace-auth &amp; sql</groups>
+                <groups>olm-namespace-auth &amp; sql &amp; !extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
