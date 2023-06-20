@@ -207,10 +207,29 @@ public abstract class AuthTests extends TestBase {
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @ParameterizedTest
+    @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
+    @Tag("sql")
+    public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaim(
+            String claim,
+            String claimValue,
+            String adminSuffix,
+            boolean isAdminAllowed
+    ) throws InterruptedException {
+        runRoleBasedAuthorizationAdminOverrideClaimTest(
+                PersistenceKind.SQL,
+                null,
+                claim,
+                claimValue,
+                adminSuffix,
+                isAdminAllowed
+        );
+    }
+    /* -------------------------------------------------------------------------------------------------------------- */
+    @ParameterizedTest
     @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
     @Tag("sql")
     @Tag("extended")
-    public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaim(
+    public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaimExtended(
             String claim,
             String claimValue,
             String adminSuffix,
