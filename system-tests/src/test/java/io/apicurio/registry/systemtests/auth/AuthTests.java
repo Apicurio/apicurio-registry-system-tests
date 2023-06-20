@@ -224,6 +224,26 @@ public abstract class AuthTests extends TestBase {
                 isAdminAllowed
         );
     }
+    /* -------------------------------------------------------------------------------------------------------------- */
+    @ParameterizedTest
+    @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
+    @Tag("sql")
+    @Tag("extended")
+    public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaimExtended(
+            String claim,
+            String claimValue,
+            String adminSuffix,
+            boolean isAdminAllowed
+    ) throws InterruptedException {
+        runRoleBasedAuthorizationAdminOverrideClaimTest(
+                PersistenceKind.SQL,
+                null,
+                claim,
+                claimValue,
+                adminSuffix,
+                isAdminAllowed
+        );
+    }
 
     /* TESTS - KafkaSQL */
 
