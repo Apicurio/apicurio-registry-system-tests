@@ -73,6 +73,8 @@ public abstract class APITests extends TestBase {
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateArtifact() throws InterruptedException {
         runCreateArtifactTest(PersistenceKind.SQL, null, true);
+
+        System.exit(1);
     }
 
     /* TESTS - KafkaSQL */
@@ -136,6 +138,8 @@ public abstract class APITests extends TestBase {
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateArtifact() throws InterruptedException {
         runCreateArtifactTest(PersistenceKind.KAFKA_SQL, KafkaKind.TLS, true);
+
+        System.exit(1);
     }
 
     @Test

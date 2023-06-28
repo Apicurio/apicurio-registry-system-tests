@@ -4,8 +4,8 @@ import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.Container;
 import io.fabric8.kubernetes.api.model.ContainerBuilder;
-import io.fabric8.kubernetes.api.model.EmptyDirVolumeSource;
 import io.fabric8.kubernetes.api.model.EnvVar;
+import io.fabric8.kubernetes.api.model.PersistentVolumeClaimVolumeSource;
 import io.fabric8.kubernetes.api.model.Volume;
 import io.fabric8.kubernetes.api.model.VolumeMount;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
@@ -77,7 +77,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
         envVars.add(new EnvVar("POSTGRES_DB", "postgresdb", null));
         envVars.add(new EnvVar("POSTGRES_USER", "postgresuser", null));
         envVars.add(new EnvVar("POSTGRES_PASSWORD", "postgrespassword", null));
-        envVars.add(new EnvVar("PGDATA", "/postgresql/data", null));
+        envVars.add(new EnvVar("PGDATA", "/var/lib/pgsql/data", null));
 
         return envVars;
     }
@@ -104,7 +104,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                     .endTcpSocket()
                 .endLivenessProbe()
                 .withVolumeMounts(new VolumeMount() {{
-                    setMountPath("/postgresql");
+                    setMountPath("/var/lib/pgsql");
                     setName(name);
                 }})
                 .build();
@@ -130,7 +130,9 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                             .withContainers(getDefaultPostgresqlContainer(name))
                             .withVolumes(new Volume() {{
                                 setName(name);
-                                setEmptyDir(new EmptyDirVolumeSource());
+                                setPersistentVolumeClaim(new PersistentVolumeClaimVolumeSource() {{
+                                    setClaimName(name);
+                                }});
                             }})
                             .withRestartPolicy("Always")
                         .endSpec()
