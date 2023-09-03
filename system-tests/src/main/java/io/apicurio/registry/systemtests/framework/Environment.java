@@ -32,7 +32,7 @@ public final class Environment {
     public static final String KAFKA_PACKAGE_DEFAULT = "strimzi-kafka-operator"; // Default from catalog
     public static final String POSTGRESQL_VERSION_DEFAULT = "15";
     public static final String REGISTRY_CHANNEL_DEFAULT = "2.x";
-    public static final String REGISTRY_CSV_DEFAULT = "service-registry-operator.v2.2.1";
+    public static final String REGISTRY_CSV_DEFAULT = "service-registry-operator.v2.2.2";
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
