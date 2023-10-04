@@ -585,7 +585,7 @@
         <profile>
             <id>interop</id>
             <properties>
-                <groups>interop</groups>
+                <groups>interop &amp; !bundle</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
