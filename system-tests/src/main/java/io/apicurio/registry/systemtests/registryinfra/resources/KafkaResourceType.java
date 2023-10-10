@@ -23,8 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KafkaResourceType implements ResourceType<Kafka> {
-    private static final int KAFKA_REPLICAS = 1;
-    private static final int ZOOKEEPER_REPLICAS = 1;
+    private static final int KAFKA_REPLICAS = 3;
+    private static final int ZOOKEEPER_REPLICAS = 3;
 
     @Override
     public Duration getTimeout() {
