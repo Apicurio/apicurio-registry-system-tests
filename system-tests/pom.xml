@@ -590,6 +590,16 @@
             </properties>
         </profile>
 
+        <!-- Smoke tests -->
+
+        <profile>
+            <id>smoke</id>
+            <properties>
+                <groups>smoke</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
         <!-- Upgrade tests -->
 
         <profile>
