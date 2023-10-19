@@ -600,6 +600,22 @@
             </properties>
         </profile>
 
+        <profile>
+            <id>smoke-bundle</id>
+            <properties>
+                <groups>smoke &amp; bundle</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>smoke-olm</id>
+            <properties>
+                <groups>smoke &amp; olm</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
         <!-- Upgrade tests -->
 
         <profile>
