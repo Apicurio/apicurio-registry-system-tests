@@ -4760,9 +4760,9 @@ spec:
         - name: REGISTRY_VERSION
           value: 2.4.4.SP1-redhat-00001
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.4.4-6
+          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.4.4-6.1698057668
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.4.4-6
+          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.4.4-6.1698057666
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
