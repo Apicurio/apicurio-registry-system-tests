@@ -222,9 +222,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         // Get namespace of current's subscription catalog
         String catalogNamespace = getSubscription().getSpec().getSourceNamespace();
 
-        LOGGER.info(
-                "CSV before upgrade: {}", Kubernetes.getSubscription(subNamespace, subName).getStatus().getCurrentCSV()
-        );
+        LOGGER.info("CSV before upgrade: {}", Kubernetes.getSubscriptionCurrentCSV(subNamespace, subName));
 
         // Update operator source (set it to image with catalog)
         setSource(Environment.CATALOG_IMAGE);
@@ -234,13 +232,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
 
         // Get new subscription to use newly created catalog source
         Subscription subscriptionForUpgrade = SubscriptionResourceType.getDefault(
-                getSubscription().getMetadata().getName(),
-                getSubscription().getMetadata().getNamespace(),
-                getSubscription().getSpec().getName(),
-                catalogSource.getMetadata().getName(),
-                getSubscription().getSpec().getSourceNamespace(),
-                getSubscription().getSpec().getStartingCSV(),
-                Environment.REGISTRY_CHANNEL
+                getSubscription(), catalogSource, Environment.REGISTRY_CHANNEL
         );
 
         // Replace subscription of operator

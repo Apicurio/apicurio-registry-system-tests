@@ -1,6 +1,7 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
 import io.apicurio.registry.systemtests.platform.Kubernetes;
+import io.fabric8.openshift.api.model.operatorhub.v1alpha1.CatalogSource;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.Subscription;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.SubscriptionBuilder;
 
@@ -96,5 +97,21 @@ public class SubscriptionResourceType implements ResourceType<Subscription> {
                     .withInstallPlanApproval("Automatic")
                 .endSpec()
                 .build();
+    }
+
+    public static Subscription getDefault(
+            Subscription subscription,
+            CatalogSource catalogSource,
+            String channel
+    ) {
+        return getDefault(
+                subscription.getMetadata().getName(),
+                subscription.getMetadata().getNamespace(),
+                subscription.getSpec().getName(),
+                catalogSource.getMetadata().getName(),
+                subscription.getSpec().getSourceNamespace(),
+                subscription.getSpec().getStartingCSV(),
+                channel
+        );
     }
 }

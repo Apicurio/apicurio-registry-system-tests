@@ -352,6 +352,10 @@ public final class Kubernetes {
                 .get();
     }
 
+    public static String getSubscriptionCurrentCSV(String namespace, String name) {
+        return getSubscription(namespace, name).getStatus().getCurrentCSV();
+    }
+
     public static void deleteSubscription(String namespace, String name) {
         ((OpenShiftClient) getClient())
                 .operatorHub()

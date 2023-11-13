@@ -52,7 +52,8 @@ public final class Environment {
 
     public static final String KAFKA_DEPLOYMENT = getOrDefault(KAFKA_DEPLOYMENT_ENV_VAR, KAFKA_DEPLOYMENT_DEFAULT);
     public static final String KAFKA_PACKAGE = getOrDefault(KAFKA_PACKAGE_ENV_VAR, KAFKA_PACKAGE_DEFAULT);
-    public static final String POSTGRESQL_VERSION = getOrDefault(POSTGRESQL_VERSION_ENV_VAR, POSTGRESQL_VERSION_DEFAULT);
+    public static final String POSTGRESQL_VERSION
+            = getOrDefault(POSTGRESQL_VERSION_ENV_VAR, POSTGRESQL_VERSION_DEFAULT);
     public static final String REGISTRY_BUNDLE = getOrDefault(REGISTRY_BUNDLE_ENV_VAR, REGISTRY_BUNDLE_DEFAULT);
     public static final String REGISTRY_CHANNEL = getOrDefault(REGISTRY_CHANNEL_ENV_VAR, REGISTRY_CHANNEL_DEFAULT);
     public static final String REGISTRY_CSV = getOrDefault(REGISTRY_CSV_ENV_VAR, REGISTRY_CSV_DEFAULT);
