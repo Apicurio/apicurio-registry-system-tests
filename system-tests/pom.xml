@@ -2,15 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>apicurio-registry</artifactId>
-        <groupId>io.apicurio</groupId>
-        <version>3.0.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>io.apicurio</groupId>
     <artifactId>apicurio-registry-system-tests</artifactId>
     <name>apicurio-registry-system-tests</name>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,10 +15,10 @@
         <version.junit.jupiter>5.10.1</version.junit.jupiter>
         <version.junit.platform>1.10.1</version.junit.platform>
         <version.fabric8>6.9.2</version.fabric8>
-        <version.fabric8-java-gen>6.9.2</version.fabric8-java-gen>
-        <sundrio.version>0.95.0</sundrio.version>
-        <lombok.version>1.18.30</lombok.version>
-        <operator.version>1.0.0-v2.0.0.final</operator.version>
+        <version.jackson>2.15.3</version.jackson>
+        <version.sundrio>0.101.3</version.sundrio>
+        <version.lombok>1.18.30</version.lombok>
+        <version.operator>1.0.0-v2.0.0.final</version.operator>
         <version.hamcrest>2.2</version.hamcrest>
         <version.slf4j>2.0.9</version.slf4j>
         <version.strimzi.api>0.38.0</version.strimzi.api>
@@ -30,42 +27,58 @@
         <version.apache.commons>3.13.0</version.apache.commons>
         <version.apache.httpcomponents>5.2.3</version.apache.httpcomponents>
         <version.apache.maven.artifact>3.9.5</version.apache.maven.artifact>
+        <version.surefire>3.2.2</version.surefire>
+        <version.failsafe>3.2.2</version.failsafe>
+        <version.checkstyle>3.3.1</version.checkstyle>
+        <version.download>1.7.1</version.download>
+        <version.jar>3.3.0</version.jar>
+        <version.javax>2.0.1.Final</version.javax>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
+            <version>${version.junit.jupiter}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>openshift-client</artifactId>
+            <version>${version.fabric8}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-client</artifactId>
+            <version>${version.fabric8}</version>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-model-core</artifactId>
+            <version>${version.fabric8}</version>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-model-networking</artifactId>
+            <version>${version.fabric8}</version>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-model-common</artifactId>
+            <version>${version.fabric8}</version>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-model-apiextensions</artifactId>
+            <version>${version.fabric8}</version>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>generator-annotations</artifactId>
+            <version>${version.fabric8}</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -86,6 +99,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <version>${version.junit.jupiter}</version>
         </dependency>
         <dependency>
             <groupId>io.strimzi</groupId>
@@ -115,18 +129,22 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -136,19 +154,19 @@
         <dependency>
             <groupId>io.sundr</groupId>
             <artifactId>builder-annotations</artifactId>
-            <version>${sundrio.version}</version>
+            <version>${version.sundrio}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            <version>${version.lombok}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${version.javax}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -163,11 +181,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.2.2</version>
+                    <version>${version.failsafe}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${version.surefire}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -178,6 +197,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${version.jar}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -211,7 +231,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${version.checkstyle}</version>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
@@ -232,20 +252,20 @@
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
-                <version>1.7.1</version>
+                <version>${version.download}</version>
                 <executions>
                     <execution>
-                    <!-- Needs to run before java-generator-maven-plugin -->
-                    <phase>generate-sources</phase>
-                    <goals>
-                        <goal>wget</goal>
-                    </goals>
-                    <configuration>
-                        <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/${operator.version}/packagemanifests/${operator.version}/registry.apicur.io_apicurioregistries.yaml</url>
-                        <outputFileName>registry.apicur.io_apicurioregistries.yaml</outputFileName>
-                        <outputDirectory>${project.build.directory}</outputDirectory>
-                        <skipCache>true</skipCache>
-                    </configuration>
+                        <!-- Needs to run before java-generator-maven-plugin -->
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/${version.operator}/packagemanifests/${version.operator}/registry.apicur.io_apicurioregistries.yaml</url>
+                            <outputFileName>registry.apicur.io_apicurioregistries.yaml</outputFileName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <skipCache>true</skipCache>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -254,16 +274,16 @@
                 <artifactId>java-generator-maven-plugin</artifactId>
                 <version>${version.fabric8}</version>
                 <executions>
-                  <execution>
-                    <phase>generate-sources</phase>
-                    <goals>
-                      <goal>generate</goal>
-                    </goals>
-                  </execution>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
                 </executions>
                 <configuration>
-                  <source>${project.build.directory}/registry.apicur.io_apicurioregistries.yaml</source>
-                  <extraAnnotations>true</extraAnnotations>
+                    <source>${project.build.directory}/registry.apicur.io_apicurioregistries.yaml</source>
+                    <extraAnnotations>true</extraAnnotations>
                 </configuration>
             </plugin>
         </plugins>
