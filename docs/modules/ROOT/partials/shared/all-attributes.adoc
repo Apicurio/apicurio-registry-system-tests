@@ -1,2 +1,0 @@
-include::attributes.adoc[]
-include::attributes-links.adoc[]

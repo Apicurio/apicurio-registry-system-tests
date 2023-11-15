@@ -1,6 +1,0 @@
-{
-  "namespace": "com.kubetrade.schema.trade",
-  "type": "enum",
-  "name": "AvroSchemaA",
-  "symbols" : ["GEMINI"]
-}
