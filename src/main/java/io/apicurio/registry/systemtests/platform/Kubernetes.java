@@ -63,7 +63,7 @@ public final class Kubernetes {
 
     public static List<HasMetadata> loadFromFile(Path path) {
         try {
-            return getClient().load(new FileInputStream(path.toString())).get();
+            return getClient().load(new FileInputStream(path.toString())).items();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
