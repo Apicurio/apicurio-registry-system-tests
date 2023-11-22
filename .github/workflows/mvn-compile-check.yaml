@@ -1,0 +1,13 @@
+name: mvn-compile-check
+run-name: Maven compile check
+on: [push]
+jobs:
+  mvn-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - run: mvn compile
