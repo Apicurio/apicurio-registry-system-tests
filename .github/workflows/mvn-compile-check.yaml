@@ -1,0 +1,9 @@
+name: mvn-compile-check
+run-name: Maven compile check
+on: [push]
+jobs:
+  mvn-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: mvn compile

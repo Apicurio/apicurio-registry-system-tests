@@ -1,0 +1,9 @@
+name: mvn-validate-check
+run-name: Maven validate check
+on: [push]
+jobs:
+  mvn-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: mvn validate
