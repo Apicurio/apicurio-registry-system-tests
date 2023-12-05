@@ -4747,9 +4747,9 @@ spec:
         name: apicurio-registry-operator
         rht.comp: Service_Registry
         rht.comp_t: infrastructure
-        rht.comp_ver: "2.4"
+        rht.comp_ver: "2.5"
         rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: "2.4"
+        rht.prod_ver: "2.5"
     spec:
       containers:
       - args:
@@ -4758,11 +4758,11 @@ spec:
         - /manager
         env:
         - name: REGISTRY_VERSION
-          value: 2.4.4.SP1-redhat-00001
+          value: 2.5.4.Final-redhat-00001
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.4.4-6.1698057668
+          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.5.4-1
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.4.4-6.1698057666
+          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.5.4-1
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
@@ -4777,7 +4777,7 @@ spec:
               fieldPath: metadata.namespace
         - name: OPERATOR_NAME
           value: apicurio-registry-operator
-        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.2.2-2
+        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.2.2-7
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
