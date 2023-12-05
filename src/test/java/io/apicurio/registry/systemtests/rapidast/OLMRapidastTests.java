@@ -15,7 +15,7 @@ public abstract class OLMRapidastTests extends RapidastTests {
     public void testBeforeEach(ExtensionContext testContext) throws InterruptedException {
         LOGGER.info("BeforeEach: " + testContext.getTestMethod().get().getName());
 
-        ApicurioRegistryOLMOperatorType registryOLMOperator = new ApicurioRegistryOLMOperatorType(clusterWide);
+        ApicurioRegistryOLMOperatorType registryOLMOperator = new ApicurioRegistryOLMOperatorType(null, clusterWide);
 
         operatorManager.installOperator(registryOLMOperator);
     }
