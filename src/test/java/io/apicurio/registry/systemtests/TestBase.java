@@ -52,7 +52,7 @@ public abstract class TestBase {
         LOGGER.info("Deploying shared keycloak operator and instance!");
         LoggerUtils.logDelimiter("#");
 
-        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType();
+        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType("alpha");
         operatorManager.installOperatorShared(keycloakOLMOperator);
         KeycloakUtils.deployKeycloak();
         Thread.sleep(Duration.ofMinutes(2).toMillis());
