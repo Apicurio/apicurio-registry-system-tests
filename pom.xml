@@ -15,7 +15,7 @@
         <version.junit.jupiter>5.10.2</version.junit.jupiter>
         <version.junit.platform>1.10.1</version.junit.platform>
         <version.fabric8>6.10.0</version.fabric8>
-        <version.jackson>2.16.1</version.jackson>
+        <version.jackson>2.16.2</version.jackson>
         <version.sundrio>0.103.1</version.sundrio>
         <version.lombok>1.18.30</version.lombok>
         <version.operator>1.0.0-v2.0.0.final</version.operator>
