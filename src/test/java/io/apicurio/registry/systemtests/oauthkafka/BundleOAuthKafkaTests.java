@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 @Tag("bundle")
+@Tag("bundle-auth")
 @Tag("bundle-oauthkafka")
 public class BundleOAuthKafkaTests extends OAuthKafkaTests {
     @Override
