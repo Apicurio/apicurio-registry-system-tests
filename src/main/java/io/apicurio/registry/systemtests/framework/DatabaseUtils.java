@@ -30,4 +30,16 @@ public class DatabaseUtils {
             e.printStackTrace();
         }
     }
+
+    public static void deployPostgresqlDatabase(String name, String namespace, String databaseName) {
+        Deployment deployment = DeploymentResourceType.getDefaultPostgresql(name, namespace, databaseName);
+        Service service = ServiceResourceType.getDefaultPostgresql(name, namespace);
+
+        try {
+            ResourceManager.getInstance().createResource(true, deployment);
+            ResourceManager.getInstance().createResource(false, service);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

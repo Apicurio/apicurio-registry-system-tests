@@ -242,6 +242,18 @@ public final class Kubernetes {
                 .orElse(null);
     }
 
+    public static Route getRouteByPrefix(String namespace, String prefix) {
+        return ((OpenShiftClient) Kubernetes.getClient())
+                .routes()
+                .inNamespace(namespace)
+                .list()
+                .getItems()
+                .stream()
+                .filter(r -> r.getMetadata().getName().startsWith(prefix))
+                .findFirst()
+                .orElse(null);
+    }
+
     public static void createRoute(String namespace, Route route) {
         ((OpenShiftClient) getClient())
                 .routes()

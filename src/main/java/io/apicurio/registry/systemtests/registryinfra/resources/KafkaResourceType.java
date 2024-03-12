@@ -2,13 +2,17 @@ package io.apicurio.registry.systemtests.registryinfra.resources;
 
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
+import io.apicurio.registry.systemtests.framework.KeycloakUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
+import io.strimzi.api.kafka.model.CertSecretSource;
 import io.strimzi.api.kafka.model.EntityOperatorSpec;
 import io.strimzi.api.kafka.model.EntityOperatorSpecBuilder;
 import io.strimzi.api.kafka.model.Kafka;
+import io.strimzi.api.kafka.model.KafkaAuthorizationKeycloak;
+import io.strimzi.api.kafka.model.KafkaAuthorizationKeycloakBuilder;
 import io.strimzi.api.kafka.model.KafkaBuilder;
 import io.strimzi.api.kafka.model.listener.KafkaListenerAuthenticationScramSha512;
 import io.strimzi.api.kafka.model.listener.KafkaListenerAuthenticationTls;
@@ -17,6 +21,8 @@ import io.strimzi.api.kafka.model.listener.arraylistener.GenericKafkaListenerBui
 import io.strimzi.api.kafka.model.listener.arraylistener.KafkaListenerType;
 import io.strimzi.api.kafka.model.storage.EphemeralStorage;
 import io.strimzi.api.kafka.model.storage.EphemeralStorageBuilder;
+import io.strimzi.api.kafka.model.storage.PersistentClaimStorage;
+import io.strimzi.api.kafka.model.storage.PersistentClaimStorageBuilder;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -238,5 +244,97 @@ public class KafkaResourceType implements ResourceType<Kafka> {
         } else {
             throw new IllegalStateException("Unexpected value: " + kind);
         }
+    }
+
+    public static CertSecretSource getDefaultOAuthKafkaTlsTrustedCertificates() {
+        return new CertSecretSource() {{
+            setCertificate("tls.crt");
+            setSecretName(Constants.OAUTH_KAFKA_ROUTER_CERTS);
+        }};
+    }
+
+    public static HashMap<String, Object> getDefaultOAuthKafkaConfig() {
+        return new HashMap<>() {{
+            put("allow.everyone.if.no.acl.found", true);
+            put("default.replication.factor", 3);
+            put("inter.broker.protocol.version", "3.5");
+            put("min.insync.replicas", 2);
+            put("offsets.topic.replication.factor", 3);
+            put("transaction.state.log.min.isr", 2);
+            put("transaction.state.log.replication.factor", 3);
+        }};
+    }
+
+    public static GenericKafkaListener getDefaultOAuthKafkaSecureListener() {
+        return new GenericKafkaListenerBuilder()
+                .withName("secure")
+                .withPort(9092)
+                .withTls(true)
+                .withType(KafkaListenerType.ROUTE)
+                .build();
+    }
+
+    public static GenericKafkaListener getDefaultOAuthKafkaOAuthListener() {
+        return new GenericKafkaListenerBuilder()
+                .withName("oauth")
+                .withPort(9093)
+                .withTls(true)
+                .withType(KafkaListenerType.ROUTE)
+                .withNewKafkaListenerAuthenticationOAuth()
+                    .withUserNameClaim("preferred_username")
+                    .withTlsTrustedCertificates(getDefaultOAuthKafkaTlsTrustedCertificates())
+                    .withValidIssuerUri(KeycloakUtils.getDefaultOAuthKafkaValidIssuerUri())
+                    .withJwksEndpointUri(KeycloakUtils.getDefaultOAuthKafkaJwksEndpointUri())
+                .endKafkaListenerAuthenticationOAuth()
+                .build();
+    }
+
+    public static KafkaAuthorizationKeycloak getDefaultOAuthKafkaAuthorization() {
+        return new KafkaAuthorizationKeycloakBuilder()
+                .withClientId("kafka")
+                .withDelegateToKafkaAcls(false)
+                .withTokenEndpointUri(KeycloakUtils.getDefaultOAuthKafkaTokenEndpointUri())
+                .withSuperUsers("service-account-kafka")
+                .withTlsTrustedCertificates(getDefaultOAuthKafkaTlsTrustedCertificates())
+                .build();
+    }
+
+    public static PersistentClaimStorage getDefaultOAuthKafkaPersistentClaimStorage() {
+        return new PersistentClaimStorageBuilder()
+                .withId(0)
+                .withSize("10Gi")
+                .withDeleteClaim(false)
+                .build();
+    }
+
+    public static Kafka getDefaultOAuth() {
+        return new KafkaBuilder()
+                .withNewMetadata()
+                    .withName(Constants.OAUTH_KAFKA_NAME)
+                    .withNamespace(Environment.NAMESPACE)
+                .endMetadata()
+                .withNewSpec()
+                    .withEntityOperator(getDefaultEntityOperator())
+                    .withNewZookeeper()
+                        .withReplicas(3)
+                        .withNewPersistentClaimStorage()
+                            .withDeleteClaim(false)
+                            .withSize("10Gi")
+                        .endPersistentClaimStorage()
+                    .endZookeeper()
+                    .withNewKafka()
+                        .withReplicas(3)
+                        .withAuthorization(getDefaultOAuthKafkaAuthorization())
+                        .withNewJbodStorage()
+                            .withVolumes(getDefaultOAuthKafkaPersistentClaimStorage())
+                        .endJbodStorage()
+                        .withVersion("3.5.0")
+                        .withConfig(getDefaultOAuthKafkaConfig())
+                        .withListeners(
+                                getDefaultOAuthKafkaSecureListener(), getDefaultOAuthKafkaOAuthListener()
+                        )
+                    .endKafka()
+                .endSpec()
+                .build();
     }
 }

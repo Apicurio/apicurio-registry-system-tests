@@ -2,7 +2,14 @@ package io.apicurio.registry.systemtests.registryinfra.resources;
 
 import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicur.registry.v1.ApicurioRegistryBuilder;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.env.ValueFrom;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.env.valuefrom.SecretKeyRef;
 import io.apicur.registry.v1.apicurioregistryspec.configuration.kafkasql.SecurityBuilder;
+import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.Containers;
+import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.Volumes;
+import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.containers.VolumeMounts;
+import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.volumes.Secret;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
@@ -11,9 +18,15 @@ import io.fabric8.kubernetes.api.model.KubernetesResourceList;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
 
+import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.ArrayList;
 
 public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegistry> {
+    private static String getApicurioRegistryFilePath(String filename) {
+        return Paths.get(Environment.TESTSUITE_PATH, "kubefiles", "apicurio", filename).toString();
+    }
+
     @Override
     public Duration getTimeout() {
         return Duration.ofMinutes(10);
@@ -171,6 +184,139 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
 
     public static ApicurioRegistry getDefaultKafkasql(String name) {
         return getDefaultKafkasql(name, Environment.NAMESPACE);
+    }
+
+    private static ArrayList<Env> getDefaultOAuthKafkaEnv1() {
+        return new ArrayList<>() {{
+            add(new Env() {{
+                setName("JAVA_TOOL_OPTIONS");
+                setValue("-Djavax.net.ssl.trustStore=/mytruststore/myTrustStore " +
+                        "-Djavax.net.ssl.trustStorePassword=password"); }});
+            add(new Env() {{
+                setName("QUARKUS_LOG_LEVEL"); setValue("INFO"); }});
+            add(new Env() {{
+                setName("ENABLE_KAFKA_SASL"); setValue("true"); }});
+            add(new Env() {{
+                setName("CLIENT_ID");
+                setValueFrom(new ValueFrom() {{
+                    setSecretKeyRef(new SecretKeyRef() {{
+                        setName("console-ui-secrets"); setKey("REGISTRY_CLIENT_ID");
+                    }});
+                }});
+            }});
+            add(new Env() {{
+                setName("CLIENT_SECRET");
+                setValueFrom(new ValueFrom() {{
+                    setSecretKeyRef(new SecretKeyRef() {{
+                        setName("console-ui-secrets"); setKey("REGISTRY_CLIENT_SECRET");
+                    }});
+                }});
+            }});
+        }};
+    }
+
+    private static ArrayList<Env> getDefaultOAuthKafkaEnv2() {
+        return new ArrayList<>() {{
+            add(new Env() {{
+                setName("KAFKA_SECURITY_PROTOCOL");
+                setValue("SASL_SSL");
+            }});
+            add(new Env() {{
+                setName("KAFKA_SSL_TRUSTSTORE_TYPE");
+                setValue("PKCS12");
+            }});
+            add(new Env() {{
+                setName("KAFKA_SSL_TRUSTSTORE_LOCATION");
+                setValue("/tmp/cluster-ca-cert/ca.p12");
+            }});
+            add(new Env() {{
+                setName("KAFKA_SSL_TRUSTSTORE_PASSWORD");
+                setValueFrom(new ValueFrom() {{
+                    setSecretKeyRef(new SecretKeyRef() {{
+                        setName("kafka1-cluster-ca-cert");
+                        setKey("ca.password");
+                    }});
+                }});
+            }});
+            add(new Env() {{
+                setName("OAUTH_TOKEN_ENDPOINT_URI");
+                setValue(KeycloakUtils.getDefaultOAuthKafkaTokenEndpointUri());
+            }});
+        }};
+    }
+
+    private static ArrayList<Env> getDefaultOAuthKafkaEnv() {
+        ArrayList<Env> fullList = getDefaultOAuthKafkaEnv1();
+
+        fullList.addAll(getDefaultOAuthKafkaEnv2());
+
+        return fullList;
+    }
+
+    private static Containers getDefaultOAuthKafkaContainers() {
+        return new Containers() {{
+            setName("registry");
+            setVolumeMounts(new ArrayList<>() {{
+                add(new VolumeMounts() {{
+                    setName("cluster-ca-cert");
+                    setMountPath("/tmp/cluster-ca-cert");
+                }});
+                add(new VolumeMounts() {{
+                    setName("mytruststore");
+                    setMountPath("/mytruststore");
+                }});
+            }});
+        }};
+    }
+
+    private static ArrayList<Volumes> getDefaultOAuthKafkaVolumes() {
+        return new ArrayList<>() {{
+            add(new Volumes() {{
+                setName("cluster-ca-cert");
+                setSecret(new Secret() {{
+                    setSecretName("kafka1-cluster-ca-cert");
+                }});
+            }});
+            add(new Volumes() {{
+                setName("mytruststore");
+                setSecret(new Secret() {{
+                    setSecretName(Constants.OAUTH_KAFKA_TRUSTSTORE_SECRET_NAME);
+                    setDefaultMode(420);
+                }});
+            }});
+        }};
+    }
+
+    public static ApicurioRegistry getDefaultOAuthKafka(String name, String namespace) {
+        return new ApicurioRegistryBuilder()
+                .withNewMetadata()
+                    .withName(name)
+                    .withNamespace(namespace)
+                .endMetadata()
+                .withNewSpec()
+                    .withNewConfiguration()
+                        .withEnv(getDefaultOAuthKafkaEnv())
+                        .withPersistence("kafkasql")
+                        .withNewKafkasql()
+                            .withBootstrapServers(
+                                    // TODO: Use "public" URL with 443 port
+                                    Kubernetes.getRouteHost(
+                                            Environment.NAMESPACE,
+                                            Constants.OAUTH_KAFKA_NAME + "-kafka-oauth-bootstrap"
+                                    ) + ":443"
+                            )
+                        .endKafkasql()
+                    .endConfiguration()
+                    .withNewDeployment()
+                        .withNewPodTemplateSpecPreview()
+                            .withNewSpec()
+                                .withContainers(getDefaultOAuthKafkaContainers())
+                                .withVolumes(getDefaultOAuthKafkaVolumes())
+                            .endSpec()
+                        .endPodTemplateSpecPreview()
+                    .endDeployment()
+                .endSpec()
+                .build();
     }
 
     public static ApicurioRegistry getDefaultMem() {

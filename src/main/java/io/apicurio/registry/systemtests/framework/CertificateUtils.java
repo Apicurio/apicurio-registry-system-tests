@@ -118,6 +118,30 @@ public class CertificateUtils {
         createSecret(namespace, truststoreSecretName, secretData);
     }
 
+    public static void createOAuthTruststore(
+            String namespace,
+            String caCertSecretName,
+            String truststoreSecretName
+    ) throws InterruptedException {
+        LOGGER.info("Preparing OAuth truststore...");
+
+        String timestamp = String.valueOf(Instant.now().getEpochSecond());
+        String caCertSecretValue = decodeBase64Secret(namespace, caCertSecretName, "tls.crt");
+        Path caPath = Environment.getTmpPath("tls-" + timestamp + ".crt");
+
+        writeToFile(caCertSecretValue, caPath);
+
+        Path truststorePath = Environment.getTmpPath("truststore-" + timestamp + ".p12");
+
+        runTruststoreCmd(truststorePath, "password", caPath);
+
+        Map<String, String> secretData = new HashMap<>() {{
+            put("myTrustStore", Base64Utils.encode(truststorePath));
+        }};
+
+        createSecret(namespace, truststoreSecretName, secretData);
+    }
+
     public static void createKeystore(
             String namespace,
             String clientCertSecretName,

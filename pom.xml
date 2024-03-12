@@ -18,7 +18,7 @@
         <version.jackson>2.16.2</version.jackson>
         <version.sundrio>0.103.1</version.sundrio>
         <version.lombok>1.18.30</version.lombok>
-        <version.operator>1.0.0-v2.0.0.final</version.operator>
+        <version.operator>1.1.0-v2.4.12.final</version.operator>
         <version.hamcrest>2.2</version.hamcrest>
         <version.slf4j>2.0.12</version.slf4j>
         <version.strimzi.api>0.39.0</version.strimzi.api>
@@ -261,7 +261,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/${version.operator}/packagemanifests/${version.operator}/registry.apicur.io_apicurioregistries.yaml</url>
+                            <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/v${version.operator}/bundle/${version.operator}/manifests/registry.apicur.io_apicurioregistries.yaml</url>
                             <outputFileName>registry.apicur.io_apicurioregistries.yaml</outputFileName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <skipCache>true</skipCache>

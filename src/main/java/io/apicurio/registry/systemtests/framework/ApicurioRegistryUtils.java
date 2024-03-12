@@ -230,4 +230,23 @@ public class ApicurioRegistryUtils {
 
         return registryResourceType.isReady(apicurioRegistry);
     }
+
+    public static ApicurioRegistry deployDefaultApicurioRegistryOAuthKafka() throws InterruptedException {
+        // Get Apicurio Registry
+        ApicurioRegistry apicurioRegistryOAuthKafka = ApicurioRegistryResourceType.getDefaultOAuthKafka(
+                Constants.REGISTRY,
+                Environment.NAMESPACE
+        );
+
+        CertificateUtils.createOAuthTruststore(
+                Environment.NAMESPACE,
+                Constants.OAUTH_KAFKA_ROUTER_CERTS,
+                Constants.OAUTH_KAFKA_TRUSTSTORE_SECRET_NAME
+        );
+
+        // Create Apicurio Registry
+        ResourceManager.getInstance().createResource(true, apicurioRegistryOAuthKafka);
+
+        return apicurioRegistryOAuthKafka;
+    }
 }

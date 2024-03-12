@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.Container;
@@ -70,21 +71,53 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
 
     /** Get default instances **/
 
-    private static List<EnvVar> getDefaultPostgresqlEnvVars() {
+    private static List<EnvVar> getDefaultPostgresqlEnvVars(String databaseName) {
         List<EnvVar> envVars = new ArrayList<>();
 
         envVars.add(new EnvVar("POSTGRES_ADMIN_PASSWORD", "adminpassword", null));
-        envVars.add(new EnvVar("POSTGRES_DB", "postgresdb", null));
-        envVars.add(new EnvVar("POSTGRES_USER", "postgresuser", null));
-        envVars.add(new EnvVar("POSTGRES_PASSWORD", "postgrespassword", null));
+        envVars.add(new EnvVar("POSTGRES_DB", databaseName, null));
+        envVars.add(new EnvVar("POSTGRES_USER", Constants.DB_USERNAME, null));
+        envVars.add(new EnvVar("POSTGRES_PASSWORD", Constants.DB_PASSWORD, null));
         envVars.add(new EnvVar("PGDATA", "/postgresql/data", null));
 
         return envVars;
     }
 
+    private static List<EnvVar> getDefaultPostgresqlEnvVars() {
+        return getDefaultPostgresqlEnvVars("postgresdb");
+    }
+
     private static Container getDefaultPostgresqlContainer(String name) {
         return new ContainerBuilder()
                 .withEnv(getDefaultPostgresqlEnvVars())
+                .withImage("postgres:" + Environment.POSTGRESQL_VERSION)
+                .withImagePullPolicy("IfNotPresent")
+                .withName(name)
+                .addNewPort()
+                    .withContainerPort(5432)
+                    .withName("postgresql")
+                    .withProtocol("TCP")
+                .endPort()
+                .withNewReadinessProbe()
+                    .withNewTcpSocket()
+                        .withNewPort(5432)
+                    .endTcpSocket()
+                .endReadinessProbe()
+                .withNewLivenessProbe()
+                    .withNewTcpSocket()
+                        .withNewPort(5432)
+                    .endTcpSocket()
+                .endLivenessProbe()
+                .withVolumeMounts(new VolumeMount() {{
+                    setMountPath("/postgresql");
+                    setName(name);
+                }})
+                .build();
+    }
+
+    private static Container getDefaultPostgresqlContainer(String name, String databaseName) {
+        return new ContainerBuilder()
+                .withEnv(getDefaultPostgresqlEnvVars(databaseName))
                 .withImage("postgres:" + Environment.POSTGRESQL_VERSION)
                 .withImagePullPolicy("IfNotPresent")
                 .withName(name)
@@ -128,6 +161,35 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                         .endMetadata()
                         .withNewSpec()
                             .withContainers(getDefaultPostgresqlContainer(name))
+                            .withVolumes(new Volume() {{
+                                setName(name);
+                                setEmptyDir(new EmptyDirVolumeSource());
+                            }})
+                            .withRestartPolicy("Always")
+                        .endSpec()
+                    .endTemplate()
+                .endSpec()
+                .build();
+    }
+
+    public static Deployment getDefaultPostgresql(String name, String namespace, String databaseName) {
+        return new DeploymentBuilder()
+                .withNewMetadata()
+                    .addToLabels("app", name)
+                    .withName(name)
+                    .withNamespace(namespace)
+                .endMetadata()
+                .withNewSpec()
+                    .withReplicas(1)
+                    .withNewSelector()
+                        .addToMatchLabels("app", name)
+                    .endSelector()
+                    .withNewTemplate()
+                        .withNewMetadata()
+                            .addToLabels("app", name)
+                        .endMetadata()
+                        .withNewSpec()
+                            .withContainers(getDefaultPostgresqlContainer(name, databaseName))
                             .withVolumes(new Volume() {{
                                 setName(name);
                                 setEmptyDir(new EmptyDirVolumeSource());

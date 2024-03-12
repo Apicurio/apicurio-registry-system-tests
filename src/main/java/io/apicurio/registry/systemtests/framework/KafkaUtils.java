@@ -85,4 +85,12 @@ public class KafkaUtils {
     public static Kafka deployDefaultKafkaScram() throws InterruptedException {
         return deployDefaultKafkaByKind(KafkaKind.SCRAM);
     }
+
+    public static Kafka deployDefaultOAuthKafka() throws InterruptedException {
+        Kafka kafka = KafkaResourceType.getDefaultOAuth();
+
+        ResourceManager.getInstance().createResource(true, kafka);
+
+        return kafka;
+    }
 }

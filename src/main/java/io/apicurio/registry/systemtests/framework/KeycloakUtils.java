@@ -10,6 +10,7 @@ import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.RouteResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.ServiceResourceType;
 import io.fabric8.kubernetes.api.model.Secret;
+import io.fabric8.openshift.api.model.Route;
 import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -37,6 +38,10 @@ public class KeycloakUtils {
 
     public static void deployKeycloak() throws InterruptedException, IOException {
         deployKeycloak(Environment.NAMESPACE);
+    }
+
+    public static void deployOAuthKafkaKeycloak() throws IOException, InterruptedException {
+        deployOAuthKafkaKeycloak(Environment.NAMESPACE);
     }
 
     private static void deployKeycloakPostgres(String namespace) throws URISyntaxException {
@@ -104,6 +109,38 @@ public class KeycloakUtils {
         LOGGER.info("Keycloak should be deployed.");
     }
 
+    public static void deployOAuthKafkaKeycloak(String namespace) throws InterruptedException, IOException {
+        LOGGER.info("Deploying OAuth Kafka Keycloak...");
+        ResourceManager manager = ResourceManager.getInstance();
+        // Deploy Keycloak server
+        Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak_oauth_kafka.yaml"));
+
+        // Wait for Keycloak server to be ready
+        Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, "registry-sso"));
+
+        // Create Keycloak HTTP Service and wait for its readiness
+        // manager.createSharedResource( true, ServiceResourceType.getDefaultKeycloakHttp(namespace));
+
+        // Create Keycloak Route and wait for its readiness
+        // manager.createSharedResource( true, RouteResourceType.getDefaultOAuthKafkaKeycloak(namespace));
+
+        // Log Keycloak URL
+        // LOGGER.info("Keycloak URL: {}", getDefaultKeycloakURL(namespace));
+
+        // TODO: Wait for Keycloak Realm readiness, but API model not available
+        // Create Keycloak Realm
+        Exec.executeAndCheck(
+                "oc",
+                "apply",
+                "-n", namespace,
+                "-f", getKeycloakFilePath("keycloak_oauth_kafka-realm.yaml")
+        );
+
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
+
+        LOGGER.info("Keycloak should be deployed.");
+    }
+
     public static void removeKeycloakRealm(String namespace) {
         LOGGER.info("Removing keycloak realm");
 
@@ -112,6 +149,17 @@ public class KeycloakUtils {
                 "delete",
                 "-n", namespace,
                 "-f", getKeycloakFilePath("keycloak-realm.yaml")
+        );
+    }
+
+    public static void removeOAuthKafkaKeycloakRealm(String namespace) {
+        LOGGER.info("Removing OAuth Kafka keycloak realm");
+
+        Exec.executeAndCheck(
+                "oc",
+                "delete",
+                "-n", namespace,
+                "-f", getKeycloakFilePath("keycloak_oauth_kafka-realm.yaml")
         );
     }
 
@@ -127,6 +175,20 @@ public class KeycloakUtils {
         );
 
         LOGGER.info("Keycloak should be removed.");
+    }
+
+    public static void removeOAuthKafkaKeycloak(String namespace) throws InterruptedException {
+        removeOAuthKafkaKeycloakRealm(namespace);
+        Thread.sleep(Duration.ofMinutes(2).toMillis());
+        LOGGER.info("Removing OAuth Kafka Keycloak...");
+        Exec.executeAndCheck(
+                "oc",
+                "delete",
+                "-n", namespace,
+                "-f", getKeycloakFilePath("keycloak_oauth_kafka.yaml")
+        );
+
+        LOGGER.info("OAuth Kafka Keycloak should be removed.");
     }
 
     public static String getKeycloakURL(String namespace, String name, boolean secured) {
@@ -149,6 +211,27 @@ public class KeycloakUtils {
 
     public static String getDefaultKeycloakAdminURL(String namespace) {
         return getKeycloakURL(namespace, "keycloak", true);
+    }
+
+    public static String getDefaultOAuthKafkaTokenEndpointUri() {
+        Route route = Kubernetes.getRouteByPrefix(Environment.NAMESPACE, Constants.SSO_NAME + "-ingress");
+
+        return "https://" + Kubernetes.getRouteHost(Environment.NAMESPACE, route.getMetadata().getName())
+                + "/realms/demo/protocol/openid-connect/token";
+    }
+
+    public static String getDefaultOAuthKafkaJwksEndpointUri() {
+        Route route = Kubernetes.getRouteByPrefix(Environment.NAMESPACE, Constants.SSO_NAME + "-ingress");
+
+        return "https://" + Kubernetes.getRouteHost(Environment.NAMESPACE, route.getMetadata().getName())
+                + "/realms/demo/protocol/openid-connect/certs";
+    }
+
+    public static String getDefaultOAuthKafkaValidIssuerUri() {
+        Route route = Kubernetes.getRouteByPrefix(Environment.NAMESPACE, Constants.SSO_NAME + "-ingress");
+
+        return "https://" + Kubernetes.getRouteHost(Environment.NAMESPACE, route.getMetadata().getName())
+                + "/realms/demo";
     }
 
     private static HttpRequest.BodyPublisher ofFormData(Map<Object, Object> data) {

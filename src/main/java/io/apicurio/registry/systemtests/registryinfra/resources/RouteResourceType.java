@@ -80,6 +80,23 @@ public class RouteResourceType implements ResourceType<Route> {
                 .build();
     }
 
+    public static Route getDefaultOAuthKafkaKeycloak(String namespace) {
+        return new RouteBuilder()
+                .withNewMetadata()
+                    .withName(Constants.SSO_HTTP_SERVICE)
+                    .withNamespace(namespace)
+                .endMetadata()
+                .withNewSpec()
+                    .withPath("/")
+                    .withTo(new RouteTargetReference() {{
+                        setKind("Service");
+                        setName(Constants.SSO_NAME + "-service");
+                        setWeight(100);
+                    }})
+                .endSpec()
+                .build();
+    }
+
     public static Route getDefaultSelenium(String name, String namespace) {
         return new RouteBuilder()
                 .withNewMetadata()
