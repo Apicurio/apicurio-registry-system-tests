@@ -297,6 +297,13 @@
     </build>
     <profiles>
         <profile>
+            <id>empty</id>
+            <properties>
+                <groups>empty</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
             <id>default</id>
             <properties>
                 <groups>default</groups>
