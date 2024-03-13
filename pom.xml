@@ -383,6 +383,13 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+        <profile>
+            <id>bundle-oauthkafka</id>
+            <properties>
+                <groups>bundle-oauthkafka</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
 
         <!-- api tests -->
 
