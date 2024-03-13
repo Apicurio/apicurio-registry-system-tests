@@ -18,7 +18,7 @@ spec:
       name: keycloak-db-secret
     vendor: postgres
   hostname:
-    hostname: registry-sso.apps.rkubis414.apicurio.integration-qe.com
+    hostname: <hostname>
   ingress:
     className: openshift-default
   http:
