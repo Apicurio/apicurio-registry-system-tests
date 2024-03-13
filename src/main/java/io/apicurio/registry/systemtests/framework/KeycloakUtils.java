@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class KeycloakUtils {
     private static final Logger LOGGER = LoggerUtils.getLogger();
@@ -111,12 +112,20 @@ public class KeycloakUtils {
 
     public static void deployOAuthKafkaKeycloak(String namespace) throws InterruptedException, IOException {
         LOGGER.info("Deploying OAuth Kafka Keycloak...");
-        ResourceManager manager = ResourceManager.getInstance();
+        // ResourceManager manager = ResourceManager.getInstance();
+
+        String keycloakFilePath = getKeycloakFilePath("keycloak_oauth_kafka.yaml");
+        String keycloakHostname = Objects.requireNonNull(Kubernetes
+                        .getRouteHost("openshift-console", "console"))
+                .replace("console-openshift-console", Constants.SSO_NAME);
+
+        TextFileUtils.replaceInFile(keycloakFilePath, "<hostname>", keycloakHostname);
+
         // Deploy Keycloak server
-        Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak_oauth_kafka.yaml"));
+        Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", keycloakFilePath);
 
         // Wait for Keycloak server to be ready
-        Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, "registry-sso"));
+        Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, Constants.SSO_NAME));
 
         // Create Keycloak HTTP Service and wait for its readiness
         // manager.createSharedResource( true, ServiceResourceType.getDefaultKeycloakHttp(namespace));
