@@ -3,6 +3,8 @@ package io.apicurio.registry.systemtests;
 import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Base64Utils;
+import io.apicurio.registry.systemtests.framework.Certificate;
+import io.apicurio.registry.systemtests.framework.CertificateUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.DatabaseUtils;
 import io.apicurio.registry.systemtests.framework.Environment;
@@ -18,7 +20,7 @@ import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.resolver.ExtensionContextParameterResolver;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.Secret;
-import io.strimzi.api.kafka.model.Kafka;
+import io.fabric8.kubernetes.api.model.SecretBuilder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,7 +32,9 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 @DisplayNameGeneration(TestNameGenerator.class)
 @ExtendWith(ExtensionContextParameterResolver.class)
@@ -131,30 +135,40 @@ public abstract class TestBaseOAuthKafka {
     }
 
     protected ApicurioRegistry deployOAuthKafkaTestRegistry() throws InterruptedException {
-        Secret routerCertsDefaultSecret = Kubernetes.getSecret("openshift-ingress", Constants.OAUTH_KAFKA_ROUTER_CERTS);
-        Secret newSecret = new Secret();
-
-        newSecret.setMetadata(new ObjectMeta() {{
-            setName(routerCertsDefaultSecret.getMetadata().getName());
-            setNamespace(Environment.NAMESPACE);
-        }});
-        newSecret.setType("kubernetes.io/tls");
-        newSecret.setData(routerCertsDefaultSecret.getData());
+        Secret routerCertsDefaultSecret = Kubernetes.getSecret("openshift-config-managed", Constants.OAUTH_KAFKA_ROUTER_CERTS);
+        String clusterBaseUrl = Objects.requireNonNull(
+                Kubernetes.getRouteHost("openshift-console", "console")
+        ).replace("console-openshift-console.", "");
+        ArrayList<Certificate> certificates = CertificateUtils.readCertificates(
+                Base64Utils.decode(routerCertsDefaultSecret.getData().get(clusterBaseUrl))
+        );
+        Secret newSecret = new SecretBuilder()
+                .withNewMetadata()
+                    .withName(routerCertsDefaultSecret.getMetadata().getName())
+                    .withNamespace(Environment.NAMESPACE)
+                .endMetadata()
+                .withType("kubernetes.io/tls")
+                .withData(new HashMap<>() {{
+                    put("tls.crt", Base64Utils.encode(CertificateUtils.getCertificates(certificates)));
+                    put("tls.key", Base64Utils.encode(CertificateUtils.getKeys(certificates)));
+                }})
+                .build();
+        Secret consoleUiSecret = new SecretBuilder()
+                .withNewMetadata()
+                .withName("console-ui-secrets")
+                .withNamespace(Environment.NAMESPACE)
+                .endMetadata()
+                .withData(new HashMap<>() {{
+                    put("REGISTRY_CLIENT_ID", Base64Utils.encode("kafka"));
+                    put("REGISTRY_CLIENT_SECRET", Base64Utils.encode("**********"));
+                }})
+                .build();
 
         resourceManager.createResource(true, newSecret);
 
         KafkaUtils.deployDefaultOAuthKafka();
 
-        Kubernetes.createSecret(Environment.NAMESPACE, new Secret() {{
-            setMetadata(new ObjectMeta() {{
-                setName("console-ui-secrets");
-                setNamespace(Environment.NAMESPACE);
-            }});
-            setData(new HashMap<>() {{
-                put("REGISTRY_CLIENT_ID", Base64Utils.encode("kafka"));
-                put("REGISTRY_CLIENT_SECRET", Base64Utils.encode("**********"));
-            }});
-        }});
+        resourceManager.createResource(true, consoleUiSecret);
 
         return ApicurioRegistryUtils.deployDefaultApicurioRegistryOAuthKafka();
     }
