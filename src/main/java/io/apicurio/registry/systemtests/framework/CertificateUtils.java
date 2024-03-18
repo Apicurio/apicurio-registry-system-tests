@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -170,5 +171,57 @@ public class CertificateUtils {
         }};
 
         createSecret(namespace, keystoreSecretName, secretData);
+    }
+
+    public static ArrayList<Certificate> readCertificates(String text) {
+        String[] lines = text.split(System.lineSeparator());
+        ArrayList<Certificate> returnList = new ArrayList<>();
+        Certificate c = null;
+
+        for (String l : lines) {
+            System.out.println(l);
+
+            if (l.startsWith("-----BEGIN CERTIFICATE-----")) {
+                c = new Certificate(CertificateType.CRT);
+                c.addLine(l);
+            } else if (l.startsWith("-----END CERTIFICATE-----")) {
+                c.addLine(l);
+                returnList.add(c);
+            } else if (l.startsWith("-----BEGIN PRIVATE KEY-----")) {
+                c = new Certificate(CertificateType.KEY);
+                c.addLine(l);
+            } else if (l.startsWith("-----END PRIVATE KEY-----")) {
+                c.addLine(l);
+                returnList.add(c);
+            } else {
+                c.addLine(l);
+            }
+        }
+
+        return returnList;
+    }
+
+    public static String getCertificates(ArrayList<Certificate> certList) {
+        StringBuilder certificates = new StringBuilder();
+
+        for (Certificate c : certList) {
+            if (c.getType().equals(CertificateType.CRT)) {
+                certificates.append(c.getCertificate());
+            }
+        }
+
+        return certificates.toString();
+    }
+
+    public static String getKeys(ArrayList<Certificate> certList) {
+        StringBuilder keys = new StringBuilder();
+
+        for (Certificate k : certList) {
+            if (k.getType().equals(CertificateType.KEY)) {
+                keys.append(k.getCertificate());
+            }
+        }
+
+        return keys.toString();
     }
 }
