@@ -30,7 +30,7 @@ public class Constants {
     public static final String DB_PASSWORD = "password";
     public static final String DB_USERNAME = "username";
     public static final String OAUTH_KAFKA_TRUSTSTORE_SECRET_NAME = "mytruststore-secret";
-    public static final String OAUTH_KAFKA_ROUTER_CERTS = "router-certs-default";
+    public static final String OAUTH_KAFKA_ROUTER_CERTS = "router-certs";
     public static final String OAUTH_KAFKA_NAME = "kafka1";
 
     // TODO: Move other constants here too?
