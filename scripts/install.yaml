@@ -6,7 +6,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
   name: apicurioregistries.registry.apicur.io
 spec:
   group: registry.apicur.io
@@ -4922,7 +4922,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
   name: apicurio-registry-operator
   namespace: apicurio-registry-operator-namespace
 ---
@@ -4932,7 +4932,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
   name: apicurio-registry-operator-leader-election-role
   namespace: apicurio-registry-operator-namespace
 rules:
@@ -4974,7 +4974,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
   name: apicurio-registry-operator-role
 rules:
 - apiGroups:
@@ -5074,7 +5074,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
   name: apicurio-registry-operator-leader-election-rolebinding
   namespace: apicurio-registry-operator-namespace
 roleRef:
@@ -5092,7 +5092,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
   name: apicurio-registry-operator-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -5109,7 +5109,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.3-redhat.1
+    apicur.io/version: 1.2.4-redhat.1
     name: apicurio-registry-operator
   name: apicurio-registry-operator
   namespace: apicurio-registry-operator-namespace
@@ -5119,14 +5119,14 @@ spec:
     matchLabels:
       apicur.io/name: apicurio-registry-operator
       apicur.io/type: operator
-      apicur.io/version: 1.2.3-redhat.1
+      apicur.io/version: 1.2.4-redhat.1
       name: apicurio-registry-operator
   template:
     metadata:
       labels:
         apicur.io/name: apicurio-registry-operator
         apicur.io/type: operator
-        apicur.io/version: 1.2.3-redhat.1
+        apicur.io/version: 1.2.4-redhat.1
         com.company: Red_Hat
         name: apicurio-registry-operator
         rht.comp: Service_Registry
@@ -5142,11 +5142,11 @@ spec:
         - /manager
         env:
         - name: REGISTRY_VERSION
-          value: 2.5.9.Final-redhat-00001
+          value: 2.5.10.Final-redhat-00001
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.5.9
+          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.5.10
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.5.9
+          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.5.10
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
@@ -5161,7 +5161,7 @@ spec:
               fieldPath: metadata.namespace
         - name: OPERATOR_NAME
           value: apicurio-registry-operator
-        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.2.3
+        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.2.4
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
