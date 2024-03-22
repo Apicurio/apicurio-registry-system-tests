@@ -390,9 +390,23 @@
             </properties>
         </profile>
         <profile>
+            <id>olm-clusterwide-auth-extended</id>
+            <properties>
+                <groups>olm-clusterwide-auth &amp; extended</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
             <id>olm-namespace-auth</id>
             <properties>
                 <groups>olm-namespace-auth &amp; !extended</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-auth-extended</id>
+            <properties>
+                <groups>olm-namespace-auth &amp; extended</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
