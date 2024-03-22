@@ -8,6 +8,7 @@ import org.junit.jupiter.api.TestInstance;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class OAuthKafkaTests extends TestBaseOAuthKafka {
     @Test
+    @Tag("smoke")
     @Tag("oauthkafka")
     public void testRegistryOAuthKafka() throws InterruptedException {
         deployOAuthKafkaTestRegistry();
