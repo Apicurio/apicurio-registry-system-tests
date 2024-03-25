@@ -6,7 +6,7 @@ import io.apicurio.registry.systemtests.registryinfra.resources.KafkaKind;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaUserResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
-import io.strimzi.api.kafka.model.Kafka;
+import io.strimzi.api.kafka.model.kafka.Kafka;
 import org.slf4j.Logger;
 
 import java.time.Duration;

@@ -25,7 +25,7 @@ import io.apicurio.registry.systemtests.registryinfra.resources.ServiceResourceT
 import io.apicurio.registry.systemtests.registryinfra.resources.SubscriptionResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.kubernetes.api.model.HasMetadata;
-import io.strimzi.api.kafka.model.Kafka;
+import io.strimzi.api.kafka.model.kafka.Kafka;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 

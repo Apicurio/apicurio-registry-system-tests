@@ -6,11 +6,11 @@ import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
-import io.strimzi.api.kafka.model.KafkaUser;
-import io.strimzi.api.kafka.model.KafkaUserAuthentication;
-import io.strimzi.api.kafka.model.KafkaUserBuilder;
-import io.strimzi.api.kafka.model.KafkaUserScramSha512ClientAuthentication;
-import io.strimzi.api.kafka.model.KafkaUserTlsClientAuthentication;
+import io.strimzi.api.kafka.model.user.KafkaUser;
+import io.strimzi.api.kafka.model.user.KafkaUserAuthentication;
+import io.strimzi.api.kafka.model.user.KafkaUserBuilder;
+import io.strimzi.api.kafka.model.user.KafkaUserScramSha512ClientAuthentication;
+import io.strimzi.api.kafka.model.user.KafkaUserTlsClientAuthentication;
 
 import java.time.Duration;
 import java.util.Collections;

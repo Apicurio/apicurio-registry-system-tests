@@ -4,8 +4,8 @@ import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
-import io.strimzi.api.kafka.model.KafkaTopic;
-import io.strimzi.api.kafka.model.KafkaTopicBuilder;
+import io.strimzi.api.kafka.model.topic.KafkaTopic;
+import io.strimzi.api.kafka.model.topic.KafkaTopicBuilder;
 
 import java.time.Duration;
 import java.util.Collections;
