@@ -1,0 +1,9 @@
+name: mvn-test-check
+run-name: Maven test check
+on: [push]
+jobs:
+  mvn-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: mvn test -Dtest=EmptyTests#emptyTest
