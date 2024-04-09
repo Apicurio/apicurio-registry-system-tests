@@ -25,7 +25,7 @@
         <version.eclipse.jgit>6.9.0.202403050737-r</version.eclipse.jgit>
         <version.org.json>20240303</version.org.json>
         <version.apache.commons>3.14.0</version.apache.commons>
-        <version.apache.commons.io>2.16.0</version.apache.commons.io>
+        <version.apache.commons.io>2.16.1</version.apache.commons.io>
         <version.apache.httpcomponents>5.2.4</version.apache.httpcomponents>
         <version.apache.maven.artifact>3.9.6</version.apache.maven.artifact>
         <version.surefire>3.2.5</version.surefire>
