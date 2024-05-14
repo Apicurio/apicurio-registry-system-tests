@@ -21,7 +21,7 @@
         <version.operator>1.1.1-v2.5.9.final</version.operator>
         <version.hamcrest>2.2</version.hamcrest>
         <version.slf4j>2.0.13</version.slf4j>
-        <version.strimzi.api>0.40.0</version.strimzi.api>
+        <version.strimzi.api>0.41.0</version.strimzi.api>
         <version.eclipse.jgit>6.9.0.202403050737-r</version.eclipse.jgit>
         <version.org.json>20240303</version.org.json>
         <version.apache.commons>3.14.0</version.apache.commons>
