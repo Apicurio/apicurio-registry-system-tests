@@ -5142,11 +5142,11 @@ spec:
         - /manager
         env:
         - name: REGISTRY_VERSION
-          value: 2.5.10.Final-redhat-00001
+          value: 2.5.11.redhat-00001
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.5.10
+          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.5.11
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.5.10
+          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.5.11
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
