@@ -30,7 +30,7 @@
         <version.apache.maven.artifact>3.9.7</version.apache.maven.artifact>
         <version.surefire>3.2.5</version.surefire>
         <version.failsafe>3.2.5</version.failsafe>
-        <version.checkstyle>3.3.1</version.checkstyle>
+        <version.checkstyle>3.4.0</version.checkstyle>
         <version.download>1.9.0</version.download>
         <version.jar>3.4.1</version.jar>
         <version.javax>2.0.1.Final</version.javax>
