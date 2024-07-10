@@ -61,11 +61,19 @@ public class KeycloakUtils {
     public static void deployKeycloak(String namespace) throws InterruptedException, IOException {
         LOGGER.info("Deploying Keycloak...");
         ResourceManager manager = ResourceManager.getInstance();
+
+        String keycloakFilePath = getKeycloakFilePath("keycloak.yaml");
+        String keycloakHostname = Objects.requireNonNull(Kubernetes
+                        .getRouteHost("openshift-console", "console"))
+                .replace("console-openshift-console", Constants.SSO_NAME);
+
+        TextFileUtils.replaceInFile(keycloakFilePath, "<hostname>", keycloakHostname);
+
         // Deploy Keycloak server
-        Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak.yaml"));
+        Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", keycloakFilePath);
 
         // Wait for Keycloak server to be ready
-        Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, "keycloak"));
+        Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, Constants.SSO_NAME));
 
         // Create Keycloak HTTP Service and wait for its readiness
         manager.createSharedResource( true, ServiceResourceType.getDefaultKeycloakHttp(namespace));
@@ -203,7 +211,7 @@ public class KeycloakUtils {
     public static String getKeycloakURL(String namespace, String name, boolean secured) {
         String scheme = secured ? "https://" : "http://";
 
-        return scheme + Kubernetes.getRouteHost(namespace, name) + "/auth";
+        return scheme + Kubernetes.getRouteByPrefixHost(namespace, name);
     }
 
     public static String getDefaultKeycloakURL() {
@@ -219,7 +227,7 @@ public class KeycloakUtils {
     }
 
     public static String getDefaultKeycloakAdminURL(String namespace) {
-        return getKeycloakURL(namespace, "keycloak", true);
+        return getKeycloakURL(namespace, Constants.SSO_NAME + "-ingress", true);
     }
 
     public static String getDefaultOAuthKafkaTokenEndpointUri() {
@@ -322,13 +330,13 @@ public class KeycloakUtils {
 
     public static String getAdminAccessToken(String namespace) {
         // Get secret with Keycloak admin credentials
-        Secret secret = Kubernetes.getSecret(namespace, "credential-" + Constants.SSO_NAME);
+        Secret secret = Kubernetes.getSecret(namespace, Constants.SSO_NAME + "-initial-admin");
         // Get Keycloak admin username
-        String username = Base64Utils.decode(secret.getData().get("ADMIN_USERNAME"));
+        String username = Base64Utils.decode(secret.getData().get("username"));
         // Get Keycloak admin password
-        String password = Base64Utils.decode(secret.getData().get("ADMIN_PASSWORD"));
+        String password = Base64Utils.decode(secret.getData().get("password"));
         // Get Keycloak admin URL
-        String url = getKeycloakURL(namespace, "keycloak", true);
+        String url = getKeycloakURL(namespace, Constants.SSO_NAME + "-ingress", true);
         // Construct token API URI of admin Keycloak Realm
         URI tokenUrl = HttpClientUtils.buildURI(
                 "%s/realms/%s/protocol/openid-connect/token", url, Constants.SSO_REALM_ADMIN

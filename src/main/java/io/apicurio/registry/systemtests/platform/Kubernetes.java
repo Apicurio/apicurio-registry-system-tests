@@ -427,6 +427,20 @@ public final class Kubernetes {
                 .getHost();
     }
 
+    public static String getRouteByPrefixHost(String namespace, String name) {
+        Route route = getRouteByPrefix(namespace, name);
+
+        if (route == null || route.getStatus() == null) {
+            return null;
+        }
+
+        return route
+                .getStatus()
+                .getIngress()
+                .get(0)
+                .getHost();
+    }
+
     public static String getSecretValue(String namespace, String name, String secretKey) {
         return getSecret(namespace, name)
                 .getData()

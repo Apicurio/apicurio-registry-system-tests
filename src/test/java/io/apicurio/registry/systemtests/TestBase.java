@@ -2,6 +2,8 @@ package io.apicurio.registry.systemtests;
 
 import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
+import io.apicurio.registry.systemtests.framework.Base64Utils;
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.DatabaseUtils;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KafkaUtils;
@@ -15,6 +17,8 @@ import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaKind;
 import io.apicurio.registry.systemtests.registryinfra.resources.PersistenceKind;
 import io.apicurio.registry.systemtests.resolver.ExtensionContextParameterResolver;
+import io.fabric8.kubernetes.api.model.ObjectMeta;
+import io.fabric8.kubernetes.api.model.Secret;
 import io.strimzi.api.kafka.model.kafka.Kafka;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -27,6 +31,7 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 
 @DisplayNameGeneration(TestNameGenerator.class)
 @ExtendWith(ExtensionContextParameterResolver.class)
@@ -52,7 +57,11 @@ public abstract class TestBase {
         LOGGER.info("Deploying shared keycloak operator and instance!");
         LoggerUtils.logDelimiter("#");
 
-        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType("alpha");
+        DatabaseUtils.createKeycloakPostgresqlDatabaseSecret();
+
+        DatabaseUtils.deployKeycloakPostgresqlDatabase();
+
+        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType(Environment.SSO_CHANNEL);
         operatorManager.installOperatorShared(keycloakOLMOperator);
         KeycloakUtils.deployKeycloak();
         Thread.sleep(Duration.ofMinutes(2).toMillis());

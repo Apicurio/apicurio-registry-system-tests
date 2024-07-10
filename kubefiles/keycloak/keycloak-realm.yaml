@@ -1,17 +1,52 @@
-apiVersion: keycloak.org/v1alpha1
-kind: KeycloakRealm
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: KeycloakRealmImport
 metadata:
+  labels:
+    app: sso
   name: registry-sso-realm
 spec:
-  instanceSelector:
-    matchLabels:
-      app: sso
+  keycloakCRName: registry-sso
   realm:
+    requiredActions:
+      - alias: VERIFY_PROFILE
+        name: Verify Profile
+        providerId: VERIFY_PROFILE
+        enabled: false
+        defaultAction: false
+        priority: 100
+        config: {}
+    clients:
+      - clientId: registry-client-ui
+        implicitFlowEnabled: true
+        publicClient: true
+        redirectUris:
+          - '*'
+        standardFlowEnabled: true
+        webOrigins:
+          - '*'
+      - clientId: registry-client-api
+        directAccessGrantsEnabled: true
+        implicitFlowEnabled: true
+        publicClient: true
+        redirectUris:
+          - '*'
+        standardFlowEnabled: true
+        webOrigins:
+          - '*'
+      - clientId: test-client-api
+        directAccessGrantsEnabled: true
+        implicitFlowEnabled: true
+        publicClient: false
+        redirectUris:
+          - '*'
+        serviceAccountsEnabled: true
+        standardFlowEnabled: true
+        webOrigins:
+          - '*'
     displayName: Registry
     enabled: true
     id: registry
     realm: registry
-    sslRequired: none
     roles:
       realm:
         - name: sr-admin
@@ -20,34 +55,7 @@ spec:
         - name: test-admin-role
         - name: test-developer-role
         - name: test-readonly-role
-    clients:
-      - clientId: registry-client-ui
-        implicitFlowEnabled: true
-        redirectUris:
-          - '*'
-        standardFlowEnabled: true
-        webOrigins:
-          - '*'
-        publicClient: true
-      - clientId: registry-client-api
-        directAccessGrantsEnabled: true
-        implicitFlowEnabled: true
-        redirectUris:
-          - '*'
-        standardFlowEnabled: true
-        webOrigins:
-          - '*'
-        publicClient: true
-      - clientId: test-client-api
-        directAccessGrantsEnabled: true
-        implicitFlowEnabled: true
-        redirectUris:
-          - '*'
-        standardFlowEnabled: true
-        webOrigins:
-          - '*'
-        publicClient: false
-        serviceAccountsEnabled: true
+    sslRequired: none
     users:
       - credentials:
           - temporary: false
@@ -104,43 +112,43 @@ spec:
         realmRoles:
           - test-readonly-role
         username: registry-user-role
-      - credentials:
+      - attributes:
+          org-admin:
+            - 'true'
+        credentials:
           - temporary: false
             type: password
             value: changeme
         enabled: true
         realmRoles: []
         username: registry-admin-org-admin-true
-        attributes:
+      - attributes:
           org-admin:
-            - 'true'
-      - credentials:
+            - 'yes'
+        credentials:
           - temporary: false
             type: password
             value: changeme
         enabled: true
         realmRoles: []
         username: registry-admin-org-admin-yes
-        attributes:
-          org-admin:
-            - 'yes'
-      - credentials:
+      - attributes:
+          admin-role:
+            - 'true'
+        credentials:
           - temporary: false
             type: password
             value: changeme
         enabled: true
         realmRoles: []
         username: registry-admin-admin-role-true
-        attributes:
+      - attributes:
           admin-role:
-            - 'true'
-      - credentials:
+            - admin
+        credentials:
           - temporary: false
             type: password
             value: changeme
         enabled: true
         realmRoles: []
         username: registry-admin-admin-role-admin
-        attributes:
-          admin-role:
-            - 'admin'

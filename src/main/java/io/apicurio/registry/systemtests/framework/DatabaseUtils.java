@@ -3,8 +3,12 @@ package io.apicurio.registry.systemtests.framework;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.DeploymentResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.ServiceResourceType;
+import io.fabric8.kubernetes.api.model.ObjectMeta;
+import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.kubernetes.api.model.Service;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
+
+import java.util.HashMap;
 
 public class DatabaseUtils {
     public static void deployDefaultPostgresqlDatabase() {
@@ -41,5 +45,24 @@ public class DatabaseUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void deployKeycloakPostgresqlDatabase() {
+        DatabaseUtils.deployPostgresqlDatabase("keycloak-db", Environment.NAMESPACE, "keycloak");
+    }
+
+    public static void createKeycloakPostgresqlDatabaseSecret() throws InterruptedException {
+        Secret dbSecret = new Secret();
+        dbSecret.setMetadata(new ObjectMeta() {{
+            setName(Constants.SSO_DB_SECRET_NAME);
+            setNamespace(Environment.NAMESPACE);
+        }});
+        dbSecret.setType("Opaque");
+        dbSecret.setData(new HashMap<>() {{
+            put("password", Base64Utils.encode(Constants.DB_PASSWORD));
+            put("username", Base64Utils.encode(Constants.DB_USERNAME));
+        }});
+
+        ResourceManager.getInstance().createResource(true, dbSecret);
     }
 }

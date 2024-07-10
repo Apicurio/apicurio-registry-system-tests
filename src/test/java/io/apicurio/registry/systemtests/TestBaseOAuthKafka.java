@@ -60,22 +60,11 @@ public abstract class TestBaseOAuthKafka {
         LOGGER.info("Deploying shared keycloak operator and instance!");
         LoggerUtils.logDelimiter("#");
 
-        Secret dbSecret = new Secret();
-        dbSecret.setMetadata(new ObjectMeta() {{
-            setName(Constants.SSO_DB_SECRET_NAME);
-            setNamespace(Environment.NAMESPACE);
-        }});
-        dbSecret.setType("Opaque");
-        dbSecret.setData(new HashMap<>() {{
-            put("password", Base64Utils.encode(Constants.DB_PASSWORD));
-            put("username", Base64Utils.encode(Constants.DB_USERNAME));
-        }});
+        DatabaseUtils.createKeycloakPostgresqlDatabaseSecret();
 
-        resourceManager.createResource(true, dbSecret);
+        DatabaseUtils.deployKeycloakPostgresqlDatabase();
 
-        DatabaseUtils.deployPostgresqlDatabase("keycloak-db", Environment.NAMESPACE, "keycloak");
-
-        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType("fast");
+        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType(Environment.SSO_CHANNEL);
         operatorManager.installOperatorShared(keycloakOLMOperator);
         KeycloakUtils.deployOAuthKafkaKeycloak();
         Thread.sleep(Duration.ofMinutes(2).toMillis());
