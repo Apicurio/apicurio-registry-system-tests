@@ -86,12 +86,7 @@ public class KeycloakUtils {
 
         // TODO: Wait for Keycloak Realm readiness, but API model not available
         // Create Keycloak Realm
-        Exec.executeAndCheck(
-                "oc",
-                "apply",
-                "-n", namespace,
-                "-f", getKeycloakFilePath("keycloak-realm.yaml")
-        );
+        Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak-realm.yaml"));
 
         Thread.sleep(Duration.ofMinutes(1).toMillis());
 
