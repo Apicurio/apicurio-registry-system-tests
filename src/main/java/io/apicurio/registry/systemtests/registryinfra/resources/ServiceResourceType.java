@@ -117,7 +117,6 @@ public class ServiceResourceType implements ResourceType<Service> {
                     }})
                     .withSelector(new HashMap<>() {{
                         put("app", "keycloak");
-                        put("component", "keycloak");
                     }})
                     .withType("ClusterIP")
                 .endSpec()
