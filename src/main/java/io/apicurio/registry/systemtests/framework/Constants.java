@@ -8,7 +8,7 @@ public class Constants {
     public static final String KAFKA = "kafka-for-registry";
     public static final String KAFKA_USER = "kafka-user-for-registry";
     public static final String REGISTRY_OPERATOR_DEPLOYMENT
-            = "apicurio-registry-operator-v1.2.4-redhat.1"; // Default from catalog
+            = "apicurio-registry-operator-v1.3.0-redhat.1"; // Default from catalog
     public static final String REGISTRY = "registry";
     public static final String SSO_ADMIN_CLIENT_ID = "admin-cli";
     public static final String SSO_ADMIN_USER = "registry-admin"; // Defined in kubefiles/keycloak-realm.yaml
