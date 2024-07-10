@@ -1,14 +1,26 @@
-apiVersion: keycloak.org/v1alpha1
+apiVersion: k8s.keycloak.org/v2alpha1
 kind: Keycloak
 metadata:
   name: registry-sso
   labels:
     app: sso
 spec:
+  additionalOptions:
+    - name: proxy
+      value: edge
+  db:
+    host: keycloak-db
+    passwordSecret:
+      key: password
+      name: keycloak-db-secret
+    usernameSecret:
+      key: username
+      name: keycloak-db-secret
+    vendor: postgres
+  hostname:
+    hostname: <hostname>
+  ingress:
+    className: openshift-default
+  http:
+    httpEnabled: true
   instances: 1
-  extensions:
-    - https://github.com/aerogear/keycloak-metrics-spi/releases/download/2.5.3/keycloak-metrics-spi-2.5.3.jar
-  externalAccess:
-    enabled: True
-  podDisruptionBudget:
-    enabled: True

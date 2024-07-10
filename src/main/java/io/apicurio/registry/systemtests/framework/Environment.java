@@ -20,6 +20,7 @@ public final class Environment {
     public static final String REGISTRY_CSV_ENV_VAR = "REGISTRY_CSV";
     public static final String REGISTRY_PACKAGE_ENV_VAR = "REGISTRY_PACKAGE";
     public static final String SSO_PACKAGE_ENV_VAR = "SSO_PACKAGE";
+    public static final String SSO_CHANNEL_ENV_VAR = "SSO_CHANNEL";
     public static final String TESTSUITE_PATH_ENV_VAR = "TESTSUITE_PATH";
     public static final String TMP_PATH_ENV_VAR = "TMP_PATH";
 
@@ -27,17 +28,18 @@ public final class Environment {
 
     /** Default values of environment variables */
     public static final String CATALOG_DEFAULT = "redhat-operators";
-    public static final String SSO_CATALOG_DEFAULT = "community-operators";
-    public static final String KAFKA_DEPLOYMENT_DEFAULT = "strimzi-cluster-operator"; // Default from catalog
-    public static final String KAFKA_PACKAGE_DEFAULT = "strimzi-kafka-operator"; // Default from catalog
+    public static final String SSO_CATALOG_DEFAULT = "redhat-operators";
+    public static final String KAFKA_DEPLOYMENT_DEFAULT = "amq-streams-cluster-operator"; // Default from catalog
+    public static final String KAFKA_PACKAGE_DEFAULT = "amq-streams"; // Default from catalog
     public static final String POSTGRESQL_VERSION_DEFAULT = "15";
     public static final String REGISTRY_CHANNEL_DEFAULT = "2.x";
     public static final String REGISTRY_CSV_DEFAULT = "service-registry-operator.v2.6.1";
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
-    public static final String REGISTRY_PACKAGE_DEFAULT = "apicurio-registry"; // Default from catalog
-    public static final String SSO_PACKAGE_DEFAULT = "keycloak-operator"; // Default from catalog
+    public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
+    public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
+    public static final String SSO_CHANNEL_DEFAULT = "stable-v24";
     public static final String TESTSUITE_PATH_DEFAULT = System.getProperty("user.dir");
     public static final String TMP_PATH_DEFAULT = "/tmp";
 
@@ -59,6 +61,7 @@ public final class Environment {
     public static final String REGISTRY_CSV = getOrDefault(REGISTRY_CSV_ENV_VAR, REGISTRY_CSV_DEFAULT);
     public static final String REGISTRY_PACKAGE = getOrDefault(REGISTRY_PACKAGE_ENV_VAR, REGISTRY_PACKAGE_DEFAULT);
     public static final String SSO_PACKAGE = getOrDefault(SSO_PACKAGE_ENV_VAR, SSO_PACKAGE_DEFAULT);
+    public static final String SSO_CHANNEL = getOrDefault(SSO_CHANNEL_ENV_VAR, SSO_CHANNEL_DEFAULT);
     public static final String TESTSUITE_PATH = getOrDefault(TESTSUITE_PATH_ENV_VAR, TESTSUITE_PATH_DEFAULT);
     public static final String TMP_PATH = getOrDefault(TMP_PATH_ENV_VAR, TMP_PATH_DEFAULT);
 
