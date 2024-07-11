@@ -1,16 +1,13 @@
 package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
-import io.apicurio.registry.systemtests.framework.DeploymentUtils;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.fabric8.kubernetes.api.model.EnvVar;
-import io.fabric8.kubernetes.api.model.apps.Deployment;
 import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 
@@ -47,11 +44,6 @@ public class AuthenticatedReads {
         testClient.setAuthMethod(AuthMethod.TOKEN);
 
         // PREPARE NECESSARY VARIABLES
-        // Get registry deployment
-        Deployment deployment = Kubernetes.getDeployment(
-                apicurioRegistry.getMetadata().getNamespace(),
-                apicurioRegistry.getMetadata().getName() + "-deployment"
-        );
         // Define artifact group ID
         String groupId = "authenticatedReadsTest";
         // Define artifact ID
@@ -73,7 +65,7 @@ public class AuthenticatedReads {
 
         // ENABLE ROLE-BASED AUTHORIZATION AND TEST DEFAULT VALUE (false) OF REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED
         // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to true
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("ROLE_BASED_AUTHZ_ENABLED");
             setValue("true");
         }});
@@ -92,7 +84,7 @@ public class AuthenticatedReads {
 
         // ENABLE AUTHENTICATED READS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED of deployment to true
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED");
             setValue("true");
         }});
@@ -111,7 +103,7 @@ public class AuthenticatedReads {
 
         // DISABLE AUTHENTICATED READS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED of deployment to false
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED");
             setValue("false");
         }});

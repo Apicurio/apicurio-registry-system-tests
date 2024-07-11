@@ -1,15 +1,13 @@
 package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryUserRole;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
-import io.apicurio.registry.systemtests.framework.DeploymentUtils;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.fabric8.kubernetes.api.model.EnvVar;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
@@ -74,25 +72,20 @@ public class RoleBasedAuthorizationApplication extends RoleBasedAuthorization {
         readonlyClient.setAuthMethod(AuthMethod.TOKEN);
 
         // PREPARE NECESSARY VARIABLES
-        // Get registry deployment
-        deployment = Kubernetes.getDeployment(
-                apicurioRegistry.getMetadata().getNamespace(),
-                apicurioRegistry.getMetadata().getName() + "-deployment"
-        );
         // Prepare environment variables for test
-        List<EnvVar> testEnvVars = new ArrayList<>();
+        List<Env> testEnvVars = new ArrayList<>();
         // Enable role based authorization
-        testEnvVars.add(new EnvVar() {{
+        testEnvVars.add(new Env() {{
             setName("ROLE_BASED_AUTHZ_ENABLED");
             setValue("true");
         }});
         // Set authorization source to application
-        testEnvVars.add(new EnvVar() {{
+        testEnvVars.add(new Env() {{
             setName("ROLE_BASED_AUTHZ_SOURCE");
             setValue("application");
         }});
         // Enable admin override to use super admin client as registry admin
-        testEnvVars.add(new EnvVar() {{
+        testEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ADMIN_OVERRIDE_ENABLED");
             setValue("true");
         }});
@@ -104,7 +97,7 @@ public class RoleBasedAuthorizationApplication extends RoleBasedAuthorization {
 
         // ENABLE ROLE BASED AUTHORIZATION BY APPLICATION IN REGISTRY AND TEST IT
         // Set necessary environment variables of deployment to enable this feature
-        DeploymentUtils.createOrReplaceDeploymentEnvVars(deployment, testEnvVars);
+        ApicurioRegistryUtils.createOrReplaceEnvVars(apicurioRegistry, testEnvVars);
         // Wait for API availability
         Assertions.assertTrue(adminClient.waitServiceAvailable());
         // Create role for admin user

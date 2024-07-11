@@ -1,6 +1,7 @@
 package io.apicurio.registry.systemtests.framework;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicur.registry.v1.apicurioregistryspec.configuration.kafkasql.Security;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
@@ -8,10 +9,13 @@ import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.openshift.api.model.Route;
 import io.strimzi.api.kafka.model.kafka.Kafka;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 
 import java.text.MessageFormat;
 import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
 
 public class ApicurioRegistryUtils {
     private static final Logger LOGGER = LoggerUtils.getLogger();
@@ -248,5 +252,150 @@ public class ApicurioRegistryUtils {
         ResourceManager.getInstance().createResource(true, apicurioRegistryOAuthKafka);
 
         return apicurioRegistryOAuthKafka;
+    }
+
+    /* Environment variables processing */
+
+    public static boolean envVarExists(ApicurioRegistry apicurioRegistry, String envVarName) {
+        return apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv()
+                .stream()
+                .anyMatch(ev -> ev.getName().equals(envVarName));
+    }
+
+    public static Env getEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+        return apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv()
+                .stream()
+                .filter(ev -> ev.getName().equals(envVarName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static void addEnvVar(ApicurioRegistry apicurioRegistry, Env envVar) {
+        apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv()
+                .add(envVar);
+    }
+
+    public static void removeEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+        apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv()
+                .remove(getEnvVar(apicurioRegistry, envVarName));
+    }
+
+    public static ApicurioRegistry processChange(ApicurioRegistry apicurioRegistry) {
+        String namespace = apicurioRegistry.getMetadata().getNamespace();
+        String name = apicurioRegistry.getMetadata().getName();
+
+        Kubernetes.createOrReplaceResources(namespace, Collections.singletonList(apicurioRegistry));
+
+        Assertions.assertTrue(waitApicurioRegistryReady(apicurioRegistry));
+
+        Assertions.assertTrue(waitApicurioRegistryHostnameReady(apicurioRegistry));
+
+        return (new ApicurioRegistryResourceType()).get(namespace, name);
+    }
+
+    public static void deleteEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+        deleteEnvVars(apicurioRegistry, Collections.singletonList(envVarName));
+    }
+
+    public static void deleteEnvVars(ApicurioRegistry apicurioRegistry, List<String> envVarNames) {
+        // Get registry name
+        String dName = apicurioRegistry.getMetadata().getName();
+        // Flag to indicate if registry was changed
+        boolean changed = false;
+
+        for (String evn : envVarNames) {
+            // If environment variable already exists in registry
+            if (envVarExists(apicurioRegistry, evn)) {
+                // Log information about current action
+                LOGGER.info("Deleting environment variable {} of registry {}.", evn, dName);
+
+                // Delete environment variable
+                removeEnvVar(apicurioRegistry, evn);
+
+                changed = true;
+            } else {
+                // Log information about current action
+                LOGGER.info("Environment variable {} is not present in registry {}.", evn, dName);
+            }
+        }
+
+        if (changed) {
+            // Process change and get registry
+            apicurioRegistry = processChange(apicurioRegistry);
+
+            for (String evn : envVarNames) {
+                // Check deletion of environment variable
+                Assertions.assertNull(
+                        getEnvVar(apicurioRegistry, evn),
+                        MessageFormat.format("Environment variable {0} of registry {1} was NOT deleted.", evn, dName)
+                );
+            }
+        }
+    }
+
+    public static void createOrReplaceEnvVar(ApicurioRegistry apicurioRegistry, Env envVar) {
+        createOrReplaceEnvVars(apicurioRegistry, Collections.singletonList(envVar));
+    }
+
+    public static void createOrReplaceEnvVars(ApicurioRegistry apicurioRegistry, List<Env> envVars) {
+        // Get registry name
+        String dName = apicurioRegistry.getMetadata().getName();
+        // Flag to indicate if registry was changed
+        boolean changed = false;
+
+        for (Env ev : envVars) {
+            String evName = ev.getName();
+            String evValue = ev.getValue();
+
+            // If environment variable does not exist
+            if (!envVarExists(apicurioRegistry, evName)) {
+                // Log information about current action
+                LOGGER.info("Adding environment variable {} with value {} to registry {}.", evName, evValue, dName);
+
+                addEnvVar(apicurioRegistry, new Env() {{ setName(evName); setValue(evValue); }});
+
+                changed = true;
+            } else if (!getEnvVar(apicurioRegistry, evName).getValue().equals(evValue)) {
+                // If environment variable exists, but has another value
+
+                // Log information about current action
+                LOGGER.info("Setting environment variable {} of registry {} to {}.", evName, dName, evValue);
+
+                // Set value of environment variable
+                getEnvVar(apicurioRegistry, evName).setValue(evValue);
+
+                changed = true;
+            } else {
+                // Log information about current action
+                LOGGER.warn("Environment variable {} of registry {} is already set to {}.", evName, dName, evValue);
+            }
+        }
+
+        if (changed) {
+            // Process change and get registry
+            apicurioRegistry = processChange(apicurioRegistry);
+
+            for (Env ev : envVars) {
+                // Check value of environment variable
+                Assertions.assertEquals(
+                        getEnvVar(apicurioRegistry, ev.getName()).getValue(), ev.getValue(),
+                        MessageFormat.format("Environment variable {0} of registry {1} was NOT set to {2}.",
+                                ev.getName(), dName, ev.getValue()
+                        )
+                );
+            }
+        }
     }
 }
