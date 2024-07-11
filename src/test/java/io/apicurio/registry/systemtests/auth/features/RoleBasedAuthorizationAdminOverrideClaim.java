@@ -1,10 +1,8 @@
 package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
-import io.apicurio.registry.systemtests.framework.DeploymentUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.fabric8.kubernetes.api.model.EnvVar;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
@@ -21,25 +19,20 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         /* RUN PRE-TEST ACTIONS */
 
         // PREPARE NECESSARY VARIABLES
-        // Get registry deployment
-        deployment = Kubernetes.getDeployment(
-                apicurioRegistry.getMetadata().getNamespace(),
-                apicurioRegistry.getMetadata().getName() + "-deployment"
-        );
         // Initialize environment variable list for test
-        List<EnvVar> envVarList = new ArrayList<>();
+        List<Env> envVarList = new ArrayList<>();
         // Add basic environment variable to enable role based authorization into list
-        envVarList.add(new EnvVar() {{
+        envVarList.add(new Env() {{
             setName("ROLE_BASED_AUTHZ_ENABLED");
             setValue("true");
         }});
         // Add environment variable to set authorization source to application into list
-        envVarList.add(new EnvVar() {{
+        envVarList.add(new Env() {{
             setName("ROLE_BASED_AUTHZ_SOURCE");
             setValue("application");
         }});
         // Add environment variable to enable admin override into list
-        envVarList.add(new EnvVar() {{
+        envVarList.add(new Env() {{
             setName("REGISTRY_AUTH_ADMIN_OVERRIDE_ENABLED");
             setValue("true");
         }});
@@ -48,14 +41,14 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         // to token by default because only token is currently supported. We do not need to set it here.
         //
         // Add environment variable to set type of information used to determine if user is admin to claim into list
-        envVarList.add(new EnvVar() {{
+        envVarList.add(new Env() {{
             setName("REGISTRY_AUTH_ADMIN_OVERRIDE_TYPE");
             setValue("claim");
         }});
         // If claim should not be default
         if (!claim.equals("default")) {
             // Add environment variable to set name of admin override claim into list
-            envVarList.add(new EnvVar() {{
+            envVarList.add(new Env() {{
                 setName("REGISTRY_AUTH_ADMIN_OVERRIDE_CLAIM");
                 setValue(claim);
             }});
@@ -63,7 +56,7 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         // If claim value should not be default
         if (!claimValue.equals("default")) {
             // Add environment variable to set value of admin override claim into list
-            envVarList.add(new EnvVar() {{
+            envVarList.add(new Env() {{
                 setName("REGISTRY_AUTH_ADMIN_OVERRIDE_CLAIM_VALUE");
                 setValue(claimValue);
             }});
@@ -79,7 +72,7 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
 
         // SET ENVIRONMENT FOR TEST, INITIALIZE API CLIENTS AND TEST EXPECTED RESULT
         // Set environment variables of deployment
-        DeploymentUtils.createOrReplaceDeploymentEnvVars(deployment, envVarList);
+        ApicurioRegistryUtils.createOrReplaceEnvVars(apicurioRegistry, envVarList);
         // Initialize API clients
         initializeClients(apicurioRegistry, hostname, adminSuffix);
         // Wait for API availability

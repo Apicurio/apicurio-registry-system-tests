@@ -1,15 +1,12 @@
 package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
-import io.apicurio.registry.systemtests.framework.DeploymentUtils;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.fabric8.kubernetes.api.model.EnvVar;
-import io.fabric8.kubernetes.api.model.apps.Deployment;
 import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 
@@ -46,11 +43,6 @@ public class AnonymousReadAccess {
         ApicurioRegistryApiClient testClient = new ApicurioRegistryApiClient(hostname);
 
         // PREPARE NECESSARY VARIABLES
-        // Get registry deployment
-        Deployment deployment = Kubernetes.getDeployment(
-                apicurioRegistry.getMetadata().getNamespace(),
-                apicurioRegistry.getMetadata().getName() + "-deployment"
-        );
         // Define artifact group ID
         String groupId = "anonymousReadAccessTest";
         // Define artifact ID
@@ -72,7 +64,7 @@ public class AnonymousReadAccess {
 
         // ENABLE REGISTRY AUTHENTICATION WITHOUT ANONYMOUS READ ACCESS AND TEST IT
         // Set environment variable AUTH_ENABLED of deployment to true
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("AUTH_ENABLED");
             setValue("true");
         }});
@@ -91,7 +83,7 @@ public class AnonymousReadAccess {
 
         // ENABLE ANONYMOUS READ ACCESS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED of deployment to true
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED");
             setValue("true");
         }});
@@ -110,7 +102,7 @@ public class AnonymousReadAccess {
 
         // DISABLE ANONYMOUS READ ACCESS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED of deployment to false
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED");
             setValue("false");
         }});

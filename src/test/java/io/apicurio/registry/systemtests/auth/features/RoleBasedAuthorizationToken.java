@@ -1,14 +1,12 @@
 package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
-import io.apicurio.registry.systemtests.framework.DeploymentUtils;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.fabric8.kubernetes.api.model.EnvVar;
 import org.junit.jupiter.api.Assertions;
 
 public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
@@ -55,13 +53,6 @@ public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
         // Set authentication method to token for readonly client
         readonlyClient.setAuthMethod(AuthMethod.TOKEN);
 
-        // PREPARE NECESSARY VARIABLES
-        // Get registry deployment
-        deployment = Kubernetes.getDeployment(
-                apicurioRegistry.getMetadata().getNamespace(),
-                apicurioRegistry.getMetadata().getName() + "-deployment"
-        );
-
         // WAIT FOR API AVAILABILITY
         Assertions.assertTrue(adminClient.waitServiceAvailable());
 
@@ -72,7 +63,7 @@ public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
 
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY AND TEST IT
         // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to true
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("ROLE_BASED_AUTHZ_ENABLED");
             setValue("true");
         }});
@@ -83,7 +74,7 @@ public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
 
         // DISABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY AND TEST IT
         // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to false
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, new EnvVar() {{
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
             setName("ROLE_BASED_AUTHZ_ENABLED");
             setValue("false");
         }});

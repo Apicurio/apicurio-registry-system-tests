@@ -1,14 +1,12 @@
 package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
-import io.apicurio.registry.systemtests.framework.DeploymentUtils;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.fabric8.kubernetes.api.model.EnvVar;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
@@ -109,47 +107,42 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
         // PREPARE NECESSARY VARIABLES
-        // Get registry deployment
-        deployment = Kubernetes.getDeployment(
-                apicurioRegistry.getMetadata().getNamespace(),
-                apicurioRegistry.getMetadata().getName() + "-deployment"
-        );
         // Basic environment variable to enable role based authorization
-        EnvVar basicEnvVar = new EnvVar() {{
+        Env basicEnvVar = new Env() {{
             setName("ROLE_BASED_AUTHZ_ENABLED");
             setValue("true");
         }};
         // Environment variables with default roles
-        List<EnvVar> defaultRolesEnvVars = new ArrayList<>();
+        List<Env> defaultRolesEnvVars = new ArrayList<>();
         // * Define name of admin role
-        defaultRolesEnvVars.add(new EnvVar() {{
+        defaultRolesEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ROLES_ADMIN");
             setValue("sr-admin");
         }});
         // * Define name of developer role
-        defaultRolesEnvVars.add(new EnvVar() {{
+        defaultRolesEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ROLES_DEVELOPER");
             setValue("sr-developer");
         }});
         // * Define name of readonly role
-        defaultRolesEnvVars.add(new EnvVar() {{
+        defaultRolesEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ROLES_READONLY");
             setValue("sr-readonly");
         }});
         // Environment variables with user-defined roles
-        List<EnvVar> userDefinedRolesEnvVars = new ArrayList<>();
+        List<Env> userDefinedRolesEnvVars = new ArrayList<>();
         // * Define name of admin role
-        userDefinedRolesEnvVars.add(new EnvVar() {{
+        userDefinedRolesEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ROLES_ADMIN");
             setValue("test-admin-role");
         }});
         // * Define name of developer role
-        userDefinedRolesEnvVars.add(new EnvVar() {{
+        userDefinedRolesEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ROLES_DEVELOPER");
             setValue("test-developer-role");
         }});
         // * Define name of readonly role
-        userDefinedRolesEnvVars.add(new EnvVar() {{
+        userDefinedRolesEnvVars.add(new Env() {{
             setName("REGISTRY_AUTH_ROLES_READONLY");
             setValue("test-readonly-role");
         }});
@@ -158,7 +151,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
 
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN
         // Set variable ROLE_BASED_AUTHZ_ENABLED to true
-        DeploymentUtils.createOrReplaceDeploymentEnvVar(deployment, basicEnvVar);
+        ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, basicEnvVar);
         // Initialize clients with default roles
         initializeClientsDefaultRoles(apicurioRegistry, hostname);
         // Wait for API availability
@@ -177,7 +170,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
 
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY WITH DEFAULT ROLE NAMES AND TEST IT
         // Set necessary environment variables
-        DeploymentUtils.createOrReplaceDeploymentEnvVars(deployment, defaultRolesEnvVars);
+        ApicurioRegistryUtils.createOrReplaceEnvVars(apicurioRegistry, defaultRolesEnvVars);
         // Initialize clients with default roles
         initializeClientsDefaultRoles(apicurioRegistry, hostname);
         // Wait for API availability
@@ -196,7 +189,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
 
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY WITH USER-DEFINED ROLE NAMES AND TEST IT
         // Set necessary environment variables
-        DeploymentUtils.createOrReplaceDeploymentEnvVars(deployment, userDefinedRolesEnvVars);
+        ApicurioRegistryUtils.createOrReplaceEnvVars(apicurioRegistry, userDefinedRolesEnvVars);
         // Initialize clients with default roles
         initializeClientsDefaultRoles(apicurioRegistry, hostname);
         // Wait for API availability

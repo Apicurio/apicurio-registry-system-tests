@@ -6,7 +6,6 @@ import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.framework.CompatibilityLevel;
 import io.apicurio.registry.systemtests.framework.RuleType;
 import io.apicurio.registry.systemtests.framework.ValidityLevel;
-import io.fabric8.kubernetes.api.model.apps.Deployment;
 import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 
@@ -21,8 +20,6 @@ public abstract class RoleBasedAuthorization {
     protected static ApicurioRegistryApiClient developerClient;
     // API client with readonly authorization
     protected static ApicurioRegistryApiClient readonlyClient;
-    // Deployment of Apicurio Registry
-    protected static Deployment deployment;
     // Artifact group ID for all users
     protected static String groupId = "roleBasedAuthorizationTokenTest";
     // Artifact ID prefix for all users
