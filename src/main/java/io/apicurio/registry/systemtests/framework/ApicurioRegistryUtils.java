@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 
 import java.text.MessageFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -257,19 +258,31 @@ public class ApicurioRegistryUtils {
     /* Environment variables processing */
 
     public static boolean envVarExists(ApicurioRegistry apicurioRegistry, String envVarName) {
-        return apicurioRegistry
+        List<Env> currentEnv = apicurioRegistry
                 .getSpec()
                 .getConfiguration()
-                .getEnv()
+                .getEnv();
+
+        if (currentEnv == null) {
+            return false;
+        }
+
+        return currentEnv
                 .stream()
                 .anyMatch(ev -> ev.getName().equals(envVarName));
     }
 
     public static Env getEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
-        return apicurioRegistry
+        List<Env> currentEnv = apicurioRegistry
                 .getSpec()
                 .getConfiguration()
-                .getEnv()
+                .getEnv();
+
+        if (currentEnv == null) {
+            return null;
+        }
+
+        return currentEnv
                 .stream()
                 .filter(ev -> ev.getName().equals(envVarName))
                 .findFirst()
@@ -277,19 +290,39 @@ public class ApicurioRegistryUtils {
     }
 
     public static void addEnvVar(ApicurioRegistry apicurioRegistry, Env envVar) {
+        List<Env> currentEnv = apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv();
+
+        if (currentEnv == null) {
+            currentEnv = new ArrayList<>();
+        }
+
+        currentEnv.add(envVar);
+
         apicurioRegistry
                 .getSpec()
                 .getConfiguration()
-                .getEnv()
-                .add(envVar);
+                .setEnv(currentEnv);
     }
 
     public static void removeEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+        List<Env> currentEnv = apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv();
+
+        if (currentEnv == null) {
+            return;
+        }
+
+        currentEnv.remove(getEnvVar(apicurioRegistry, envVarName));
+
         apicurioRegistry
                 .getSpec()
                 .getConfiguration()
-                .getEnv()
-                .remove(getEnvVar(apicurioRegistry, envVarName));
+                .setEnv(currentEnv);
     }
 
     public static ApicurioRegistry processChange(ApicurioRegistry apicurioRegistry) {
@@ -345,11 +378,20 @@ public class ApicurioRegistryUtils {
         }
     }
 
+    public static ApicurioRegistry getApicurioRegistry(ApicurioRegistry apicurioRegistry) {
+        return (new ApicurioRegistryResourceType()).get(
+                apicurioRegistry.getMetadata().getNamespace(),
+                apicurioRegistry.getMetadata().getName()
+        );
+    }
+
     public static void createOrReplaceEnvVar(ApicurioRegistry apicurioRegistry, Env envVar) {
         createOrReplaceEnvVars(apicurioRegistry, Collections.singletonList(envVar));
     }
 
     public static void createOrReplaceEnvVars(ApicurioRegistry apicurioRegistry, List<Env> envVars) {
+        // Get fresh registry state
+        apicurioRegistry = getApicurioRegistry(apicurioRegistry);
         // Get registry name
         String dName = apicurioRegistry.getMetadata().getName();
         // Flag to indicate if registry was changed
@@ -389,8 +431,7 @@ public class ApicurioRegistryUtils {
 
             for (Env ev : envVars) {
                 // Check value of environment variable
-                Assertions.assertEquals(
-                        getEnvVar(apicurioRegistry, ev.getName()).getValue(), ev.getValue(),
+                Assertions.assertEquals(getEnvVar(apicurioRegistry, ev.getName()).getValue(), ev.getValue(),
                         MessageFormat.format("Environment variable {0} of registry {1} was NOT set to {2}.",
                                 ev.getName(), dName, ev.getValue()
                         )
