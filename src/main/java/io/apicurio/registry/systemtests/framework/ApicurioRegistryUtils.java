@@ -331,6 +331,14 @@ public class ApicurioRegistryUtils {
 
         Kubernetes.createOrReplaceResources(namespace, Collections.singletonList(apicurioRegistry));
 
+        try {
+            LOGGER.info("Waiting for 5 seconds to re-create registry.");
+
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         Assertions.assertTrue(waitApicurioRegistryReady(apicurioRegistry));
 
         Assertions.assertTrue(waitApicurioRegistryHostnameReady(apicurioRegistry));
