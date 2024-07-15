@@ -36,7 +36,7 @@ import java.util.function.Predicate;
 
 public class ResourceManager {
     private static final Logger LOGGER = LoggerUtils.getLogger();
-    private static final ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory());
+    private static final ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory()).findAndRegisterModules();
     private static ResourceManager instance;
     private static final Stack<Runnable> STORED_RESOURCES = new Stack<>();
     private static final Stack<Runnable> SHARED_RESOURCES = new Stack<>();
