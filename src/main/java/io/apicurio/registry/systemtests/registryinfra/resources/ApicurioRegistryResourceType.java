@@ -390,7 +390,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                                 .withApiClientId(Constants.SSO_CLIENT_API)
                                 .withUiClientId(Constants.SSO_CLIENT_UI)
                                 .withRealm(Constants.SSO_REALM)
-                                .withUrl(KeycloakUtils.getDefaultKeycloakURL())
+                                .withUrl(KeycloakUtils.getKeycloakURL(Environment.NAMESPACE, Constants.SSO_NAME, true))
                                 .endKeycloak()
                                 .build()
                 );

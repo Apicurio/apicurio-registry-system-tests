@@ -1,6 +1,5 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
-import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.openshift.api.model.Route;
 import io.fabric8.openshift.api.model.RouteBuilder;
@@ -62,40 +61,6 @@ public class RouteResourceType implements ResourceType<Route> {
     }
 
     /** Get default instances **/
-
-    public static Route getDefaultKeycloak(String namespace) {
-        return new RouteBuilder()
-                .withNewMetadata()
-                    .withName(Constants.SSO_HTTP_SERVICE)
-                    .withNamespace(namespace)
-                .endMetadata()
-                .withNewSpec()
-                    .withPath("/")
-                    .withTo(new RouteTargetReference() {{
-                        setKind("Service");
-                        setName(Constants.SSO_HTTP_SERVICE);
-                        setWeight(100);
-                    }})
-                .endSpec()
-                .build();
-    }
-
-    public static Route getDefaultOAuthKafkaKeycloak(String namespace) {
-        return new RouteBuilder()
-                .withNewMetadata()
-                    .withName(Constants.SSO_HTTP_SERVICE)
-                    .withNamespace(namespace)
-                .endMetadata()
-                .withNewSpec()
-                    .withPath("/")
-                    .withTo(new RouteTargetReference() {{
-                        setKind("Service");
-                        setName(Constants.SSO_NAME + "-service");
-                        setWeight(100);
-                    }})
-                .endSpec()
-                .build();
-    }
 
     public static Route getDefaultSelenium(String name, String namespace) {
         return new RouteBuilder()
