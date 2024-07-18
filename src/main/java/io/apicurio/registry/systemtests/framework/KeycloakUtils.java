@@ -7,8 +7,6 @@ import io.apicurio.registry.systemtests.client.KeycloakAdminApiClient;
 import io.apicurio.registry.systemtests.executor.Exec;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
-import io.apicurio.registry.systemtests.registryinfra.resources.RouteResourceType;
-import io.apicurio.registry.systemtests.registryinfra.resources.ServiceResourceType;
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.openshift.api.model.Route;
 import org.apache.hc.core5.http.HttpStatus;
@@ -75,15 +73,6 @@ public class KeycloakUtils {
         // Wait for Keycloak server to be ready
         Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, Constants.SSO_NAME));
 
-        // Create Keycloak HTTP Service and wait for its readiness
-        manager.createSharedResource( true, ServiceResourceType.getDefaultKeycloakHttp(namespace));
-
-        // Create Keycloak Route and wait for its readiness
-        manager.createSharedResource( true, RouteResourceType.getDefaultKeycloak(namespace));
-
-        // Log Keycloak URL
-        LOGGER.info("Keycloak URL: {}", getDefaultKeycloakURL(namespace));
-
         // TODO: Wait for Keycloak Realm readiness, but API model not available
         // Create Keycloak Realm
         Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak-realm.yaml"));
@@ -129,15 +118,6 @@ public class KeycloakUtils {
 
         // Wait for Keycloak server to be ready
         Assertions.assertTrue(ResourceUtils.waitStatefulSetReady(namespace, Constants.SSO_NAME));
-
-        // Create Keycloak HTTP Service and wait for its readiness
-        // manager.createSharedResource( true, ServiceResourceType.getDefaultKeycloakHttp(namespace));
-
-        // Create Keycloak Route and wait for its readiness
-        // manager.createSharedResource( true, RouteResourceType.getDefaultOAuthKafkaKeycloak(namespace));
-
-        // Log Keycloak URL
-        // LOGGER.info("Keycloak URL: {}", getDefaultKeycloakURL(namespace));
 
         // TODO: Wait for Keycloak Realm readiness, but API model not available
         // Create Keycloak Realm
@@ -207,14 +187,6 @@ public class KeycloakUtils {
         String scheme = secured ? "https://" : "http://";
 
         return scheme + Kubernetes.getRouteByPrefixHost(namespace, name);
-    }
-
-    public static String getDefaultKeycloakURL() {
-        return getDefaultKeycloakURL(Environment.NAMESPACE);
-    }
-
-    public static String getDefaultKeycloakURL(String namespace) {
-        return getKeycloakURL(namespace, Constants.SSO_HTTP_SERVICE, false);
     }
 
     public static String getDefaultKeycloakAdminURL() {
