@@ -249,7 +249,7 @@ public class KafkaResourceType implements ResourceType<Kafka> {
     public static CertSecretSource getDefaultOAuthKafkaTlsTrustedCertificates() {
         return new CertSecretSource() {{
             setCertificate("tls.crt");
-            setSecretName(Constants.OAUTH_KAFKA_ROUTER_CERTS);
+            setSecretName(Constants.ROUTER_CERTS);
         }};
     }
 

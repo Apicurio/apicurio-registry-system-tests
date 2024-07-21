@@ -6,7 +6,6 @@ import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicurio.registry.systemtests.client.KeycloakAdminApiClient;
 import io.apicurio.registry.systemtests.executor.Exec;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.openshift.api.model.Route;
 import org.apache.hc.core5.http.HttpStatus;
