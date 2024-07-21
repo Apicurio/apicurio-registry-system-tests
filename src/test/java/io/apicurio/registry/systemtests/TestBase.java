@@ -3,6 +3,8 @@ package io.apicurio.registry.systemtests;
 import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Base64Utils;
+import io.apicurio.registry.systemtests.framework.Certificate;
+import io.apicurio.registry.systemtests.framework.CertificateUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.DatabaseUtils;
 import io.apicurio.registry.systemtests.framework.Environment;
@@ -13,12 +15,14 @@ import io.apicurio.registry.systemtests.framework.TestNameGenerator;
 import io.apicurio.registry.systemtests.operator.OperatorManager;
 import io.apicurio.registry.systemtests.operator.types.KeycloakOLMOperatorType;
 import io.apicurio.registry.systemtests.operator.types.StrimziClusterOLMOperatorType;
+import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaKind;
 import io.apicurio.registry.systemtests.registryinfra.resources.PersistenceKind;
 import io.apicurio.registry.systemtests.resolver.ExtensionContextParameterResolver;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.Secret;
+import io.fabric8.kubernetes.api.model.SecretBuilder;
 import io.strimzi.api.kafka.model.kafka.Kafka;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +35,9 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 @DisplayNameGeneration(TestNameGenerator.class)
 @ExtendWith(ExtensionContextParameterResolver.class)
@@ -71,6 +77,39 @@ public abstract class TestBase {
 
         StrimziClusterOLMOperatorType strimziOperator = new StrimziClusterOLMOperatorType();
         operatorManager.installOperatorShared(strimziOperator);
+
+        LoggerUtils.logDelimiter("#");
+        LOGGER.info("Creating SSL truststore");
+        LoggerUtils.logDelimiter("#");
+
+        /* */
+        Secret routerCertsDefaultSecret = Kubernetes.getSecret("openshift-config-managed", Constants.ROUTER_CERTS);
+        String clusterBaseUrl = Objects.requireNonNull(
+                Kubernetes.getRouteHost("openshift-console", "console")
+        ).replace("console-openshift-console.", "");
+        ArrayList<Certificate> certificates = CertificateUtils.readCertificates(
+                Base64Utils.decode(routerCertsDefaultSecret.getData().get(clusterBaseUrl))
+        );
+        Secret newSecret = new SecretBuilder()
+                .withNewMetadata()
+                .withName(routerCertsDefaultSecret.getMetadata().getName())
+                .withNamespace(Environment.NAMESPACE)
+                .endMetadata()
+                .withType("kubernetes.io/tls")
+                .withData(new HashMap<>() {{
+                    put("tls.crt", Base64Utils.encode(CertificateUtils.getCertificates(certificates)));
+                    put("tls.key", Base64Utils.encode(CertificateUtils.getKeys(certificates)));
+                }})
+                .build();
+
+        resourceManager.createResource(true, newSecret);
+        /* */
+
+        CertificateUtils.createSslTruststore(
+                Environment.NAMESPACE,
+                Constants.ROUTER_CERTS,
+                Constants.TRUSTSTORE_SECRET_NAME
+        );
 
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deployment of shared resources is done!");

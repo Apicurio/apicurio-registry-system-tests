@@ -243,10 +243,10 @@ public class ApicurioRegistryUtils {
                 Environment.NAMESPACE
         );
 
-        CertificateUtils.createOAuthTruststore(
+        CertificateUtils.createSslTruststore(
                 Environment.NAMESPACE,
-                Constants.OAUTH_KAFKA_ROUTER_CERTS,
-                Constants.OAUTH_KAFKA_TRUSTSTORE_SECRET_NAME
+                Constants.ROUTER_CERTS,
+                Constants.TRUSTSTORE_SECRET_NAME
         );
 
         // Create Apicurio Registry

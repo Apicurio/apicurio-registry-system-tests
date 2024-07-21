@@ -21,6 +21,7 @@ import io.fabric8.kubernetes.client.dsl.Resource;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegistry> {
     private static String getApicurioRegistryFilePath(String filename) {
@@ -186,12 +187,19 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
         return getDefaultKafkasql(name, Environment.NAMESPACE);
     }
 
-    private static ArrayList<Env> getDefaultOAuthKafkaEnv1() {
+    private static ArrayList<Env> getDefaultSslTruststoreEnv() {
         return new ArrayList<>() {{
             add(new Env() {{
                 setName("JAVA_TOOL_OPTIONS");
                 setValue("-Djavax.net.ssl.trustStore=/mytruststore/myTrustStore " +
-                        "-Djavax.net.ssl.trustStorePassword=password"); }});
+                        "-Djavax.net.ssl.trustStorePassword=password");
+            }});
+        }};
+    }
+
+    private static ArrayList<Env> getDefaultOAuthKafkaEnv1() {
+        return new ArrayList<>() {{
+            addAll(getDefaultSslTruststoreEnv());
             add(new Env() {{
                 setName("QUARKUS_LOG_LEVEL"); setValue("INFO"); }});
             add(new Env() {{
@@ -280,7 +288,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
             add(new Volumes() {{
                 setName("mytruststore");
                 setSecret(new Secret() {{
-                    setSecretName(Constants.OAUTH_KAFKA_TRUSTSTORE_SECRET_NAME);
+                    setSecretName(Constants.TRUSTSTORE_SECRET_NAME);
                     setDefaultMode(420);
                 }});
             }});
@@ -381,6 +389,27 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
     }
 
     public static void updateWithDefaultKeycloak(ApicurioRegistry apicurioRegistry) {
+        // Get env
+        List<Env> envList = apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getEnv();
+
+        // Check if env is not null
+        if (envList == null) {
+            // Create env when null
+            envList = new ArrayList<>();
+        }
+
+        // Add SSL truststore
+        envList.addAll(getDefaultSslTruststoreEnv());
+
+        apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .setEnv(envList);
+
+        // Add Keycloak section
         apicurioRegistry
                 .getSpec()
                 .getConfiguration()

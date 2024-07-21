@@ -119,12 +119,12 @@ public class CertificateUtils {
         createSecret(namespace, truststoreSecretName, secretData);
     }
 
-    public static void createOAuthTruststore(
+    public static void createSslTruststore(
             String namespace,
             String caCertSecretName,
             String truststoreSecretName
     ) throws InterruptedException {
-        LOGGER.info("Preparing OAuth truststore...");
+        LOGGER.info("Preparing SSL truststore...");
 
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
         String caCertSecretValue = decodeBase64Secret(namespace, caCertSecretName, "tls.crt");
