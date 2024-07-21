@@ -18,7 +18,6 @@ import io.apicurio.registry.systemtests.operator.types.StrimziClusterOLMOperator
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.resolver.ExtensionContextParameterResolver;
-import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.kubernetes.api.model.SecretBuilder;
 import org.junit.jupiter.api.AfterAll;
@@ -124,7 +123,7 @@ public abstract class TestBaseOAuthKafka {
     }
 
     protected ApicurioRegistry deployOAuthKafkaTestRegistry() throws InterruptedException {
-        Secret routerCertsDefaultSecret = Kubernetes.getSecret("openshift-config-managed", Constants.OAUTH_KAFKA_ROUTER_CERTS);
+        Secret routerCertsDefaultSecret = Kubernetes.getSecret("openshift-config-managed", Constants.ROUTER_CERTS);
         String clusterBaseUrl = Objects.requireNonNull(
                 Kubernetes.getRouteHost("openshift-console", "console")
         ).replace("console-openshift-console.", "");
