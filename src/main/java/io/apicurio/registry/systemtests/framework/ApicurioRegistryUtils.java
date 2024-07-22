@@ -246,7 +246,8 @@ public class ApicurioRegistryUtils {
         CertificateUtils.createSslTruststore(
                 Environment.NAMESPACE,
                 Constants.ROUTER_CERTS,
-                Constants.TRUSTSTORE_SECRET_NAME
+                Constants.TRUSTSTORE_SECRET_NAME,
+                true
         );
 
         // Create Apicurio Registry

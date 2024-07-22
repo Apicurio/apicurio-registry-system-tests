@@ -80,7 +80,7 @@ public class CertificateUtils {
     }
 
     private static void createSecret(
-            String namespace, String name, Map<String, String> secretData
+            String namespace, String name, Map<String, String> secretData, boolean shared
     ) throws InterruptedException {
         Secret secret = new SecretBuilder()
                 .withNewMetadata()
@@ -90,7 +90,11 @@ public class CertificateUtils {
                 .addToData(secretData)
                 .build();
 
-        ResourceManager.getInstance().createResource( true, secret);
+        if (shared) {
+            ResourceManager.getInstance().createSharedResource(true, secret);
+        } else {
+            ResourceManager.getInstance().createResource(true, secret);
+        }
     }
 
     public static void createTruststore(
@@ -116,13 +120,14 @@ public class CertificateUtils {
             put("ca.password", Base64Utils.encode(truststorePassword));
         }};
 
-        createSecret(namespace, truststoreSecretName, secretData);
+        createSecret(namespace, truststoreSecretName, secretData, false);
     }
 
     public static void createSslTruststore(
             String namespace,
             String caCertSecretName,
-            String truststoreSecretName
+            String truststoreSecretName,
+            boolean shared
     ) throws InterruptedException {
         LOGGER.info("Preparing SSL truststore...");
 
@@ -140,7 +145,7 @@ public class CertificateUtils {
             put("myTrustStore", Base64Utils.encode(truststorePath));
         }};
 
-        createSecret(namespace, truststoreSecretName, secretData);
+        createSecret(namespace, truststoreSecretName, secretData, shared);
     }
 
     public static void createKeystore(
@@ -170,7 +175,7 @@ public class CertificateUtils {
             put("user.password", Base64Utils.encode(keystorePassword));
         }};
 
-        createSecret(namespace, keystoreSecretName, secretData);
+        createSecret(namespace, keystoreSecretName, secretData, false);
     }
 
     public static ArrayList<Certificate> readCertificates(String text) {
