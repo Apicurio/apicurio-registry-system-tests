@@ -35,23 +35,32 @@ public class DatabaseUtils {
         }
     }
 
-    public static void deployPostgresqlDatabase(String name, String namespace, String databaseName) {
+    public static void deployPostgresqlDatabase(String name, String namespace, String databaseName, boolean shared) {
         Deployment deployment = DeploymentResourceType.getDefaultPostgresql(name, namespace, databaseName);
         Service service = ServiceResourceType.getDefaultPostgresql(name, namespace);
 
-        try {
-            ResourceManager.getInstance().createResource(true, deployment);
-            ResourceManager.getInstance().createResource(false, service);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (shared) {
+            try {
+                ResourceManager.getInstance().createSharedResource(true, deployment);
+                ResourceManager.getInstance().createSharedResource(false, service);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                ResourceManager.getInstance().createResource(true, deployment);
+                ResourceManager.getInstance().createResource(false, service);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void deployKeycloakPostgresqlDatabase() {
-        DatabaseUtils.deployPostgresqlDatabase("keycloak-db", Environment.NAMESPACE, "keycloak");
+        DatabaseUtils.deployPostgresqlDatabase("keycloak-db", Environment.NAMESPACE, "keycloak", true);
     }
 
-    public static void createKeycloakPostgresqlDatabaseSecret() throws InterruptedException {
+    public static void createKeycloakPostgresqlDatabaseSecret() {
         Secret dbSecret = new Secret();
         dbSecret.setMetadata(new ObjectMeta() {{
             setName(Constants.SSO_DB_SECRET_NAME);
@@ -63,6 +72,6 @@ public class DatabaseUtils {
             put("username", Base64Utils.encode(Constants.DB_USERNAME));
         }});
 
-        ResourceManager.getInstance().createResource(true, dbSecret);
+        ResourceManager.getInstance().createSharedResource(true, dbSecret);
     }
 }
