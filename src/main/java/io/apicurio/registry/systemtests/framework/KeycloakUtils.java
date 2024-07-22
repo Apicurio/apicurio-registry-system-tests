@@ -58,7 +58,6 @@ public class KeycloakUtils {
 
     public static void deployKeycloak(String namespace) throws InterruptedException, IOException {
         LOGGER.info("Deploying Keycloak...");
-        ResourceManager manager = ResourceManager.getInstance();
 
         String keycloakFilePath = getKeycloakFilePath("keycloak.yaml");
         String keycloakHostname = Objects.requireNonNull(Kubernetes
