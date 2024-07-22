@@ -39,20 +39,16 @@ public class DatabaseUtils {
         Deployment deployment = DeploymentResourceType.getDefaultPostgresql(name, namespace, databaseName);
         Service service = ServiceResourceType.getDefaultPostgresql(name, namespace);
 
-        if (shared) {
-            try {
+        try {
+            if (shared) {
                 ResourceManager.getInstance().createSharedResource(true, deployment);
                 ResourceManager.getInstance().createSharedResource(false, service);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
+            } else {
                 ResourceManager.getInstance().createResource(true, deployment);
                 ResourceManager.getInstance().createResource(false, service);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
