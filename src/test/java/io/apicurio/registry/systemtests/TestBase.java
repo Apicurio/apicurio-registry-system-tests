@@ -102,13 +102,14 @@ public abstract class TestBase {
                 }})
                 .build();
 
-        resourceManager.createResource(true, newSecret);
+        resourceManager.createSharedResource(true, newSecret);
         /* */
 
         CertificateUtils.createSslTruststore(
                 Environment.NAMESPACE,
                 Constants.ROUTER_CERTS,
-                Constants.TRUSTSTORE_SECRET_NAME
+                Constants.TRUSTSTORE_SECRET_NAME,
+                true
         );
 
         LoggerUtils.logDelimiter("#");
