@@ -198,6 +198,12 @@ public class CertificateUtils {
             } else if (l.startsWith("-----END PRIVATE KEY-----")) {
                 c.addLine(l);
                 returnList.add(c);
+            } else if (l.startsWith("-----BEGIN RSA PRIVATE KEY-----")) {
+                c = new Certificate(CertificateType.KEY);
+                c.addLine(l);
+            } else if (l.startsWith("-----END RSA PRIVATE KEY-----")) {
+                c.addLine(l);
+                returnList.add(c);
             } else {
                 c.addLine(l);
             }
