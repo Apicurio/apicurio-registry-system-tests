@@ -124,6 +124,14 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                     .withNewConfiguration()
                         .withPersistence("mem")
                     .endConfiguration()
+                    .withNewDeployment()
+                        .withNewPodTemplateSpecPreview()
+                            .withNewSpec()
+                                .withContainers(getDefaultContainers())
+                                .withVolumes(getDefaultVolumes())
+                            .endSpec()
+                        .endPodTemplateSpecPreview()
+                    .endDeployment()
                 .endSpec()
                 .build();
     }
@@ -151,6 +159,14 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                             .endDataSource()
                         .endSql()
                     .endConfiguration()
+                    .withNewDeployment()
+                        .withNewPodTemplateSpecPreview()
+                            .withNewSpec()
+                                .withContainers(getDefaultContainers())
+                                .withVolumes(getDefaultVolumes())
+                            .endSpec()
+                        .endPodTemplateSpecPreview()
+                    .endDeployment()
                 .endSpec()
                 .build();
 
@@ -171,6 +187,14 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                             )
                         .endKafkasql()
                     .endConfiguration()
+                    .withNewDeployment()
+                        .withNewPodTemplateSpecPreview()
+                            .withNewSpec()
+                                .withContainers(getDefaultContainers())
+                                .withVolumes(getDefaultVolumes())
+                            .endSpec()
+                        .endPodTemplateSpecPreview()
+                    .endDeployment()
                 .endSpec()
                .build();
     }
@@ -192,7 +216,8 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
             add(new Env() {{
                 setName("JAVA_TOOL_OPTIONS");
                 setValue("-Djavax.net.ssl.trustStore=/mytruststore/myTrustStore " +
-                        "-Djavax.net.ssl.trustStorePassword=password");
+                        "-Djavax.net.ssl.trustStorePassword=password " +
+                        "-Djavax.net.ssl.trustStoreType=PKCS12");
             }});
         }};
     }
@@ -261,7 +286,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
         return fullList;
     }
 
-    private static Containers getDefaultOAuthKafkaContainers() {
+    private static Containers getDefaultContainers() {
         return new Containers() {{
             setName("registry");
             setVolumeMounts(new ArrayList<>() {{
@@ -277,6 +302,18 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
         }};
     }
 
+    private static ArrayList<Volumes> getDefaultVolumes() {
+        return new ArrayList<>() {{
+            add(new Volumes() {{
+                setName("mytruststore");
+                setSecret(new Secret() {{
+                    setSecretName(Constants.TRUSTSTORE_SECRET_NAME);
+                    setDefaultMode(420);
+                }});
+            }});
+        }};
+    }
+
     private static ArrayList<Volumes> getDefaultOAuthKafkaVolumes() {
         return new ArrayList<>() {{
             add(new Volumes() {{
@@ -285,13 +322,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                     setSecretName("kafka1-cluster-ca-cert");
                 }});
             }});
-            add(new Volumes() {{
-                setName("mytruststore");
-                setSecret(new Secret() {{
-                    setSecretName(Constants.TRUSTSTORE_SECRET_NAME);
-                    setDefaultMode(420);
-                }});
-            }});
+            addAll(getDefaultVolumes());
         }};
     }
 
@@ -318,7 +349,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                     .withNewDeployment()
                         .withNewPodTemplateSpecPreview()
                             .withNewSpec()
-                                .withContainers(getDefaultOAuthKafkaContainers())
+                                .withContainers(getDefaultContainers())
                                 .withVolumes(getDefaultOAuthKafkaVolumes())
                             .endSpec()
                         .endPodTemplateSpecPreview()
