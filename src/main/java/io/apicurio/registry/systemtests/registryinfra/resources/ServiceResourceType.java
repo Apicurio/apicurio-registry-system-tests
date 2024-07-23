@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.IntOrString;
 import io.fabric8.kubernetes.api.model.Service;
@@ -100,6 +101,26 @@ public class ServiceResourceType implements ResourceType<Service> {
 
     public static Service getDefaultPostgresql() {
         return getDefaultPostgresql("postgresql", "postgresql");
+    }
+
+    public static Service getDefaultKeycloakHttp(String namespace) {
+        return new ServiceBuilder()
+                .withNewMetadata()
+                    .withName(Constants.SSO_HTTP_SERVICE)
+                    .withNamespace(namespace)
+                .endMetadata()
+                .withNewSpec()
+                    .withPorts(new ServicePort() {{
+                        setPort(8080);
+                        setProtocol("TCP");
+                        setTargetPort(new IntOrString(8080));
+                    }})
+                    .withSelector(new HashMap<>() {{
+                        put("app", "keycloak");
+                    }})
+                    .withType("ClusterIP")
+                .endSpec()
+                .build();
     }
 
     public static Service getDefaultSelenium(String name, String namespace) {
