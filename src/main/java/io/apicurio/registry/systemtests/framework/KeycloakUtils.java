@@ -88,7 +88,7 @@ public class KeycloakUtils {
         // Create Keycloak Realm
         Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak-realm.yaml"));
 
-        Thread.sleep(Duration.ofMinutes(1).toMillis());
+        Thread.sleep(Duration.ofMinutes(3).toMillis());
 
         // CREATE AND MAP KEYCLOAK CLIENT SCOPE FOR MAPPING USER ATTRIBUTES INTO TOKEN
         // Get Keycloak API admin client
