@@ -291,6 +291,18 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
             setName("registry");
             setVolumeMounts(new ArrayList<>() {{
                 add(new VolumeMounts() {{
+                    setName("mytruststore");
+                    setMountPath("/mytruststore");
+                }});
+            }});
+        }};
+    }
+
+    private static Containers getDefaultOAuthKafkaContainers() {
+        return new Containers() {{
+            setName("registry");
+            setVolumeMounts(new ArrayList<>() {{
+                add(new VolumeMounts() {{
                     setName("cluster-ca-cert");
                     setMountPath("/tmp/cluster-ca-cert");
                 }});
@@ -349,7 +361,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                     .withNewDeployment()
                         .withNewPodTemplateSpecPreview()
                             .withNewSpec()
-                                .withContainers(getDefaultContainers())
+                                .withContainers(getDefaultOAuthKafkaContainers())
                                 .withVolumes(getDefaultOAuthKafkaVolumes())
                             .endSpec()
                         .endPodTemplateSpecPreview()
