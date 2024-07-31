@@ -6,7 +6,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
   name: apicurioregistries.registry.apicur.io
 spec:
   group: registry.apicur.io
@@ -20,7 +20,7 @@ spec:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: ApicurioRegistry represents a Red Hat Integration Service Registry
+        description: ApicurioRegistry represents a Red Hat build of Apicurio Registry
           instance
         properties:
           apiVersion:
@@ -39,11 +39,12 @@ spec:
             description: ApicurioRegistrySpec defines the desired state of ApicurioRegistry
             properties:
               configuration:
-                description: Service Registry application configuration
+                description: Red Hat build of Apicurio Registry application configuration
                 properties:
                   env:
                     description: "Environment variables: \n List of additional environment
-                      variables that will be provided to the Service Registry application."
+                      variables that will be provided to the Red Hat build of Apicurio
+                      Registry application."
                     items:
                       description: EnvVar represents an environment variable present
                         in a Container.
@@ -157,7 +158,8 @@ spec:
                       type: object
                     type: array
                   kafkasql:
-                    description: Configuration of Service Registry KafkaSQL storage
+                    description: Configuration of Red Hat build of Apicurio Registry
+                      KafkaSQL storage
                     properties:
                       bootstrapServers:
                         description: "Kafka bootstrap servers URL: \n URL of one of
@@ -213,18 +215,19 @@ spec:
                     description: Third-party (non-Apicurio) library log level
                     type: string
                   persistence:
-                    description: "Storage: \n Type of storage used by Service Registry,
-                      one of: sql, kafkasql."
+                    description: "Storage: \n Type of storage used by Red Hat build
+                      of Apicurio Registry, one of: sql, kafkasql."
                     type: string
                   registryLogLevel:
-                    description: Service Registry application log level
+                    description: Red Hat build of Apicurio Registry application log
+                      level
                     type: string
                   security:
                     description: Security configuration
                     properties:
                       https:
-                        description: "HTTPS: \n Configure Service Registry to be accessible
-                          using HTTPS."
+                        description: "HTTPS: \n Configure Red Hat build of Apicurio
+                          Registry to be accessible using HTTPS."
                         properties:
                           disableHttp:
                             description: "Disable HTTP: \n Disable HTTP if HTTPS is
@@ -238,8 +241,9 @@ spec:
                             type: string
                         type: object
                       keycloak:
-                        description: "Keycloak: \n Configure Service Registry to use
-                          Keycloak for Identity and Access Management (IAM)."
+                        description: "Keycloak: \n Configure Red Hat build of Apicurio
+                          Registry to use Keycloak for Identity and Access Management
+                          (IAM)."
                         properties:
                           apiClientId:
                             description: Client ID for the REST API
@@ -257,7 +261,8 @@ spec:
                         type: object
                     type: object
                   sql:
-                    description: Configuration of Service Registry SQL storage
+                    description: Configuration of Red Hat build of Apicurio Registry
+                      SQL storage
                     properties:
                       dataSource:
                         description: SQL data source
@@ -276,7 +281,8 @@ spec:
                         type: object
                     type: object
                   ui:
-                    description: Configuration of Service Registry web console
+                    description: Configuration of Red Hat build of Apicurio Registry
+                      web console
                     properties:
                       readOnly:
                         description: "Read-only: \n Set the web console to read-only
@@ -286,7 +292,7 @@ spec:
                     type: object
                 type: object
               deployment:
-                description: Service Registry deployment configuration
+                description: Red Hat build of Apicurio Registry deployment configuration
                 properties:
                   affinity:
                     description: Affinity
@@ -1321,16 +1327,18 @@ spec:
                         type: object
                     type: object
                   host:
-                    description: "Hostname: \n Service Registry application hostname
-                      (part of the URL without the protocol and path)."
+                    description: "Hostname: \n Red Hat build of Apicurio Registry
+                      application hostname (part of the URL without the protocol and
+                      path)."
                     type: string
                   image:
-                    description: "Service Registry image: \n This configuration option
-                      is not supported by Service Registry Operator."
+                    description: "Red Hat build of Apicurio Registry image: \n This
+                      configuration option should not be used under normal circumstances."
                     type: string
                   imagePullSecrets:
-                    description: "Service Registry image pull secrets: \n List of
-                      Secrets to use when pulling the Service Registry image."
+                    description: "Red Hat build of Apicurio Registry image pull secrets:
+                      \n List of Secrets to use when pulling the Red Hat build of
+                      Apicurio Registry image."
                     items:
                       description: LocalObjectReference contains enough information
                         to let you locate the referenced object inside the same namespace.
@@ -1343,38 +1351,40 @@ spec:
                       x-kubernetes-map-type: atomic
                     type: array
                   managedResources:
-                    description: "Service Registry managed resources: \n Configure
-                      how the Operator manages Kubernetes resources."
+                    description: "Red Hat build of Apicurio Registry managed resources:
+                      \n Configure how the Operator manages Kubernetes resources."
                     properties:
                       disableIngress:
                         description: "Disable Ingress: \n Operator will not create
-                          or manage an Ingress for Service Registry, so it can be
-                          done manually."
+                          or manage an Ingress for Red Hat build of Apicurio Registry,
+                          so it can be done manually."
                         type: boolean
                       disableNetworkPolicy:
                         description: "Disable NetworkPolicy: \n Operator will not
-                          create or manage a NetworkPolicy for Service Registry, so
-                          it can be done manually."
+                          create or manage a NetworkPolicy for Red Hat build of Apicurio
+                          Registry, so it can be done manually."
                         type: boolean
                       disablePodDisruptionBudget:
                         description: "Disable PodDisruptionBudget: \n Operator will
-                          not create or manage a PodDisruptionBudget for Service Registry,
-                          so it can be done manually."
+                          not create or manage a PodDisruptionBudget for Red Hat build
+                          of Apicurio Registry, so it can be done manually."
                         type: boolean
                     type: object
                   metadata:
-                    description: Metadata of the Service Registry pod
+                    description: Metadata of the Red Hat build of Apicurio Registry
+                      pod
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: "Annotations: \n Additional Service Registry
-                          Pod annotations."
+                        description: "Annotations: \n Additional Red Hat build of
+                          Apicurio Registry Pod annotations."
                         type: object
                       labels:
                         additionalProperties:
                           type: string
-                        description: "Labels: \n Additional Service Registry Pod labels."
+                        description: "Labels: \n Additional Red Hat build of Apicurio
+                          Registry Pod labels."
                         type: object
                     type: object
                   podTemplateSpecPreview:
@@ -4770,8 +4780,8 @@ spec:
                         type: object
                     type: object
                   replicas:
-                    description: "Replicas: \n The required number of Service Registry
-                      pods. Default value is 1."
+                    description: "Replicas: \n The required number of Red Hat build
+                      of Apicurio Registry pods. Default value is 1."
                     format: int32
                     type: integer
                   tolerations:
@@ -4820,8 +4830,8 @@ spec:
           status:
             properties:
               conditions:
-                description: "Conditions: \n Service Registry application and Operator
-                  conditions."
+                description: "Conditions: \n Red Hat build of Apicurio Registry application
+                  and Operator conditions."
                 items:
                   description: "Condition contains details for one aspect of the current
                     state of this API Resource. --- This struct is intended for direct
@@ -4890,15 +4900,16 @@ spec:
                   type: object
                 type: array
               info:
-                description: Information about the Service Registry application
+                description: Information about the Red Hat build of Apicurio Registry
+                  application
                 properties:
                   host:
-                    description: Service Registry URL
+                    description: Red Hat build of Apicurio Registry URL
                     type: string
                 type: object
               managedResources:
                 description: "Managed Resources: \n Kubernetes resources managed by
-                  the Service Registry Operator."
+                  the Red Hat build of Apicurio Registry Operator."
                 items:
                   properties:
                     kind:
@@ -4922,7 +4933,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
   name: apicurio-registry-operator
   namespace: apicurio-registry-operator-namespace
 ---
@@ -4932,7 +4943,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
   name: apicurio-registry-operator-leader-election-role
   namespace: apicurio-registry-operator-namespace
 rules:
@@ -4974,7 +4985,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
   name: apicurio-registry-operator-role
 rules:
 - apiGroups:
@@ -5074,7 +5085,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
   name: apicurio-registry-operator-leader-election-rolebinding
   namespace: apicurio-registry-operator-namespace
 roleRef:
@@ -5092,7 +5103,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
   name: apicurio-registry-operator-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -5109,7 +5120,7 @@ metadata:
   labels:
     apicur.io/name: apicurio-registry-operator
     apicur.io/type: operator
-    apicur.io/version: 1.2.4-redhat.1
+    apicur.io/version: 1.3.0-redhat.1
     name: apicurio-registry-operator
   name: apicurio-registry-operator
   namespace: apicurio-registry-operator-namespace
@@ -5119,21 +5130,21 @@ spec:
     matchLabels:
       apicur.io/name: apicurio-registry-operator
       apicur.io/type: operator
-      apicur.io/version: 1.2.4-redhat.1
+      apicur.io/version: 1.3.0-redhat.1
       name: apicurio-registry-operator
   template:
     metadata:
       labels:
         apicur.io/name: apicurio-registry-operator
         apicur.io/type: operator
-        apicur.io/version: 1.2.4-redhat.1
+        apicur.io/version: 1.3.0-redhat.1
         com.company: Red_Hat
         name: apicurio-registry-operator
         rht.comp: Service_Registry
         rht.comp_t: infrastructure
-        rht.comp_ver: "2.5"
+        rht.comp_ver: "2.6"
         rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: "2.5"
+        rht.prod_ver: "2.6"
     spec:
       containers:
       - args:
@@ -5142,11 +5153,11 @@ spec:
         - /manager
         env:
         - name: REGISTRY_VERSION
-          value: 2.5.11.redhat-00001
+          value: 2.6.1.redhat-00003
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/integration/service-registry-kafkasql-rhel8:2.5.11
+          value: registry.redhat.io/apicurio/apicurio-registry-kafkasql-rhel8:2.6.1
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/integration/service-registry-sql-rhel8:2.5.11
+          value: registry.redhat.io/apicurio/apicurio-registry-sql-rhel8:2.6.1
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
@@ -5161,7 +5172,7 @@ spec:
               fieldPath: metadata.namespace
         - name: OPERATOR_NAME
           value: apicurio-registry-operator
-        image: registry.redhat.io/integration/service-registry-rhel8-operator:2.2.4
+        image: registry.redhat.io/apicurio/apicurio-registry-rhel8-operator:2.6.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
