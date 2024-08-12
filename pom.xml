@@ -20,7 +20,7 @@
         <version.lombok>1.18.34</version.lombok>
         <version.operator>1.1.2-v2.5.11.final</version.operator>
         <version.hamcrest>3.0</version.hamcrest>
-        <version.slf4j>2.0.15</version.slf4j>
+        <version.slf4j>2.0.16</version.slf4j>
         <version.strimzi.api>0.42.0</version.strimzi.api>
         <version.eclipse.jgit>6.10.0.202406032230-r</version.eclipse.jgit>
         <version.org.json>20240303</version.org.json>
