@@ -22,7 +22,7 @@
         <version.hamcrest>3.0</version.hamcrest>
         <version.slf4j>2.0.16</version.slf4j>
         <version.strimzi.api>0.43.0</version.strimzi.api>
-        <version.eclipse.jgit>6.10.0.202406032230-r</version.eclipse.jgit>
+        <version.eclipse.jgit>7.0.0.202409031743-r</version.eclipse.jgit>
         <version.org.json>20240303</version.org.json>
         <version.apache.commons>3.17.0</version.apache.commons>
         <version.apache.commons.io>2.16.1</version.apache.commons.io>
