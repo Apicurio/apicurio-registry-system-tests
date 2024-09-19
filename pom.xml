@@ -698,5 +698,29 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+
+        <!-- RapiDAST tests -->
+
+        <profile>
+            <id>bundle-rapidast</id>
+            <properties>
+                <groups>bundle-rapidast</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-clusterwide-rapidast</id>
+            <properties>
+                <groups>olm-clusterwide-rapidast</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-rapidast</id>
+            <properties>
+                <groups>olm-namespace-rapidast</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
     </profiles>
 </project>
