@@ -5153,11 +5153,11 @@ spec:
         - /manager
         env:
         - name: REGISTRY_VERSION
-          value: 2.6.3.redhat-00005
+          value: 2.6.5.redhat-00008
         - name: RELATED_IMAGE_REGISTRY_IMAGE_KAFKASQL
-          value: registry.redhat.io/apicurio/apicurio-registry-kafkasql-rhel8:2.6.3
+          value: registry.redhat.io/apicurio/apicurio-registry-kafkasql-rhel8:2.6.5
         - name: RELATED_IMAGE_REGISTRY_IMAGE_SQL
-          value: registry.redhat.io/apicurio/apicurio-registry-sql-rhel8:2.6.3
+          value: registry.redhat.io/apicurio/apicurio-registry-sql-rhel8:2.6.5
         - name: WATCH_NAMESPACE
           valueFrom:
             fieldRef:
@@ -5172,7 +5172,7 @@ spec:
               fieldPath: metadata.namespace
         - name: OPERATOR_NAME
           value: apicurio-registry-operator
-        image: registry.redhat.io/apicurio/apicurio-registry-rhel8-operator:2.6.3
+        image: registry.redhat.io/apicurio/apicurio-registry-rhel8-operator:2.6.5
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
