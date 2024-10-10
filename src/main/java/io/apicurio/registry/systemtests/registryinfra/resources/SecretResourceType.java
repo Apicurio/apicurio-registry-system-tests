@@ -1,9 +1,13 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Constants;
+import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.Secret;
+import io.fabric8.kubernetes.api.model.SecretBuilder;
 
 import java.time.Duration;
+import java.util.HashMap;
 
 public class SecretResourceType implements ResourceType<Secret> {
 
@@ -54,5 +58,23 @@ public class SecretResourceType implements ResourceType<Secret> {
     @Override
     public void refreshResource(Secret existing, Secret newResource) {
         existing.setMetadata(newResource.getMetadata());
+    }
+
+    public static Secret getDefaultHttpsSecret() {
+        return getHttpsSecret(Environment.NAMESPACE);
+    }
+
+    public static Secret getHttpsSecret(String namespace) {
+        return new SecretBuilder()
+                .withNewMetadata()
+                    .withName(Constants.HTTPS_SECRET_NAME)
+                    .withNamespace(namespace)
+                .endMetadata()
+                .withType("Opaque")
+                .withData(new HashMap<>() {{
+                    put("tls.crt", Constants.HTTPS_SECRET_CRT);
+                    put("tls.key", Constants.HTTPS_SECRET_KEY);
+                }})
+                .build();
     }
 }

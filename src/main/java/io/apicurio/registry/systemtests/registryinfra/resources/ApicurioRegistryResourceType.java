@@ -467,4 +467,15 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                                 .build()
                 );
     }
+
+    public static void updateWithDefaultHttpsSecret(ApicurioRegistry apicurioRegistry) {
+        apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getSecurity()
+                .setHttps(new io.apicur.registry.v1.apicurioregistryspec.configuration.security.HttpsBuilder()
+                        .withSecretName(Constants.HTTPS_SECRET_NAME)
+                        .build()
+                );
+    }
 }
