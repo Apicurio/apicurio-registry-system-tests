@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 @Getter
 @Setter
-public abstract class OLMConfigTests extends RapidastTests {
+public abstract class OLMConfigTests extends ConfigTests {
     private boolean clusterWide;
 
     @BeforeEach
