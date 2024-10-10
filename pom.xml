@@ -699,6 +699,30 @@
             </properties>
         </profile>
 
+        <!-- Config tests -->
+
+        <profile>
+            <id>bundle-config</id>
+            <properties>
+                <groups>bundle-config</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-clusterwide-config</id>
+            <properties>
+                <groups>olm-clusterwide-config</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-config</id>
+            <properties>
+                <groups>olm-namespace-config</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
         <!-- RapiDAST tests -->
 
         <profile>

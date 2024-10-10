@@ -3,9 +3,11 @@ package io.apicurio.registry.systemtests.registryinfra.resources;
 import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicur.registry.v1.ApicurioRegistryBuilder;
 import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.Security;
 import io.apicur.registry.v1.apicurioregistryspec.configuration.env.ValueFrom;
 import io.apicur.registry.v1.apicurioregistryspec.configuration.env.valuefrom.SecretKeyRef;
 import io.apicur.registry.v1.apicurioregistryspec.configuration.kafkasql.SecurityBuilder;
+import io.apicur.registry.v1.apicurioregistryspec.configuration.security.Https;
 import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.Containers;
 import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.Volumes;
 import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.containers.VolumeMounts;
@@ -453,6 +455,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                 .setEnv(envList);
 
         // Add Keycloak section
+        // TODO: Check if Security already exists and update it accordingly
         apicurioRegistry
                 .getSpec()
                 .getConfiguration()
@@ -466,5 +469,31 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                                 .endKeycloak()
                                 .build()
                 );
+    }
+
+    public static void updateWithDefaultHttpsSecret(ApicurioRegistry apicurioRegistry) {
+        Https https = new io.apicur.registry.v1.apicurioregistryspec.configuration.security.HttpsBuilder()
+                .withSecretName(Constants.HTTPS_SECRET_NAME)
+                .build();
+        Security security = apicurioRegistry
+                .getSpec()
+                .getConfiguration()
+                .getSecurity();
+
+        if (security == null) {
+            apicurioRegistry
+                    .getSpec()
+                    .getConfiguration()
+                    .setSecurity(new io.apicur.registry.v1.apicurioregistryspec.configuration.SecurityBuilder()
+                            .withHttps(https)
+                            .build()
+                    );
+        } else {
+            apicurioRegistry
+                    .getSpec()
+                    .getConfiguration()
+                    .getSecurity()
+                    .setHttps(https);
+        }
     }
 }
