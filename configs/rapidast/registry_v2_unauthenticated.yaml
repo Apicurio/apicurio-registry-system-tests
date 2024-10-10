@@ -1,0 +1,20 @@
+config:
+  configVersion: 5
+application:
+  shortName: "ApicurioRegistry"
+  url: "http://<hostname>/apis/registry/v2"
+scanners:
+  zap:
+    apiScan:
+      apis:
+        apiUrl: "http://<hostname>/api-specifications/registry/v2/openapi.json"
+
+    spider:
+      maxDuration: 0
+
+    spiderAjax:
+      maxDuration: 0
+      browserId: firefox-headless
+
+    activeScan:
+      policy: "Kubernetes-API-scan"
