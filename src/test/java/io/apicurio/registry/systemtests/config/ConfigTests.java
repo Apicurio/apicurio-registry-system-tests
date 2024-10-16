@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Tag("config")
 public abstract class ConfigTests extends TestBase {
     @Test
     @Tag("https")

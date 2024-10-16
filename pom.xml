@@ -370,6 +370,13 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+        <profile>
+            <id>config</id>
+            <properties>
+                <groups>config</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
 
         <!-- auth tests -->
 
