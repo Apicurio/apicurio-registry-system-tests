@@ -6,6 +6,7 @@ import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.PersistentVolumeClaim;
+import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodList;
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.kubernetes.api.model.Service;
@@ -297,6 +298,18 @@ public final class Kubernetes {
                 .list();
     }
 
+    public static Pod getPodByPrefix(String namespace, String prefix) {
+        return getClient()
+                .pods()
+                .inNamespace(namespace)
+                .list()
+                .getItems()
+                .stream()
+                .filter(p -> p.getMetadata().getName().startsWith(prefix))
+                .findFirst()
+                .orElse(null);
+    }
+
     public static void deletePods(String namespace, String labelKey, String labelValue) {
         getClient()
                 .pods()
@@ -526,6 +539,12 @@ public final class Kubernetes {
                 .inNamespace(namespace)
                 .withName(name)
                 .get();
+    }
+
+    public static String getServiceClusterIp(String namespace, String name) {
+        return getService(namespace, name)
+                .getSpec()
+                .getClusterIP();
     }
 
     public static void createService(String namespace, Service service) {
