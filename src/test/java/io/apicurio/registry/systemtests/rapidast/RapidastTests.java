@@ -175,17 +175,165 @@ public abstract class RapidastTests extends TestBase {
         LOGGER.info("RapiDAST finished.");
     }
 
-    /*
+    /* HTTP Basic Tests */
+
     @Test
-    @Tag("authenticated")
-    public void testRapidastAuthenticated() throws InterruptedException {
-        deployTestRegistry(PersistenceKind.SQL, null, true);
+    @Tag("http-basic")
+    public void testRapidastRegistryV2HttpBasic() throws InterruptedException {
+        // Get path to config file
+        String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_http_basic.yaml");
+        // Deploy and get registry
+        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
-        LOGGER.info("I will run authenticated RapiDAST here!!!");
+        // Get registry hostname
+        String hostname = Kubernetes.getRouteByPrefixHost(
+                // Use registry namespace
+                apicurioRegistry.getMetadata().getNamespace(),
+                // Use registry name for prefix
+                apicurioRegistry.getMetadata().getName() + "-ingress"
+        );
 
-        Exec.executeAndCheck("zap.sh", "-h");
+        // Replace placeholder in config file with registry hostname
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
 
-        Exec.executeAndCheck("/usr/bin/python", "../rapidast/rapidast.py", "-h");
+        LOGGER.info("Config file path: " + configFilePath);
+        LOGGER.info("Hostname: " + hostname);
+
+        // Log current action
+        LOGGER.info("Running RapiDAST...");
+
+        // Execute RapiDAST with updated config file
+        Exec.executeAndCheck("/usr/bin/python", "../rapidast/rapidast.py", "--config", configFilePath);
+
+        // Log current action
+        LOGGER.info("RapiDAST finished.");
     }
-     */
+
+    @Test
+    @Tag("http-basic")
+    public void testRapidastRegistryV1HttpBasic() throws InterruptedException {
+        // Get path to config file
+        String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_http_basic.yaml");
+        // Deploy and get registry
+        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+
+        // Get registry hostname
+        String hostname = Kubernetes.getRouteByPrefixHost(
+                // Use registry namespace
+                apicurioRegistry.getMetadata().getNamespace(),
+                // Use registry name for prefix
+                apicurioRegistry.getMetadata().getName() + "-ingress"
+        );
+
+        // Replace placeholder in config file with registry hostname
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+
+        LOGGER.info("Config file path: " + configFilePath);
+        LOGGER.info("Hostname: " + hostname);
+
+        // Log current action
+        LOGGER.info("Running RapiDAST...");
+
+        // Execute RapiDAST with updated config file
+        Exec.executeAndCheck("/usr/bin/python", "../rapidast/rapidast.py", "--config", configFilePath);
+
+        // Log current action
+        LOGGER.info("RapiDAST finished.");
+    }
+
+    @Test
+    @Tag("http-basic")
+    public void testRapidastCcompatV6HttpBasic() throws InterruptedException {
+        // Get path to config file
+        String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_http_basic.yaml");
+        // Deploy and get registry
+        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+
+        // Get registry hostname
+        String hostname = Kubernetes.getRouteByPrefixHost(
+                // Use registry namespace
+                apicurioRegistry.getMetadata().getNamespace(),
+                // Use registry name for prefix
+                apicurioRegistry.getMetadata().getName() + "-ingress"
+        );
+
+        // Replace placeholder in config file with registry hostname
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+
+        LOGGER.info("Config file path: " + configFilePath);
+        LOGGER.info("Hostname: " + hostname);
+
+        // Log current action
+        LOGGER.info("Running RapiDAST...");
+
+        // Execute RapiDAST with updated config file
+        Exec.executeAndCheck("/usr/bin/python", "../rapidast/rapidast.py", "--config", configFilePath);
+
+        // Log current action
+        LOGGER.info("RapiDAST finished.");
+    }
+
+    @Test
+    @Tag("http-basic")
+    public void testRapidastCcompatV7HttpBasic() throws InterruptedException {
+        // Get path to config file
+        String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_http_basic.yaml");
+        // Deploy and get registry
+        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+
+        // Get registry hostname
+        String hostname = Kubernetes.getRouteByPrefixHost(
+                // Use registry namespace
+                apicurioRegistry.getMetadata().getNamespace(),
+                // Use registry name for prefix
+                apicurioRegistry.getMetadata().getName() + "-ingress"
+        );
+
+        // Replace placeholder in config file with registry hostname
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+
+        LOGGER.info("Config file path: " + configFilePath);
+        LOGGER.info("Hostname: " + hostname);
+
+        // Log current action
+        LOGGER.info("Running RapiDAST...");
+
+        // Execute RapiDAST with updated config file
+        Exec.executeAndCheck("/usr/bin/python", "../rapidast/rapidast.py", "--config", configFilePath);
+
+        // Log current action
+        LOGGER.info("RapiDAST finished.");
+    }
+
+    @Test
+    @Tag("http-basic")
+    public void testRapidastCncfV0HttpBasic() throws InterruptedException {
+        // Get path to config file
+        String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_http_basic.yaml");
+        // Deploy and get registry
+        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+
+        // Get registry hostname
+        String hostname = Kubernetes.getRouteByPrefixHost(
+                // Use registry namespace
+                apicurioRegistry.getMetadata().getNamespace(),
+                // Use registry name for prefix
+                apicurioRegistry.getMetadata().getName() + "-ingress"
+        );
+
+        // Replace placeholder in config file with registry hostname
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+
+        LOGGER.info("Config file path: " + configFilePath);
+        LOGGER.info("Hostname: " + hostname);
+
+        // Log current action
+        LOGGER.info("Running RapiDAST...");
+
+        // Execute RapiDAST with updated config file
+        Exec.executeAndCheck("/usr/bin/python", "../rapidast/rapidast.py", "--config", configFilePath);
+
+        // Log current action
+        LOGGER.info("RapiDAST finished.");
+    }
 }
