@@ -12,7 +12,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <version.junit.jupiter>5.11.2</version.junit.jupiter>
+        <version.junit.jupiter>5.11.3</version.junit.jupiter>
         <version.junit.platform>1.10.1</version.junit.platform>
         <version.fabric8>6.13.4</version.fabric8>
         <version.jackson>2.18.0</version.jackson>
