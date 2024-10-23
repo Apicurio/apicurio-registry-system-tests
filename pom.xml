@@ -26,7 +26,7 @@
         <version.org.json>20240303</version.org.json>
         <version.apache.commons>3.17.0</version.apache.commons>
         <version.apache.commons.io>2.17.0</version.apache.commons.io>
-        <version.apache.httpcomponents>5.3</version.apache.httpcomponents>
+        <version.apache.httpcomponents>5.3.1</version.apache.httpcomponents>
         <version.apache.maven.artifact>3.9.9</version.apache.maven.artifact>
         <version.surefire>3.5.1</version.surefire>
         <version.failsafe>3.5.1</version.failsafe>
