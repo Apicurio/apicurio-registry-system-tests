@@ -6,7 +6,6 @@ import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.RapidastUtils;
 import io.apicurio.registry.systemtests.framework.TestNameGenerator;
 import io.apicurio.registry.systemtests.framework.TextFileUtils;
-import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.resolver.ExtensionContextParameterResolver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
