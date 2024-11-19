@@ -1,0 +1,26 @@
+config:
+  configVersion: 5
+application:
+  shortName: "ApicurioRegistry"
+  url: "http://<hostname>/apis/registry/v3"
+general:
+  authentication:
+    type: http_basic
+    parameters:
+      username: "registry-admin"
+      password: "wrong_password"
+scanners:
+  zap:
+    apiScan:
+      apis:
+        apiUrl: "http://<hostname>/api-specifications/registry/v3/openapi.json"
+
+    spider:
+      maxDuration: 0
+
+    spiderAjax:
+      maxDuration: 0
+      browserId: firefox-headless
+
+    activeScan:
+      policy: "Kubernetes-API-scan"

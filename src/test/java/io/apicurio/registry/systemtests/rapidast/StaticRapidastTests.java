@@ -1,36 +1,38 @@
 package io.apicurio.registry.systemtests.rapidast;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.executor.Exec;
+import io.apicurio.registry.systemtests.framework.Constants;
+import io.apicurio.registry.systemtests.framework.Environment;
+import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.RapidastUtils;
 import io.apicurio.registry.systemtests.framework.TextFileUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.apicurio.registry.systemtests.registryinfra.resources.PersistenceKind;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.slf4j.Logger;
 
+@Tag("rapidast-static")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class RapidastTests extends TestBase {
+public class StaticRapidastTests {
+    protected static Logger LOGGER = LoggerUtils.getLogger();
+
     /* UNAUTHENTICATED Tests */
 
     @Test
     @Tag("unauthenticated")
     @Tag("v2")
     @Tag("v3")
-    public void testRapidastRegistryV2Unauthenticated() throws InterruptedException {
+    public void testRapidastRegistryV2Unauthenticated() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_unauthenticated.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -52,18 +54,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("unauthenticated")
     @Tag("v3")
-    public void testRapidastRegistryV3Unauthenticated() throws InterruptedException {
+    public void testRapidastRegistryV3Unauthenticated() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_unauthenticated.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -85,18 +85,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("unauthenticated")
     @Tag("v2")
-    public void testRapidastRegistryV1Unauthenticated() throws InterruptedException {
+    public void testRapidastRegistryV1Unauthenticated() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_unauthenticated.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -118,18 +116,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("unauthenticated")
     @Tag("v2")
-    public void testRapidastCcompatV6Unauthenticated() throws InterruptedException {
+    public void testRapidastCcompatV6Unauthenticated() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_unauthenticated.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -152,18 +148,16 @@ public abstract class RapidastTests extends TestBase {
     @Tag("unauthenticated")
     @Tag("v2")
     @Tag("v3")
-    public void testRapidastCcompatV7Unauthenticated() throws InterruptedException {
+    public void testRapidastCcompatV7Unauthenticated() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_unauthenticated.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -185,18 +179,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("unauthenticated")
     @Tag("v2")
-    public void testRapidastCncfV0Unauthenticated() throws InterruptedException {
+    public void testRapidastCncfV0Unauthenticated() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_unauthenticated.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -221,18 +213,16 @@ public abstract class RapidastTests extends TestBase {
     @Tag("http-basic")
     @Tag("v2")
     @Tag("v3")
-    public void testRapidastRegistryV2HttpBasic() throws InterruptedException {
+    public void testRapidastRegistryV2HttpBasic() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_http_basic.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -254,18 +244,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("http-basic")
     @Tag("v3")
-    public void testRapidastRegistryV3HttpBasic() throws InterruptedException {
+    public void testRapidastRegistryV3HttpBasic() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_http_basic.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -287,18 +275,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("http-basic")
     @Tag("v2")
-    public void testRapidastRegistryV1HttpBasic() throws InterruptedException {
+    public void testRapidastRegistryV1HttpBasic() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_http_basic.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -320,18 +306,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("http-basic")
     @Tag("v2")
-    public void testRapidastCcompatV6HttpBasic() throws InterruptedException {
+    public void testRapidastCcompatV6HttpBasic() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_http_basic.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -354,18 +338,16 @@ public abstract class RapidastTests extends TestBase {
     @Tag("http-basic")
     @Tag("v2")
     @Tag("v3")
-    public void testRapidastCcompatV7HttpBasic() throws InterruptedException {
+    public void testRapidastCcompatV7HttpBasic() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_http_basic.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -387,18 +369,16 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("http-basic")
     @Tag("v2")
-    public void testRapidastCncfV0HttpBasic() throws InterruptedException {
+    public void testRapidastCncfV0HttpBasic() {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_http_basic.yaml");
-        // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
                 // Use registry namespace
-                apicurioRegistry.getMetadata().getNamespace(),
+                Environment.NAMESPACE,
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                Constants.REGISTRY + "-ingress"
         );
 
         // Replace placeholder in config file with registry hostname

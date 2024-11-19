@@ -742,21 +742,57 @@
         <profile>
             <id>bundle-rapidast</id>
             <properties>
-                <groups>bundle-rapidast</groups>
+                <groups>bundle-rapidast &amp; v2</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-clusterwide-rapidast</id>
             <properties>
-                <groups>olm-clusterwide-rapidast</groups>
+                <groups>olm-clusterwide-rapidast &amp; v2</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
             <id>olm-namespace-rapidast</id>
             <properties>
-                <groups>olm-namespace-rapidast</groups>
+                <groups>olm-namespace-rapidast &amp; v2</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>rapidast-static</id>
+            <properties>
+                <groups>rapidast-static &amp; v2</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>bundle-rapidast-v3</id>
+            <properties>
+                <groups>bundle-rapidast &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-clusterwide-rapidast-v3</id>
+            <properties>
+                <groups>olm-clusterwide-rapidast &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-rapidast-v3</id>
+            <properties>
+                <groups>olm-namespace-rapidast &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>rapidast-static-v3</id>
+            <properties>
+                <groups>rapidast-static &amp; v3</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
