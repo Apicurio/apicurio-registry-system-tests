@@ -59,19 +59,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_unauthenticated.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -90,19 +82,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_unauthenticated.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -121,19 +105,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_unauthenticated.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -152,19 +128,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_unauthenticated.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -184,19 +152,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_unauthenticated.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -215,19 +175,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_unauthenticated.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -249,19 +201,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_http_basic.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -280,19 +224,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_http_basic.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -311,19 +247,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_http_basic.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -342,19 +270,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_http_basic.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -374,19 +294,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_http_basic.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
@@ -405,19 +317,11 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_http_basic.yaml");
 
-        // Get registry hostname
-        String hostname = Kubernetes.getRouteHost(
-                // Use registry namespace
-                Environment.NAMESPACE,
-                // Use registry route name
-                Environment.REGISTRY_ROUTE
-        );
-
         // Replace placeholder in config file with registry hostname
-        TextFileUtils.replaceInFile(configFilePath, "<hostname>", hostname);
+        TextFileUtils.replaceInFile(configFilePath, "<hostname>", Environment.REGISTRY_HOSTNAME);
 
         LOGGER.info("Config file path: " + configFilePath);
-        LOGGER.info("Hostname: " + hostname);
+        LOGGER.info("Hostname: " + Environment.REGISTRY_HOSTNAME);
 
         // Log current action
         LOGGER.info("Running RapiDAST...");
