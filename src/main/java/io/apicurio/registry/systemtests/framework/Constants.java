@@ -10,7 +10,6 @@ public class Constants {
     public static final String REGISTRY_OPERATOR_DEPLOYMENT
             = "apicurio-registry-operator-v1.3.1-redhat.1"; // Default from catalog
     public static final String REGISTRY = "registry";
-    public static final String REGISTRY_ROUTE = REGISTRY + "-ingress";
     public static final String SSO_ADMIN_CLIENT_ID = "admin-cli";
     public static final String SSO_ADMIN_USER = "registry-admin"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_CLIENT_API = "registry-client-api"; // Defined in kubefiles/keycloak-realm.yaml
