@@ -1,21 +1,53 @@
 package io.apicurio.registry.systemtests.rapidast;
 
 import io.apicurio.registry.systemtests.executor.Exec;
-import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.RapidastUtils;
+import io.apicurio.registry.systemtests.framework.TestNameGenerator;
 import io.apicurio.registry.systemtests.framework.TextFileUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
+import io.apicurio.registry.systemtests.resolver.ExtensionContextParameterResolver;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.Logger;
 
 @Tag("rapidast-static")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DisplayNameGeneration(TestNameGenerator.class)
+@ExtendWith(ExtensionContextParameterResolver.class)
 public class StaticRapidastTests {
     protected static Logger LOGGER = LoggerUtils.getLogger();
+
+    @BeforeEach
+    protected void beforeEachTest(ExtensionContext testContext) {
+        LoggerUtils.logDelimiter("#");
+        LOGGER.info(
+                "[TEST-START] {}.{}-STARTED",
+                testContext.getTestClass().get().getName(),
+                testContext.getTestMethod().get().getName()
+        );
+        LoggerUtils.logDelimiter("#");
+        LOGGER.info("");
+    }
+
+    @AfterEach
+    protected void afterEachTest(ExtensionContext testContext) {
+        LOGGER.info("");
+        LoggerUtils.logDelimiter("#");
+        LOGGER.info(
+                "[TEST-END] {}.{}-FINISHED",
+                testContext.getTestClass().get().getName(),
+                testContext.getTestMethod().get().getName()
+        );
+        LoggerUtils.logDelimiter("#");
+    }
 
     /* UNAUTHENTICATED Tests */
 
