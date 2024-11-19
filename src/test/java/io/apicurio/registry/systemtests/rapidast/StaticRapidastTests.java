@@ -27,6 +27,9 @@ public class StaticRapidastTests {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_unauthenticated.yaml");
 
+        LOGGER.info("Environment.NAMESPACE: {}", Environment.NAMESPACE);
+        LOGGER.info("Environment.REGISTRY_ROUTE: {}", Environment.REGISTRY_ROUTE);
+
         // Get registry hostname
         String hostname = Kubernetes.getRouteHost(
                 // Use registry namespace
