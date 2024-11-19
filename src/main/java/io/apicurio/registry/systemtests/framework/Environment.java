@@ -18,7 +18,7 @@ public final class Environment {
     public static final String REGISTRY_BUNDLE_ENV_VAR = "REGISTRY_BUNDLE";
     public static final String REGISTRY_CHANNEL_ENV_VAR = "REGISTRY_CHANNEL";
     public static final String REGISTRY_CSV_ENV_VAR = "REGISTRY_CSV";
-    public static final String REGISTRY_ROUTE_ENV_VAR = "REGISTRY_ROUTE";
+    public static final String REGISTRY_HOSTNAME_ENV_VAR = "REGISTRY_HOSTNAME";
     public static final String REGISTRY_PACKAGE_ENV_VAR = "REGISTRY_PACKAGE";
     public static final String SSO_PACKAGE_ENV_VAR = "SSO_PACKAGE";
     public static final String SSO_CHANNEL_ENV_VAR = "SSO_CHANNEL";
@@ -38,7 +38,6 @@ public final class Environment {
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
-    public static final String REGISTRY_ROUTE_DEFAULT = Constants.REGISTRY_ROUTE;
     public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
     public static final String SSO_CHANNEL_DEFAULT = "stable-v24";
@@ -61,7 +60,7 @@ public final class Environment {
     public static final String REGISTRY_BUNDLE = getOrDefault(REGISTRY_BUNDLE_ENV_VAR, REGISTRY_BUNDLE_DEFAULT);
     public static final String REGISTRY_CHANNEL = getOrDefault(REGISTRY_CHANNEL_ENV_VAR, REGISTRY_CHANNEL_DEFAULT);
     public static final String REGISTRY_CSV = getOrDefault(REGISTRY_CSV_ENV_VAR, REGISTRY_CSV_DEFAULT);
-    public static final String REGISTRY_ROUTE = getOrDefault(REGISTRY_ROUTE_ENV_VAR, REGISTRY_ROUTE_DEFAULT);
+    public static final String REGISTRY_HOSTNAME = get(REGISTRY_HOSTNAME_ENV_VAR);
     public static final String REGISTRY_PACKAGE = getOrDefault(REGISTRY_PACKAGE_ENV_VAR, REGISTRY_PACKAGE_DEFAULT);
     public static final String SSO_PACKAGE = getOrDefault(SSO_PACKAGE_ENV_VAR, SSO_PACKAGE_DEFAULT);
     public static final String SSO_CHANNEL = getOrDefault(SSO_CHANNEL_ENV_VAR, SSO_CHANNEL_DEFAULT);
