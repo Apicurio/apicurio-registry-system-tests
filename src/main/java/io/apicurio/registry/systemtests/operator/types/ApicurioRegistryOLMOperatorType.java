@@ -182,7 +182,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
     public boolean waitReady() {
         TimeoutBudget timeoutBudget = TimeoutBudget.ofDuration(Duration.ofMinutes(7));
 
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (isReady()) {
                 return true;
             }

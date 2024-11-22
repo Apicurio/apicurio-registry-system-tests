@@ -161,7 +161,7 @@ public class ApicurioRegistryUtils {
 
         LOGGER.info("Waiting for hostname of ApicurioRegistry {} to be ready...", info);
 
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (isApicurioRegistryHostnameReady(apicurioRegistry)) {
                 return true;
             }
@@ -220,7 +220,7 @@ public class ApicurioRegistryUtils {
         ApicurioRegistryResourceType registryResourceType = new ApicurioRegistryResourceType();
         TimeoutBudget timeoutBudget = TimeoutBudget.ofDuration(registryResourceType.getTimeout());
 
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (registryResourceType.isReady(apicurioRegistry)) {
                 return true;
             }

@@ -105,7 +105,7 @@ public class ApicurioRegistryApiClient {
 
         LOGGER.info("Waiting for API to be ready...");
 
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (isServiceAvailable()) {
                 break;
             }

@@ -68,7 +68,7 @@ public class DeploymentUtils {
     }
 
     public static boolean waitDeploymentReady(String namespace, String name, TimeoutBudget timeoutBudget) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (!Kubernetes.deploymentHasUnavailableReplicas(namespace, name)) {
                 return true;
             }
@@ -100,7 +100,7 @@ public class DeploymentUtils {
             String name,
             TimeoutBudget timeoutBudget
     ) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (Kubernetes.deploymentHasUnavailableReplicas(namespace, name)) {
                 return true;
             }

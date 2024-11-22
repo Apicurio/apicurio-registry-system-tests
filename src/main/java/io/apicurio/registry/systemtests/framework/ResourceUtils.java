@@ -19,7 +19,7 @@ public class ResourceUtils {
     }
 
     public static boolean waitStatefulSetReady(String namespace, String name, TimeoutBudget timeoutBudget) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (Kubernetes.isStatefulSetReady(namespace, name)) {
                 return true;
             }
@@ -47,7 +47,7 @@ public class ResourceUtils {
     }
 
     public static boolean waitPackageManifestExists(String catalog, String name, TimeoutBudget timeoutBudget) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (Kubernetes.getPackageManifest(catalog, name) != null) {
                 return true;
             }

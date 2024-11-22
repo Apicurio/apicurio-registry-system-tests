@@ -57,7 +57,7 @@ public class OperatorUtils {
     }
 
     public static boolean waitPodsExist(String namespace, String labelKey, String labelValue, TimeoutBudget timeout) {
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (!Kubernetes.getPods(namespace, labelKey, labelValue).getItems().isEmpty()) {
                 return true;
             }
@@ -112,7 +112,7 @@ public class OperatorUtils {
     }
 
     public static boolean waitPodsReady(String namespace, String labelKey, String labelValue, TimeoutBudget timeout) {
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (collectPodsReadiness(Kubernetes.getPods(namespace, labelKey, labelValue))) {
                 return true;
             }
@@ -143,7 +143,7 @@ public class OperatorUtils {
     }
 
     public static boolean waitCatalogSourceExists(String namespace, String name, TimeoutBudget timeout) {
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (Kubernetes.getCatalogSource(namespace, name) != null) {
                 return true;
             }
@@ -171,7 +171,7 @@ public class OperatorUtils {
     }
 
     public static boolean waitCatalogSourceReady(String namespace, String name, TimeoutBudget timeout) {
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (Kubernetes.isCatalogSourceReady(namespace, name)) {
                 return true;
             }

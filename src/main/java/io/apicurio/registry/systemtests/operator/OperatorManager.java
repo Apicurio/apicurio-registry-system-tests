@@ -147,7 +147,7 @@ public class OperatorManager {
     }
 
     public boolean waitOperatorReady(OperatorType operatorType, TimeoutBudget timeoutBudget) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (operatorType.isReady()) {
                 return true;
             }
@@ -178,7 +178,7 @@ public class OperatorManager {
     }
 
     public boolean waitOperatorRemoved(OperatorType operatorType, TimeoutBudget timeoutBudget) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (operatorType.doesNotExist()) {
                 return true;
             }

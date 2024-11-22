@@ -45,8 +45,8 @@ public class TimeoutBudget {
         return Duration.ofMillis(timeLeft());
     }
 
-    public boolean timeoutExpired() {
-        return timeLeft() < 0;
+    public boolean timeoutNotExpired() {
+        return timeLeft() >= 0;
     }
 
     public long timeSpent() {

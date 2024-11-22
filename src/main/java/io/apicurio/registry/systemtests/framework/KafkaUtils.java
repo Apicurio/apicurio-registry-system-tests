@@ -19,7 +19,7 @@ public class KafkaUtils {
     }
 
     private static boolean waitSecretReady(String namespace, String name, TimeoutBudget timeoutBudget) {
-        while (!timeoutBudget.timeoutExpired()) {
+        while (timeoutBudget.timeoutNotExpired()) {
             if (Kubernetes.getSecret(namespace, name) != null) {
                 return true;
             }

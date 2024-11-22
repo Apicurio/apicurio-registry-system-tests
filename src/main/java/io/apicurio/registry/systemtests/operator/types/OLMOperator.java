@@ -36,7 +36,7 @@ public abstract class OLMOperator extends Operator {
         String subscriptionName = subscription.getMetadata().getName();
         Subscription operatorSubscription = Kubernetes.getSubscription(subscriptionNamespace, subscriptionName);
 
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (operatorSubscription.getStatus().getCurrentCSV().equals(expectedCSV)) {
                 return true;
             }
@@ -60,7 +60,7 @@ public abstract class OLMOperator extends Operator {
     }
 
     public boolean waitClusterServiceVersionReady(TimeoutBudget timeout) {
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             if (Kubernetes.isClusterServiceVersionReady(getNamespace(), getClusterServiceVersion())) {
                 return true;
             }

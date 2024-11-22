@@ -183,7 +183,7 @@ public class ResourceManager {
 
         T res;
 
-        while (!timeout.timeoutExpired()) {
+        while (timeout.timeoutNotExpired()) {
             res = type.get(resource.getMetadata().getNamespace(), resource.getMetadata().getName());
 
             if (condition.test(res)) {
