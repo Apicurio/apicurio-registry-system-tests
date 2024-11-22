@@ -42,8 +42,8 @@ import java.util.Objects;
 @ExtendWith(ExtensionContextParameterResolver.class)
 public abstract class TestBase {
     protected static Logger LOGGER = LoggerUtils.getLogger();
-    protected final ResourceManager resourceManager = ResourceManager.getInstance();
-    protected final OperatorManager operatorManager = OperatorManager.getInstance();
+    protected static final ResourceManager resourceManager = ResourceManager.getInstance();
+    protected static final OperatorManager operatorManager = OperatorManager.getInstance();
 
     /* Function to set all necessary variables for test subclasses */
 
@@ -56,7 +56,7 @@ public abstract class TestBase {
     }
 
     @BeforeAll
-    protected void beforeAllTests() throws InterruptedException, IOException {
+    protected static void beforeAllTests() throws InterruptedException, IOException {
         // Install Keycloak operator
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deploying shared keycloak operator and instance!");
@@ -117,7 +117,7 @@ public abstract class TestBase {
     }
 
     @AfterAll
-    protected void afterAllTests() throws InterruptedException {
+    protected static void afterAllTests() throws InterruptedException {
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Cleaning shared resources!");
         LoggerUtils.logDelimiter("#");
