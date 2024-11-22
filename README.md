@@ -4,13 +4,13 @@ System tests for Apicurio Registry and Apicurio Registry operators.
 
 ## Environment variables
 
-Environment variables needed for run of system tests. Other environment variables are optional and have default values. See [Environment.java](/systemtests/src/main/java/io/apicurio/registry/systemtest/framework/Environment.java) for list of supported environment variables and their default values.
+Environment variables needed for run of system tests. Other environment variables are optional and have default values. See [Environment.java](/src/main/java/io/apicurio/registry/systemtests/framework/Environment.java) for list of supported environment variables and their default values.
 
-|Environment variable|Purpose|
-|---|---|
-|`CATALOG_IMAGE`|Path to an index image for an Operator catalog (if you want to use it)|
-|`CONVERTERS_SHA512SUM`|SHA-512 sum of Apicurio converters used in KafkaConnect|
-|`CONVERTERS_URL`|Path to Apicurio converters used in KafkaConnect|
+| Environment variable   | Purpose                                                                |
+|------------------------|------------------------------------------------------------------------|
+| `CATALOG_IMAGE`        | Path to an index image for an Operator catalog (if you want to use it) |
+| `CONVERTERS_SHA512SUM` | SHA-512 sum of Apicurio converters used in KafkaConnect                |
+| `CONVERTERS_URL`       | Path to Apicurio converters used in KafkaConnect                       |
 
 ## Known issues
 
