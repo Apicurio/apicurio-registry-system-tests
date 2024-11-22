@@ -44,7 +44,7 @@ public class Exec {
     private Map<String, String> env;
     private final boolean appendLineSeparator;
     private Subscriber<String> stdErrProcessor;
-    private static final Pattern PATH_SPLITTER = Pattern.compile(System.getProperty("path.separator"));
+    private static final Pattern PATH_SPLITTER = Pattern.compile(File.pathSeparator);
     protected static final Object LOCK = new Object();
 
     public Exec() {
