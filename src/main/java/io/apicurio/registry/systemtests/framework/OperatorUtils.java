@@ -240,15 +240,7 @@ public class OperatorUtils {
     public static void deleteSubscription(Subscription subscription) {
         String name = subscription.getMetadata().getName();
         String namespace = subscription.getMetadata().getNamespace();
-        SubscriptionSpec spec = subscription.getSpec();
-        String startingCSV = spec.getStartingCSV();
-
-        String info = MessageFormat.format(
-                "{0} in namespace {1}: packageName={2}, catalogSourceName={3}, catalogSourceNamespace={4}, " +
-                        "startingCSV={5}, channel={6}, installPlanApproval={7}",
-                name, namespace, spec.getName(), spec.getSource(), spec.getSourceNamespace(),
-                startingCSV, spec.getChannel(), spec.getInstallPlanApproval()
-        );
+        String info = getInfo(subscription, name, namespace);
 
         if (Kubernetes.getSubscription(namespace, name) == null) {
             LOGGER.info("Subscription {} already removed.", info);
@@ -257,6 +249,18 @@ public class OperatorUtils {
 
             Kubernetes.deleteSubscription(namespace, name);
         }
+    }
+
+    private static String getInfo(Subscription subscription, String name, String namespace) {
+        SubscriptionSpec spec = subscription.getSpec();
+        String startingCSV = spec.getStartingCSV();
+
+        return MessageFormat.format(
+                "{0} in namespace {1}: packageName={2}, catalogSourceName={3}, catalogSourceNamespace={4}, " +
+                        "startingCSV={5}, channel={6}, installPlanApproval={7}",
+                name, namespace, spec.getName(), spec.getSource(), spec.getSourceNamespace(),
+                startingCSV, spec.getChannel(), spec.getInstallPlanApproval()
+        );
     }
 
     public static void deleteClusterServiceVersion(String namespace, String clusterServiceVersion) {
