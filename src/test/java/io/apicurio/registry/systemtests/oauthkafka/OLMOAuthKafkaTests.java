@@ -1,18 +1,16 @@
 package io.apicurio.registry.systemtests.oauthkafka;
 
 import io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType;
+import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+@Setter
 public abstract class OLMOAuthKafkaTests extends OAuthKafkaTests {
     private boolean clusterWide;
 
     public boolean getClusterWide() {
         return clusterWide;
-    }
-
-    public void setClusterWide(boolean clusterWide) {
-        this.clusterWide = clusterWide;
     }
 
     @BeforeEach
