@@ -33,6 +33,7 @@ public class Constants {
     public static final String ROUTER_CERTS = "router-certs";
     public static final String OAUTH_KAFKA_NAME = "kafka1";
     public static final String HTTPS_SECRET_NAME = "https-cert-secret";
+    @SuppressWarnings("SpellCheckingInspection")
     public static final String HTTPS_SECRET_CRT = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURpVENDQW5HZ0F3SUJBZ0lVRm" +
             "lJY0Z5ckRlZUZVRlltWTBKaTJjU0hjdEdrd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1ZERUxNQWtHQTFVRUJoTUNRMW94RXpBUkJnTlZCQW" +
             "dNQ2xOdmJXVXRVM1JoZEdVeERUQUxCZ05WQkFjTQpCRUp5Ym04eElUQWZCZ05WQkFvTUdFbHVkR1Z5Ym1WMElGZHBaR2RwZEhNZ1VIUj" +
@@ -50,6 +51,7 @@ public class Constants {
             "I5Z3QKeXpRMnBhZkJVQ3ZRVHBnbXlxbERSL2JQak5DY01FOEhySlFLbzVBMDBvYjMzTlp2bCtCT1VJN3JCOFJaSmJwVApKdXNrbkRXVU" +
             "s1SGRvUE9BbUNZVnpDcnF2aFJoTnlEbGN4aWFDeTNDbmVhaE5NOENwQkRhNEw1U2xUWnNOSDNqCkY5eUwvU1ZwRkkvY3RYQTNSNDlDMj" +
             "BxSXppdXgyenFZVGpsTEUxaFdpTXJQNUdzUEpucWVZeDhrekduagotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==";
+    @SuppressWarnings("SpellCheckingInspection")
     public static final String HTTPS_SECRET_KEY = "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2Z0lCQURBTkJna3Foa2lHOX" +
             "cwQkFRRUZBQVNDQktnd2dnU2tBZ0VBQW9JQkFRRGNWbGFQQ2RZc09IYUMKa2dpUkt2c0V5OFBycnc4Z0hKM3A1THBsR2xMOVNIRFQ4bW" +
             "1GRzJ4V3lHNWZWanNtcm5udDFhczZYUUE1TTJwcwpheHFRN29qTC9GekFsWkhXRitaVXl2ekVOeFVMTkQ0elR4VHkyVTBmRlN2SmJqdF" +
