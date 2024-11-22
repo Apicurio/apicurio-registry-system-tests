@@ -52,7 +52,7 @@ public class KeycloakUtils {
                 "oc",
                 "apply",
                 "-n", namespace,
-                "-f", Paths.get(dtb.toURI()).toFile().toString()
+                "-f", Paths.get(Objects.requireNonNull(dtb).toURI()).toFile().toString()
         );
         ResourceUtils.waitStatefulSetReady(namespace, "postgresql-db");
 

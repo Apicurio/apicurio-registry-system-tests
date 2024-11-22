@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class CertificateUtils {
     private static final Logger LOGGER = LoggerUtils.getLogger();
@@ -190,22 +191,22 @@ public class CertificateUtils {
                 c = new Certificate(CertificateType.CRT);
                 c.addLine(l);
             } else if (l.startsWith("-----END CERTIFICATE-----")) {
-                c.addLine(l);
+                Objects.requireNonNull(c).addLine(l);
                 returnList.add(c);
             } else if (l.startsWith("-----BEGIN PRIVATE KEY-----")) {
                 c = new Certificate(CertificateType.KEY);
                 c.addLine(l);
             } else if (l.startsWith("-----END PRIVATE KEY-----")) {
-                c.addLine(l);
+                Objects.requireNonNull(c).addLine(l);
                 returnList.add(c);
             } else if (l.startsWith("-----BEGIN RSA PRIVATE KEY-----")) {
                 c = new Certificate(CertificateType.KEY);
                 c.addLine(l);
             } else if (l.startsWith("-----END RSA PRIVATE KEY-----")) {
-                c.addLine(l);
+                Objects.requireNonNull(c).addLine(l);
                 returnList.add(c);
             } else {
-                c.addLine(l);
+                Objects.requireNonNull(c).addLine(l);
             }
         }
 

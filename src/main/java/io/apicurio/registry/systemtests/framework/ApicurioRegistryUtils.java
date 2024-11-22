@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class ApicurioRegistryUtils {
     private static final Logger LOGGER = LoggerUtils.getLogger();
@@ -418,14 +419,14 @@ public class ApicurioRegistryUtils {
                 addEnvVar(apicurioRegistry, new Env() {{ setName(evName); setValue(evValue); }});
 
                 changed = true;
-            } else if (!getEnvVar(apicurioRegistry, evName).getValue().equals(evValue)) {
+            } else if (!Objects.requireNonNull(getEnvVar(apicurioRegistry, evName)).getValue().equals(evValue)) {
                 // If environment variable exists, but has another value
 
                 // Log information about current action
                 LOGGER.info("Setting environment variable {} of registry {} to {}.", evName, dName, evValue);
 
                 // Set value of environment variable
-                getEnvVar(apicurioRegistry, evName).setValue(evValue);
+                Objects.requireNonNull(getEnvVar(apicurioRegistry, evName)).setValue(evValue);
 
                 changed = true;
             } else {

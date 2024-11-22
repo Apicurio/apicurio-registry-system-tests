@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Objects;
 
 public class PrepareIntegrationTests {
     protected static final Logger LOGGER = LoggerUtils.getLogger();
@@ -47,9 +48,9 @@ public class PrepareIntegrationTests {
 
     @Test
     public void getRegistryAdminToken() {
-        String keycloakUrl = Kubernetes
-                .getRouteHost("openshift-console", "console")
-                .replace("console-openshift-console", "https://" + Constants.SSO_NAME);
+        String keycloakUrl = Objects.requireNonNull(
+                Kubernetes.getRouteHost("openshift-console", "console")
+        ).replace("console-openshift-console", "https://" + Constants.SSO_NAME);
 
         LOGGER.info(
                 "Token: \n\n{}\n",
