@@ -48,7 +48,7 @@ public class KeycloakOLMOperatorType extends OLMOperator implements OperatorType
     }
 
     @Override
-    public void install() throws InterruptedException {
+    public void install() {
         String catalogName = Environment.SSO_CATALOG;
         String catalogNamespace = Environment.CATALOG_NAMESPACE;
         String ssoPackage = Environment.SSO_PACKAGE;

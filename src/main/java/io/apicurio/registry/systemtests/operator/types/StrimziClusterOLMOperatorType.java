@@ -56,7 +56,7 @@ public class StrimziClusterOLMOperatorType extends OLMOperator implements Operat
     }
 
     @Override
-    public void install() throws InterruptedException {
+    public void install() {
         /* Operator namespace is created in OperatorManager. */
 
         String catalogName = Environment.CATALOG;

@@ -41,7 +41,7 @@ public class KeycloakUtils {
         deployKeycloak(Environment.NAMESPACE);
     }
 
-    public static void deployOAuthKafkaKeycloak() throws IOException, InterruptedException {
+    public static void deployOAuthKafkaKeycloak() throws InterruptedException {
         deployOAuthKafkaKeycloak(Environment.NAMESPACE);
     }
 
