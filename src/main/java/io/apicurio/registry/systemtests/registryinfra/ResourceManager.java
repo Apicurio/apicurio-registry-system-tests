@@ -233,13 +233,6 @@ public class ResourceManager {
         LOGGER.info("Deleting resource {}...", resourceInfo);
 
         ResourceType<T> type = findResourceType(resource);
-        /*
-        if (
-            resourceInfo.contains("Subscription") && (resourceInfo.contains("sso") || resourceInfo.contains("keycloak"))
-        ) {
-            KeycloakUtils.removeKeycloak(resource.getMetadata().getNamespace());
-        }
-        */
 
         try {
             type.delete(resource);
