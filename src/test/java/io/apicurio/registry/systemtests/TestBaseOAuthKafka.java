@@ -53,7 +53,7 @@ public abstract class TestBaseOAuthKafka {
     }
 
     @BeforeAll
-    protected static void beforeAllTests() throws InterruptedException, IOException {
+    protected static void beforeAllTests() throws InterruptedException {
         // Install Keycloak operator
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deploying shared keycloak operator and instance!");
