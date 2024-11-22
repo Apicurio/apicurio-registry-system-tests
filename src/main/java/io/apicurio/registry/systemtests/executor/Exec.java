@@ -292,21 +292,21 @@ public class Exec {
                 input
         );
 
-        if (!results.getRetCode()) {
-            throw new IllegalStateException(results.getStdErr());
+        if (results.getRetCode()) {
+            return results;
         }
 
-        return results;
+        throw new IllegalStateException(results.getStdErr());
     }
 
     public static ExecutionResultData executeAndCheck(
             List<String> command, int timeout, boolean logToOutput, boolean appendLineSeparator, Map<String, String> env
     ) {
         ExecutionResultData results = execute(command, timeout, logToOutput, appendLineSeparator, env, null);
-        if (!results.getRetCode()) {
-            throw new IllegalStateException(results.getStdErr());
+        if (results.getRetCode()) {
+            return results;
         }
-        return results;
+        throw new IllegalStateException(results.getStdErr());
     }
 
     public static ExecutionResultData execute(List<String> command) {
