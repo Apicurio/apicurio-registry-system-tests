@@ -1,9 +1,9 @@
 package io.apicurio.registry.systemtests.framework;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 
 public class TextFileUtils {
     public static void replaceInFile(String filepath, String oldText, String newText) {
