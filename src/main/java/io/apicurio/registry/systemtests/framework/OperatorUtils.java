@@ -260,7 +260,7 @@ public class OperatorUtils {
     }
 
     public static void deleteClusterServiceVersion(String namespace, String clusterServiceVersion) {
-        if (clusterServiceVersion != null && !clusterServiceVersion.equals("")) {
+        if (clusterServiceVersion != null && !clusterServiceVersion.isEmpty()) {
             LOGGER.info("Removing ClusterServiceVersion {} in namespace {}...", clusterServiceVersion, namespace);
 
             Kubernetes.deleteClusterServiceVersion(namespace, clusterServiceVersion);
