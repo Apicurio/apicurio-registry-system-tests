@@ -9,6 +9,7 @@ import io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperat
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistryResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
+import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -17,15 +18,12 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+@Setter
 public abstract class OLMDeployTests extends DeployTests {
     private boolean clusterWide;
 
     public boolean getClusterWide() {
         return clusterWide;
-    }
-
-    public void setClusterWide(boolean clusterWide) {
-        this.clusterWide = clusterWide;
     }
 
     @BeforeEach

@@ -5,6 +5,7 @@
 package io.apicurio.registry.systemtests.executor;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -37,25 +38,14 @@ import java.util.regex.Pattern;
 public class Exec {
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private Process process;
-    /**
-     * -- GETTER --
-     *  Getter for stdOutput
-     *
-     * @return string stdOut
-     */
     @Getter
     private String stdOut;
-    /**
-     * -- GETTER --
-     *  Getter for stdErrorOutput
-     *
-     * @return string stdErr
-     */
     @Getter
     private String stdErr;
     private StreamGobbler stdOutReader;
     private StreamGobbler stdErrReader;
     private Path logPath;
+    @Setter
     private Map<String, String> env;
     private final boolean appendLineSeparator;
     private Subscriber<String> stdErrProcessor;
@@ -73,14 +63,6 @@ public class Exec {
 
     public Exec(boolean appendLineSeparator) {
         this.appendLineSeparator = appendLineSeparator;
-    }
-
-    public void setEnv(Map<String, String> env) {
-        this.env = env;
-    }
-
-    public void setStdErrProcessor(Subscriber<String> stdErrProcessor) {
-        this.stdErrProcessor = stdErrProcessor;
     }
 
     public boolean isRunning() {

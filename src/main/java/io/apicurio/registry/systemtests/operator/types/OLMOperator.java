@@ -19,6 +19,10 @@ public abstract class OLMOperator extends Operator {
     private Subscription subscription = null;
     private OperatorGroup operatorGroup = null;
 
+    public boolean getClusterWide() {
+        return clusterWide;
+    }
+
     public OLMOperator(String source, String operatorNamespace, boolean clusterWide) {
         super(source);
         setNamespace(operatorNamespace);
