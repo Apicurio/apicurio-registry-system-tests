@@ -36,7 +36,7 @@ public class RouteResourceType implements ResourceType<Route> {
     }
 
     @Override
-    public void delete(Route resource) throws Exception {
+    public void delete(Route resource) {
         Kubernetes.deleteRoute(resource.getMetadata().getNamespace(), resource.getMetadata().getName());
     }
 

@@ -55,7 +55,7 @@ public class IngressResourceType implements ResourceType<Ingress> {
     }
 
     @Override
-    public void delete(Ingress resource) throws Exception {
+    public void delete(Ingress resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .withName(resource.getMetadata().getName())

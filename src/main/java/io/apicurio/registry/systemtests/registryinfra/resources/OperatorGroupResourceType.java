@@ -32,7 +32,7 @@ public class OperatorGroupResourceType implements ResourceType<OperatorGroup> {
     }
 
     @Override
-    public void delete(OperatorGroup resource) throws Exception {
+    public void delete(OperatorGroup resource) {
         Kubernetes.deleteOperatorGroup(resource.getMetadata().getNamespace(), resource.getMetadata().getName());
     }
 

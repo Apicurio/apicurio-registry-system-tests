@@ -113,7 +113,7 @@ public class KeycloakUtils {
         LOGGER.info("Keycloak should be deployed.");
     }
 
-    public static void deployOAuthKafkaKeycloak(String namespace) throws InterruptedException, IOException {
+    public static void deployOAuthKafkaKeycloak(String namespace) throws InterruptedException {
         LOGGER.info("Deploying OAuth Kafka Keycloak...");
         // ResourceManager manager = ResourceManager.getInstance();
 

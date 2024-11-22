@@ -34,7 +34,7 @@ public class SubscriptionResourceType implements ResourceType<Subscription> {
     }
 
     @Override
-    public void delete(Subscription resource) throws Exception {
+    public void delete(Subscription resource) {
         Kubernetes.deleteSubscription(resource.getMetadata().getNamespace(), resource.getMetadata().getName());
     }
 

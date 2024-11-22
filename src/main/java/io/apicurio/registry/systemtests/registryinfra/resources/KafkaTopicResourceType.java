@@ -49,7 +49,7 @@ public class KafkaTopicResourceType implements ResourceType<KafkaTopic> {
     }
 
     @Override
-    public void delete(KafkaTopic resource) throws Exception {
+    public void delete(KafkaTopic resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .withName(resource.getMetadata().getName())

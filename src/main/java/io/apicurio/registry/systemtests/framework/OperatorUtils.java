@@ -198,7 +198,7 @@ public class OperatorUtils {
         return waitCatalogSourceReady(namespace, name, TimeoutBudget.ofDuration(Duration.ofMinutes(5)));
     }
 
-    public static OperatorGroup createOperatorGroup(String namespace) throws InterruptedException {
+    public static OperatorGroup createOperatorGroup(String namespace) {
         String name = namespace + "-operator-group";
 
         LOGGER.info("Creating operator group {} in namespace {} targeting namespace {}...", name, namespace, namespace);

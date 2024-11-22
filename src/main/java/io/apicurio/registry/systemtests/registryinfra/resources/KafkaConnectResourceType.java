@@ -54,7 +54,7 @@ public class KafkaConnectResourceType implements ResourceType<KafkaConnect> {
     }
 
     @Override
-    public void delete(KafkaConnect resource) throws Exception {
+    public void delete(KafkaConnect resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .withName(resource.getMetadata().getName())

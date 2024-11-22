@@ -33,7 +33,7 @@ public class CatalogSourceResourceType implements ResourceType<CatalogSource> {
     }
 
     @Override
-    public void delete(CatalogSource resource) throws Exception {
+    public void delete(CatalogSource resource) {
         Kubernetes.deleteCatalogSource(resource.getMetadata().getNamespace(), resource.getMetadata().getName());
     }
 

@@ -50,7 +50,7 @@ public class KafkaUserResourceType implements ResourceType<KafkaUser> {
     }
 
     @Override
-    public void delete(KafkaUser resource) throws Exception {
+    public void delete(KafkaUser resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .withName(resource.getMetadata().getName())

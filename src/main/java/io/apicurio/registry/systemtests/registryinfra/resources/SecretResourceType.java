@@ -37,7 +37,7 @@ public class SecretResourceType implements ResourceType<Secret> {
     }
 
     @Override
-    public void delete(Secret resource) throws Exception {
+    public void delete(Secret resource) {
         Kubernetes.deleteSecret(resource.getMetadata().getNamespace(), resource.getMetadata().getName());
     }
 
