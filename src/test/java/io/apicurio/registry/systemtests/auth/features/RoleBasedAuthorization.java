@@ -21,29 +21,29 @@ public abstract class RoleBasedAuthorization {
     // API client with readonly authorization
     protected static ApicurioRegistryApiClient readonlyClient;
     // Artifact group ID for all users
-    protected static String groupId = "roleBasedAuthorizationTokenTest";
+    protected static final String groupId = "roleBasedAuthorizationTokenTest";
     // Artifact ID prefix for all users
-    protected static String id = "role-based-authorization-token-test";
+    protected static final String id = "role-based-authorization-token-test";
     // Artifact ID for admin user
-    protected static String adminId = id + "-admin";
+    protected static final String adminId = id + "-admin";
     // Artifact ID for developer user
-    protected static String developerId = id + "-developer";
+    protected static final String developerId = id + "-developer";
     // Artifact ID for readonly user
-    protected static String readonlyId = id + "-readonly";
+    protected static final String readonlyId = id + "-readonly";
     // Artifact ID suffix for second artifact of the same user
-    protected static String secondId = "-second";
+    protected static final String secondId = "-second";
     // Artifact ID suffix for third artifact of the same user
-    protected static String thirdId = "-third";
+    protected static final String thirdId = "-third";
     // Artifact type for all artifacts
-    protected static ArtifactType type = ArtifactType.JSON;
+    protected static final ArtifactType type = ArtifactType.JSON;
     // Artifact initial content for all artifacts
-    protected static String initialContent = "{}";
+    protected static final String initialContent = "{}";
     // Artifact updated content for all artifacts
-    protected static String updatedContent = "{\"key\":\"id\"}";
+    protected static final String updatedContent = "{\"key\":\"id\"}";
     // Second artifact updated content for all artifacts
-    protected static String secondUpdatedContent = "{\"id\":\"key\"}";
+    protected static final String secondUpdatedContent = "{\"id\":\"key\"}";
     // Third artifact updated content for all artifacts
-    protected static String thirdUpdatedContent = "{\"key\":\"value\"}";
+    protected static final String thirdUpdatedContent = "{\"key\":\"value\"}";
     // Variable for list of rules used in test
     protected static List<String> ruleList;
     // Variable for level of validity rule used in test
@@ -59,9 +59,9 @@ public abstract class RoleBasedAuthorization {
     // Variable for level of artifact compatibility rule used in test
     protected static CompatibilityLevel artifactCompatibilityLevel;
     // Define user ID for role mappings
-    protected static String userId = "some-user";
+    protected static final String userId = "some-user";
     // Define user name for role mappings
-    protected static String userName = "SomeUser";
+    protected static final String userName = "SomeUser";
 
     public static void testRoleBasedEnabledOnlyAdminAllowed() {
         // --- GLOBAL VALIDITY RULE

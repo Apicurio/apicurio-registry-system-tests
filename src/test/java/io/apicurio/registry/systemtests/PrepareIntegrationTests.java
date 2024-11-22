@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 public class PrepareIntegrationTests {
-    protected static Logger LOGGER = LoggerUtils.getLogger();
+    protected static final Logger LOGGER = LoggerUtils.getLogger();
     protected final OperatorManager operatorManager = OperatorManager.getInstance();
 
     @Test

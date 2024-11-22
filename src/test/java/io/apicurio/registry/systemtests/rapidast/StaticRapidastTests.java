@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 @DisplayNameGeneration(TestNameGenerator.class)
 @ExtendWith(ExtensionContextParameterResolver.class)
 public class StaticRapidastTests {
-    protected static Logger LOGGER = LoggerUtils.getLogger();
+    protected static final Logger LOGGER = LoggerUtils.getLogger();
 
     @BeforeEach
     protected void beforeEachTest(ExtensionContext testContext) {
