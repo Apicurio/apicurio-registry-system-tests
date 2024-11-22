@@ -6,9 +6,13 @@ import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.openshift.api.model.operatorhub.v1.OperatorGroup;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.Subscription;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Duration;
 
+@Getter
+@Setter
 public abstract class OLMOperator extends Operator {
     private String clusterServiceVersion;
     private boolean clusterWide;
@@ -19,38 +23,6 @@ public abstract class OLMOperator extends Operator {
         super(source);
         setNamespace(operatorNamespace);
         setClusterWide(clusterWide);
-    }
-
-    public String getClusterServiceVersion() {
-        return clusterServiceVersion;
-    }
-
-    public void setClusterServiceVersion(String clusterServiceVersion) {
-        this.clusterServiceVersion = clusterServiceVersion;
-    }
-
-    public boolean getClusterWide() {
-        return clusterWide;
-    }
-
-    public void setClusterWide(boolean clusterWide) {
-        this.clusterWide = clusterWide;
-    }
-
-    public Subscription getSubscription() {
-        return subscription;
-    }
-
-    public void setSubscription(Subscription subscription) {
-        this.subscription = subscription;
-    }
-
-    public OperatorGroup getOperatorGroup() {
-        return operatorGroup;
-    }
-
-    public void setOperatorGroup(OperatorGroup operatorGroup) {
-        this.operatorGroup = operatorGroup;
     }
 
     public boolean waitSubscriptionCurrentCSV(String catalog, TimeoutBudget timeout) {

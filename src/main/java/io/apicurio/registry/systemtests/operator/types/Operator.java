@@ -1,5 +1,10 @@
 package io.apicurio.registry.systemtests.operator.types;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public abstract class Operator {
     /* Contains path to bundle operator file or OLM operator catalog source image. */
     private String source;
@@ -14,19 +19,4 @@ public abstract class Operator {
         this.namespace = namespace;
     }
 
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
 }
