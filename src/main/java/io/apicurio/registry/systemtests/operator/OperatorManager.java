@@ -17,8 +17,8 @@ import java.util.Stack;
 public class OperatorManager {
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private static OperatorManager instance;
-    private static final Stack<Runnable> STORED_OPERATORS = new Stack<Runnable>();
-    private static final Stack<Runnable> SHARED_RESOURCES = new Stack<Runnable>();
+    private static final Stack<Runnable> STORED_OPERATORS = new Stack<>();
+    private static final Stack<Runnable> SHARED_RESOURCES = new Stack<>();
 
     public static synchronized OperatorManager getInstance() {
         if (instance == null) {
@@ -28,7 +28,7 @@ public class OperatorManager {
         return instance;
     }
 
-    private void createOperatorNamespace(String name) throws InterruptedException {
+    private void createOperatorNamespace(String name) {
         LOGGER.info("Creating new namespace {} for operator...", name);
 
         Namespace namespace = NamespaceResourceType.getDefault(name);
