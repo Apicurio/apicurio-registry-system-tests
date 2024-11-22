@@ -58,7 +58,7 @@ public class OperatorUtils {
 
     public static boolean waitPodsExist(String namespace, String labelKey, String labelValue, TimeoutBudget timeout) {
         while (!timeout.timeoutExpired()) {
-            if (Kubernetes.getPods(namespace, labelKey, labelValue).getItems().size() > 0) {
+            if (!Kubernetes.getPods(namespace, labelKey, labelValue).getItems().isEmpty()) {
                 return true;
             }
 
@@ -71,7 +71,7 @@ public class OperatorUtils {
             }
         }
 
-        if (Kubernetes.getPods(namespace, labelKey, labelValue).getItems().size() == 0) {
+        if (Kubernetes.getPods(namespace, labelKey, labelValue).getItems().isEmpty()) {
             LOGGER.error(
                     "Pod(s) of catalog source in namespace {} with label {}={} failed creation check.",
                     namespace, labelKey, labelValue
@@ -88,7 +88,7 @@ public class OperatorUtils {
     }
 
     private static boolean collectPodsReadiness(PodList podList) {
-        if (podList.getItems().size() > 0) {
+        if (!podList.getItems().isEmpty()) {
             boolean allPodsReady = true;
 
             for (Pod p : podList.getItems()) {
@@ -97,7 +97,7 @@ public class OperatorUtils {
                 if (
                         p.getStatus() != null
                         && p.getStatus().getContainerStatuses() != null
-                        && p.getStatus().getContainerStatuses().size() > 0
+                        && !p.getStatus().getContainerStatuses().isEmpty()
                 ) {
                     podReady = p.getStatus().getContainerStatuses().get(0).getReady();
                 }

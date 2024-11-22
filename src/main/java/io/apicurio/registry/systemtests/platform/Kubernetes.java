@@ -284,10 +284,9 @@ public final class Kubernetes {
             return false;
         }
 
-        return route
+        return !route
                 .getStatus()
-                .getIngress()
-                .size() > 0;
+                .getIngress().isEmpty();
     }
 
     public static PodList getPods(String namespace, String labelKey, String labelValue) {
@@ -570,13 +569,12 @@ public final class Kubernetes {
     }
 
     public static boolean isServiceReady(String namespace, Map<String, String> selector) {
-        return getClient()
+        return !getClient()
                 .pods()
                 .inNamespace(namespace)
                 .withLabels(selector)
                 .list()
-                .getItems()
-                .size() > 0;
+                .getItems().isEmpty();
     }
 
     public static PersistentVolumeClaim getPersistentVolumeClaim(String namespace, String name) {
