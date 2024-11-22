@@ -103,9 +103,9 @@ public class Exec {
      *
      * @param commands arguments for command
      * @return returns ecode of execution
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ExecutionException
+     * @throws IOException Input/output exception
+     * @throws InterruptedException Interrupted exception
+     * @throws ExecutionException Execution exception
      */
     public int exec(List<String> commands) throws IOException, InterruptedException, ExecutionException {
         return exec(commands, 0);
@@ -117,9 +117,9 @@ public class Exec {
      * @param commands arguments for command
      * @param timeout  timeout in ms for kill
      * @return returns ecode of execution
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ExecutionException
+     * @throws IOException Input/output exception
+     * @throws InterruptedException Interrupted exception
+     * @throws ExecutionException Execution exception
      */
     public int exec(List<String> commands, int timeout) throws IOException, InterruptedException, ExecutionException {
         return exec(null, commands, timeout);
@@ -172,9 +172,9 @@ public class Exec {
      * @param commands arguments for command
      * @param timeout  timeout in ms for kill
      * @return returns ecode of execution
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ExecutionException
+     * @throws IOException Input/output exception
+     * @throws InterruptedException Interrupted exception
+     * @throws ExecutionException Execution exception
      */
     public int exec(
             String input, List<String> commands, int timeout
@@ -213,7 +213,7 @@ public class Exec {
     /**
      * Method kills process
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Interrupted exception
      */
     public void stop() throws InterruptedException {
         if (!process.destroyForcibly().waitFor(10, TimeUnit.SECONDS)) {
