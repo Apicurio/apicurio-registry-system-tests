@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.api;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.api.features.CreateReadUpdateDelete;
 import io.apicurio.registry.systemtests.client.ArtifactType;
@@ -20,7 +20,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -40,7 +40,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
