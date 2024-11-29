@@ -1,12 +1,12 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import org.junit.jupiter.api.Assertions;
 
 public class RoleBasedAuthorizationAdminOverrideRole extends RoleBasedAuthorizationAdminOverride {
-    public static void testRoleBasedAuthorizationAdminOverrideRole(ApicurioRegistry apicurioRegistry) {
+    public static void testRoleBasedAuthorizationAdminOverrideRole(ApicurioRegistry3 apicurioRegistry) {
         /* RUN PRE-TEST ACTIONS */
 
         // PREPARE NECESSARY VARIABLES

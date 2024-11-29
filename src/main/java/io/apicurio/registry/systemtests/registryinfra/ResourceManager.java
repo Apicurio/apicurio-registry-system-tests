@@ -7,7 +7,7 @@ import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
-import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistryResourceType;
+import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry3ResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.CatalogSourceResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.DeploymentResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.IngressResourceType;
@@ -50,7 +50,7 @@ public class ResourceManager {
     }
 
     private final ResourceType<?>[] resourceTypes = new ResourceType[]{
-            new ApicurioRegistryResourceType(),
+            new ApicurioRegistry3ResourceType(),
             new NamespaceResourceType(),
             new ServiceResourceType(),
             new DeploymentResourceType(),
