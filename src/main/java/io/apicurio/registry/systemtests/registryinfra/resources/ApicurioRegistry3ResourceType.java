@@ -9,6 +9,8 @@ import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Cont
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Volumes;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.containers.VolumeMounts;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.volumes.Secret;
+import io.apicur.registry.v1.apicurioregistry3spec.app.sql.Datasource;
+import io.apicur.registry.v1.apicurioregistry3spec.app.sql.DatasourceBuilder;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
@@ -113,6 +115,12 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         existing.setStatus(newResource.getStatus());
     }
 
+    public static String getHost(String prefix) {
+        return Kubernetes
+                .getRouteHost("openshift-console", "console")
+                .replace("console-openshift-console", "http://" + prefix);
+    }
+
     /** Get default instances **/
 
 
@@ -140,6 +148,23 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return getDefaultSql(name, namespace, Constants.DB_NAME, Constants.DB_NAMESPACE);
     }
 
+    public static ArrayList<io.apicur.registry.v1.apicurioregistry3spec.ui.Env> getDefaultUiEnv() {
+        return new ArrayList<>() {{
+            add(new io.apicur.registry.v1.apicurioregistry3spec.ui.Env() {{
+                setName("REGISTRY_API_URL");
+                setValue(getHost("apicurio-registry-api"));
+            }});
+        }};
+    }
+
+    public static Datasource getDefaultSqlDataSource(String sqlUrl) {
+        return new DatasourceBuilder()
+                .withUrl(sqlUrl)
+                .withUsername(Constants.DB_USERNAME)
+                .withPassword(Constants.DB_PASSWORD)
+                .build();
+    }
+
     public static ApicurioRegistry3 getDefaultSql(String name, String namespace, String sqlName, String sqlNamespace) {
         String sqlUrl = "jdbc:postgresql://" + sqlName + "." + sqlNamespace + ".svc.cluster.local:5432/postgresdb";
 
@@ -150,12 +175,9 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .endMetadata()
                 .withNewSpec()
                     .withNewApp()
+                        .withHost(getHost("apicurio-registry-api"))
                         .withNewSql()
-                            .withNewDatasource()
-                                .withUrl(sqlUrl)
-                                .withUsername(Constants.DB_USERNAME)
-                                .withPassword(Constants.DB_PASSWORD)
-                            .endDatasource()
+                            .withDatasource(getDefaultSqlDataSource(sqlUrl))
                         .endSql()
                         .withNewPodTemplateSpec()
                             .withNewSpec()
@@ -164,6 +186,10 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                             .endSpec()
                         .endPodTemplateSpec()
                     .endApp()
+                    .withNewUi()
+                        .withEnv(getDefaultUiEnv())
+                        .withHost(getHost("apicurio-registry-ui"))
+                    .endUi()
                 .endSpec()
                 .build();
 
