@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Base64Utils;
 import io.apicurio.registry.systemtests.framework.Certificate;
@@ -122,7 +122,7 @@ public abstract class TestBaseOAuthKafka {
         LoggerUtils.logDelimiter("#");
     }
 
-    protected ApicurioRegistry deployOAuthKafkaTestRegistry() throws InterruptedException {
+    protected ApicurioRegistry3 deployOAuthKafkaTestRegistry() throws InterruptedException {
         Secret routerCertsDefaultSecret = Kubernetes.getSecret("openshift-config-managed", Constants.ROUTER_CERTS);
         String clusterBaseUrl = Objects.requireNonNull(
                 Kubernetes.getRouteHost("openshift-console", "console")
