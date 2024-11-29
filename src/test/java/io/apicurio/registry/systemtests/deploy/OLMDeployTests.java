@@ -1,13 +1,13 @@
 package io.apicurio.registry.systemtests.deploy;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.DatabaseUtils;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
-import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistryResourceType;
+import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry3ResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +60,7 @@ public abstract class OLMDeployTests extends DeployTests {
         // Deploy second PostgreSQL database
         DatabaseUtils.deployPostgresqlDatabase(secondSqlName, secondSqlNamespace);
         // Get second Apicurio Registry with second PostgreSQL database
-        ApicurioRegistry secondSqlRegistry = ApicurioRegistryResourceType.getDefaultSql(
+        ApicurioRegistry3 secondSqlRegistry = ApicurioRegistry3ResourceType.getDefaultSql(
                 Constants.REGISTRY + suffix,
                 Environment.NAMESPACE + suffix,
                 secondSqlName,

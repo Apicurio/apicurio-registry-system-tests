@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.upgrade;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.api.features.CreateReadUpdateDelete;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
@@ -38,7 +38,7 @@ public class OLMUpgradeTests extends TestBase {
         // Deploy PostgreSQL database for registry
         DatabaseUtils.deployDefaultPostgresqlDatabase();
         // Deploy registry with PostgreSQL storage
-        ApicurioRegistry apicurioRegistry = ApicurioRegistryUtils.deployDefaultApicurioRegistrySql(false);
+        ApicurioRegistry3 apicurioRegistry = ApicurioRegistryUtils.deployDefaultApicurioRegistrySql(false);
 
         // Run basic API tests
         CreateReadUpdateDelete.testCreateReadUpdateDeleteAvro(apicurioRegistry);

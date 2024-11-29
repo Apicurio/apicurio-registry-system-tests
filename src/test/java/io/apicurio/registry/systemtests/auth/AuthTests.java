@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.auth;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.auth.features.AnonymousReadAccess;
 import io.apicurio.registry.systemtests.auth.features.ArtifactGroupOwnerOnlyAuthorization;
@@ -31,7 +31,7 @@ public abstract class AuthTests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             AnonymousReadAccess.testAnonymousReadAccess(
@@ -49,7 +49,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         BasicAuthentication.testBasicAuthentication(registry, Constants.SSO_ADMIN_USER, Constants.SSO_USER_PASSWORD);
     }
@@ -58,7 +58,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         AuthenticatedReads.testAuthenticatedReads(registry);
     }
@@ -67,7 +67,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         ArtifactOwnerOnlyAuthorization.testArtifactOwnerOnlyAuthorization(registry);
     }
@@ -76,7 +76,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         ArtifactGroupOwnerOnlyAuthorization.testArtifactGroupOwnerOnlyAuthorization(registry);
     }
@@ -85,7 +85,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         RoleBasedAuthorizationToken.testRoleBasedAuthorizationToken(registry);
     }
@@ -94,7 +94,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         RoleBasedAuthorizationApplication.testRoleBasedAuthorizationApplication(registry);
     }
@@ -103,7 +103,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         RoleBasedAuthorizationRoleNames.testRoleBasedAuthorizationRoleNames(registry);
     }
@@ -112,7 +112,7 @@ public abstract class AuthTests extends TestBase {
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         RoleBasedAuthorizationAdminOverrideRole.testRoleBasedAuthorizationAdminOverrideRole(registry);
     }
@@ -130,7 +130,7 @@ public abstract class AuthTests extends TestBase {
                 claim, claimValue, adminSuffix, isAdminAllowed
         );
 
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, true);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, true);
 
         RoleBasedAuthorizationAdminOverrideClaim.testRoleBasedAuthorizationAdminOverrideClaim(
                 registry,

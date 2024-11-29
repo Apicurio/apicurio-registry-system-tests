@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.api.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactList;
@@ -58,7 +58,7 @@ public class CreateReadUpdateDelete {
     }
 
     public static void testCreateReadUpdateDelete(
-            ApicurioRegistry apicurioRegistry,
+            ApicurioRegistry3 apicurioRegistry,
             String username,
             String password,
             ArtifactType artifactType,

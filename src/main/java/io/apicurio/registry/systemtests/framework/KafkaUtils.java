@@ -69,7 +69,7 @@ public class KafkaUtils {
             createSecuredUser(Constants.KAFKA_USER, kafka, kind);
         }
 
-        /* Update of bootstrap server to use secured port is handled in ApicurioRegistryResourceType */
+        /* Update of bootstrap server to use secured port is handled in ApicurioRegistry3ResourceType */
 
         return kafka;
     }

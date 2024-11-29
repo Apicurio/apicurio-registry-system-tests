@@ -1,14 +1,12 @@
 package io.apicurio.registry.systemtests.framework;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.kafkasql.Security;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
-import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistryResourceType;
+import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry3ResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.openshift.api.model.Route;
-import io.strimzi.api.kafka.model.kafka.Kafka;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 
@@ -21,7 +19,7 @@ import java.util.List;
 public class ApicurioRegistryUtils {
     private static final Logger LOGGER = LoggerUtils.getLogger();
 
-    private static String getTruststoreSecretName(ApicurioRegistry registry) {
+    /*private static String getTruststoreSecretName(ApicurioRegistry3 registry) {
         Security security = registry
                 .getSpec()
                 .getConfiguration()
@@ -35,9 +33,9 @@ public class ApicurioRegistryUtils {
         }
 
         return null;
-    }
+    }*/
 
-    private static String getKeystoreSecretName(ApicurioRegistry registry) {
+    /*private static String getKeystoreSecretName(ApicurioRegistry3 registry) {
         Security security = registry
                 .getSpec()
                 .getConfiguration()
@@ -49,17 +47,17 @@ public class ApicurioRegistryUtils {
         }
 
         return null;
-    }
+    }*/
 
-    public static ApicurioRegistry deployDefaultApicurioRegistrySql(boolean useKeycloak) throws InterruptedException {
+    public static ApicurioRegistry3 deployDefaultApicurioRegistrySql(boolean useKeycloak) throws InterruptedException {
         // Get Apicurio Registry
-        ApicurioRegistry apicurioRegistrySql = ApicurioRegistryResourceType.getDefaultSql(
+        ApicurioRegistry3 apicurioRegistrySql = ApicurioRegistry3ResourceType.getDefaultSql(
                 Constants.REGISTRY,
                 Environment.NAMESPACE
         );
 
         if (useKeycloak) {
-            ApicurioRegistryResourceType.updateWithDefaultKeycloak(apicurioRegistrySql);
+            ApicurioRegistry3ResourceType.updateWithDefaultKeycloak(apicurioRegistrySql);
         }
 
         // Create Apicurio Registry
@@ -68,17 +66,17 @@ public class ApicurioRegistryUtils {
         return apicurioRegistrySql;
     }
 
-    public static ApicurioRegistry deployDefaultApicurioRegistryKafkasqlNoAuth(
+    public static ApicurioRegistry3 deployDefaultApicurioRegistryKafkasqlNoAuth(
             boolean useKeycloak
     ) throws InterruptedException {
         // Get Apicurio Registry
-        ApicurioRegistry apicurioRegistryKafkasqlNoAuth = ApicurioRegistryResourceType.getDefaultKafkasql(
+        ApicurioRegistry3 apicurioRegistryKafkasqlNoAuth = ApicurioRegistry3ResourceType.getDefaultKafkasql(
                 Constants.REGISTRY,
                 Environment.NAMESPACE
         );
 
         if (useKeycloak) {
-            ApicurioRegistryResourceType.updateWithDefaultKeycloak(apicurioRegistryKafkasqlNoAuth);
+            ApicurioRegistry3ResourceType.updateWithDefaultKeycloak(apicurioRegistryKafkasqlNoAuth);
         }
 
         // Create Apicurio Registry without authentication
@@ -87,18 +85,18 @@ public class ApicurioRegistryUtils {
         return apicurioRegistryKafkasqlNoAuth;
     }
 
-    public static ApicurioRegistry deployDefaultApicurioRegistryKafkasqlTLS(
+    /*public static ApicurioRegistry3 deployDefaultApicurioRegistryKafkasqlTLS(
             Kafka kafka,
             boolean useKeycloak
     ) throws InterruptedException {
         // Get Apicurio Registry
-        ApicurioRegistry apicurioRegistryKafkasqlTLS = ApicurioRegistryResourceType.getDefaultKafkasql(
+        ApicurioRegistry3 apicurioRegistryKafkasqlTLS = ApicurioRegistry3ResourceType.getDefaultKafkasql(
                 Constants.REGISTRY,
                 Environment.NAMESPACE
         );
 
         // Update Apicurio Registry to have TLS configuration
-        ApicurioRegistryResourceType.updateWithDefaultTLS(apicurioRegistryKafkasqlTLS);
+        ApicurioRegistry3ResourceType.updateWithDefaultTLS(apicurioRegistryKafkasqlTLS);
 
         CertificateUtils.createTruststore(
                 kafka.getMetadata().getNamespace(),
@@ -114,27 +112,27 @@ public class ApicurioRegistryUtils {
         );
 
         if (useKeycloak) {
-            ApicurioRegistryResourceType.updateWithDefaultKeycloak(apicurioRegistryKafkasqlTLS);
+            ApicurioRegistry3ResourceType.updateWithDefaultKeycloak(apicurioRegistryKafkasqlTLS);
         }
 
         // Create Apicurio Registry with TLS configuration
         ResourceManager.getInstance().createResource(true, apicurioRegistryKafkasqlTLS);
 
         return apicurioRegistryKafkasqlTLS;
-    }
+    }*/
 
-    public static ApicurioRegistry deployDefaultApicurioRegistryKafkasqlSCRAM(
+    /*public static ApicurioRegistry3 deployDefaultApicurioRegistryKafkasqlSCRAM(
             Kafka kafka,
             boolean useKeycloak
     ) throws InterruptedException {
         // Get Apicurio Registry
-        ApicurioRegistry apicurioRegistryKafkasqlSCRAM = ApicurioRegistryResourceType.getDefaultKafkasql(
+        ApicurioRegistry3 apicurioRegistryKafkasqlSCRAM = ApicurioRegistry3ResourceType.getDefaultKafkasql(
                 Constants.REGISTRY,
                 Environment.NAMESPACE
         );
 
         // Update to have SCRAM configuration
-        ApicurioRegistryResourceType.updateWithDefaultSCRAM(apicurioRegistryKafkasqlSCRAM);
+        ApicurioRegistry3ResourceType.updateWithDefaultSCRAM(apicurioRegistryKafkasqlSCRAM);
 
         CertificateUtils.createTruststore(
                 kafka.getMetadata().getNamespace(),
@@ -143,22 +141,22 @@ public class ApicurioRegistryUtils {
         );
 
         if (useKeycloak) {
-            ApicurioRegistryResourceType.updateWithDefaultKeycloak(apicurioRegistryKafkasqlSCRAM);
+            ApicurioRegistry3ResourceType.updateWithDefaultKeycloak(apicurioRegistryKafkasqlSCRAM);
         }
 
         // Create Apicurio Registry with SCRAM configuration
         ResourceManager.getInstance().createResource(true, apicurioRegistryKafkasqlSCRAM);
 
         return apicurioRegistryKafkasqlSCRAM;
-    }
+    }*/
 
-    public static boolean waitApicurioRegistryHostnameReady(ApicurioRegistry apicurioRegistry) {
+    public static boolean waitApicurioRegistryHostnameReady(ApicurioRegistry3 apicurioRegistry) {
         String name = apicurioRegistry.getMetadata().getName();
         String namespace = apicurioRegistry.getMetadata().getNamespace();
         String info = MessageFormat.format("with name {0} in namespace {1}", name, namespace);
         TimeoutBudget timeout = TimeoutBudget.ofDuration(Duration.ofMinutes(3));
 
-        LOGGER.info("Waiting for hostname of ApicurioRegistry {} to be ready...", info);
+        LOGGER.info("Waiting for hostname of ApicurioRegistry3 {} to be ready...", info);
 
         while (!timeout.timeoutExpired()) {
             if (isApicurioRegistryHostnameReady(apicurioRegistry)) {
@@ -175,7 +173,7 @@ public class ApicurioRegistryUtils {
         }
 
         if (!isApicurioRegistryHostnameReady(apicurioRegistry)) {
-            LOGGER.error("Hostname of ApicurioRegistry {} failed readiness check.", info);
+            LOGGER.error("Hostname of ApicurioRegistry3 {} failed readiness check.", info);
 
             return false;
         }
@@ -183,7 +181,7 @@ public class ApicurioRegistryUtils {
         return true;
     }
 
-    public static String getApicurioRegistryHostname(ApicurioRegistry apicurioRegistry) {
+    public static String getApicurioRegistryHostname(ApicurioRegistry3 apicurioRegistry) {
         Route route = Kubernetes.getRoute(apicurioRegistry);
 
         if (route == null) {
@@ -193,7 +191,7 @@ public class ApicurioRegistryUtils {
         return Kubernetes.getRouteHost(route.getMetadata().getNamespace(), route.getMetadata().getName());
     }
 
-    public static boolean isApicurioRegistryHostnameReady(ApicurioRegistry apicurioRegistry) {
+    public static boolean isApicurioRegistryHostnameReady(ApicurioRegistry3 apicurioRegistry) {
         // Apicurio Registry values
         String registryName = apicurioRegistry.getMetadata().getName();
         String registryNamespace = apicurioRegistry.getMetadata().getNamespace();
@@ -215,8 +213,8 @@ public class ApicurioRegistryUtils {
         );
     }
 
-    public static boolean waitApicurioRegistryReady(ApicurioRegistry apicurioRegistry) {
-        ApicurioRegistryResourceType registryResourceType = new ApicurioRegistryResourceType();
+    public static boolean waitApicurioRegistryReady(ApicurioRegistry3 apicurioRegistry) {
+        ApicurioRegistry3ResourceType registryResourceType = new ApicurioRegistry3ResourceType();
         TimeoutBudget timeoutBudget = TimeoutBudget.ofDuration(registryResourceType.getTimeout());
 
         while (!timeoutBudget.timeoutExpired()) {
@@ -236,9 +234,9 @@ public class ApicurioRegistryUtils {
         return registryResourceType.isReady(apicurioRegistry);
     }
 
-    public static ApicurioRegistry deployDefaultApicurioRegistryOAuthKafka() throws InterruptedException {
+    public static ApicurioRegistry3 deployDefaultApicurioRegistryOAuthKafka() throws InterruptedException {
         // Get Apicurio Registry
-        ApicurioRegistry apicurioRegistryOAuthKafka = ApicurioRegistryResourceType.getDefaultOAuthKafka(
+        ApicurioRegistry3 apicurioRegistryOAuthKafka = ApicurioRegistry3ResourceType.getDefaultOAuthKafka(
                 Constants.REGISTRY,
                 Environment.NAMESPACE
         );
@@ -259,10 +257,10 @@ public class ApicurioRegistryUtils {
 
     /* Environment variables processing */
 
-    public static boolean envVarExists(ApicurioRegistry apicurioRegistry, String envVarName) {
+    public static boolean envVarExists(ApicurioRegistry3 apicurioRegistry, String envVarName) {
         List<Env> currentEnv = apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
                 .getEnv();
 
         if (currentEnv == null) {
@@ -274,10 +272,10 @@ public class ApicurioRegistryUtils {
                 .anyMatch(ev -> ev.getName().equals(envVarName));
     }
 
-    public static Env getEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+    public static Env getEnvVar(ApicurioRegistry3 apicurioRegistry, String envVarName) {
         List<Env> currentEnv = apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
                 .getEnv();
 
         if (currentEnv == null) {
@@ -291,10 +289,10 @@ public class ApicurioRegistryUtils {
                 .orElse(null);
     }
 
-    public static void addEnvVar(ApicurioRegistry apicurioRegistry, Env envVar) {
+    public static void addEnvVar(ApicurioRegistry3 apicurioRegistry, Env envVar) {
         List<Env> currentEnv = apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
                 .getEnv();
 
         if (currentEnv == null) {
@@ -305,14 +303,14 @@ public class ApicurioRegistryUtils {
 
         apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
                 .setEnv(currentEnv);
     }
 
-    public static void removeEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+    public static void removeEnvVar(ApicurioRegistry3 apicurioRegistry, String envVarName) {
         List<Env> currentEnv = apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
                 .getEnv();
 
         if (currentEnv == null) {
@@ -323,11 +321,11 @@ public class ApicurioRegistryUtils {
 
         apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
                 .setEnv(currentEnv);
     }
 
-    public static ApicurioRegistry processChange(ApicurioRegistry apicurioRegistry) {
+    public static ApicurioRegistry3 processChange(ApicurioRegistry3 apicurioRegistry) {
         String namespace = apicurioRegistry.getMetadata().getNamespace();
         String name = apicurioRegistry.getMetadata().getName();
 
@@ -345,14 +343,14 @@ public class ApicurioRegistryUtils {
 
         Assertions.assertTrue(waitApicurioRegistryHostnameReady(apicurioRegistry));
 
-        return (new ApicurioRegistryResourceType()).get(namespace, name);
+        return (new ApicurioRegistry3ResourceType()).get(namespace, name);
     }
 
-    public static void deleteEnvVar(ApicurioRegistry apicurioRegistry, String envVarName) {
+    public static void deleteEnvVar(ApicurioRegistry3 apicurioRegistry, String envVarName) {
         deleteEnvVars(apicurioRegistry, Collections.singletonList(envVarName));
     }
 
-    public static void deleteEnvVars(ApicurioRegistry apicurioRegistry, List<String> envVarNames) {
+    public static void deleteEnvVars(ApicurioRegistry3 apicurioRegistry, List<String> envVarNames) {
         // Get registry name
         String dName = apicurioRegistry.getMetadata().getName();
         // Flag to indicate if registry was changed
@@ -388,18 +386,18 @@ public class ApicurioRegistryUtils {
         }
     }
 
-    public static ApicurioRegistry getApicurioRegistry(ApicurioRegistry apicurioRegistry) {
-        return (new ApicurioRegistryResourceType()).get(
+    public static ApicurioRegistry3 getApicurioRegistry(ApicurioRegistry3 apicurioRegistry) {
+        return (new ApicurioRegistry3ResourceType()).get(
                 apicurioRegistry.getMetadata().getNamespace(),
                 apicurioRegistry.getMetadata().getName()
         );
     }
 
-    public static void createOrReplaceEnvVar(ApicurioRegistry apicurioRegistry, Env envVar) {
+    public static void createOrReplaceEnvVar(ApicurioRegistry3 apicurioRegistry, Env envVar) {
         createOrReplaceEnvVars(apicurioRegistry, Collections.singletonList(envVar));
     }
 
-    public static void createOrReplaceEnvVars(ApicurioRegistry apicurioRegistry, List<Env> envVars) {
+    public static void createOrReplaceEnvVars(ApicurioRegistry3 apicurioRegistry, List<Env> envVars) {
         // Get fresh registry state
         apicurioRegistry = getApicurioRegistry(apicurioRegistry);
         // Get registry name

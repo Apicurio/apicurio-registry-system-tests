@@ -2,7 +2,7 @@ package io.apicurio.registry.systemtests.framework;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.client.KeycloakAdminApiClient;
 import io.apicurio.registry.systemtests.executor.Exec;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
@@ -298,13 +298,24 @@ public class KeycloakUtils {
         }
     }
 
-    public static String getAccessToken(ApicurioRegistry apicurioRegistry, String username, String password) {
+    /*public static String getAccessToken(ApicurioRegistry3 apicurioRegistry, String username, String password) {
         // Get Keycloak URL of Apicurio Registry
         String keycloakUrl = apicurioRegistry.getSpec().getConfiguration().getSecurity().getKeycloak().getUrl();
         // Get Keycloak Realm of Apicurio Registry
         String keycloakRealm = apicurioRegistry.getSpec().getConfiguration().getSecurity().getKeycloak().getRealm();
         // Get Keycloak API client ID of Apicurio Registry
         String clientId = apicurioRegistry.getSpec().getConfiguration().getSecurity().getKeycloak().getApiClientId();
+
+        return getAccessToken(keycloakUrl, keycloakRealm, clientId, username, password);
+    }*/
+
+    public static String getAccessToken(ApicurioRegistry3 apicurioRegistry, String username, String password) {
+        // Get Keycloak URL of Apicurio Registry
+        String keycloakUrl = KeycloakUtils.getDefaultKeycloakURL();
+        // Get Keycloak Realm of Apicurio Registry
+        String keycloakRealm = Constants.SSO_REALM;
+        // Get Keycloak API client ID of Apicurio Registry
+        String clientId = Constants.SSO_CLIENT_API;
 
         return getAccessToken(keycloakUrl, keycloakRealm, clientId, username, password);
     }

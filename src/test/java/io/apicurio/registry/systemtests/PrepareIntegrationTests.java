@@ -1,5 +1,7 @@
 package io.apicurio.registry.systemtests;
 
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.ApicurioRegistry3Builder;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.DatabaseUtils;
 import io.apicurio.registry.systemtests.framework.Environment;
@@ -61,5 +63,29 @@ public class PrepareIntegrationTests {
                         Constants.SSO_USER_PASSWORD
                 )
         );
+    }
+
+    @Test
+    public void tryRegistry3() {
+        ApicurioRegistry3 apicurioRegistry3 = new ApicurioRegistry3Builder()
+                .withNewMetadata()
+                    .withName(Constants.REGISTRY)
+                    .withNamespace(Environment.NAMESPACE)
+                .endMetadata()
+                .withNewSpec()
+                    .withNewApp()
+                        .withNewSql()
+                            .withNewDatasource()
+                                .withPassword(Constants.DB_PASSWORD)
+                                .withUsername(Constants.DB_USERNAME)
+                            .endDatasource()
+                        .endSql()
+                    .endApp()
+                    .withNewUi()
+                    .endUi()
+                    .withNewStudioUi()
+                    .endStudioUi()
+                .endSpec()
+                .build();
     }
 }

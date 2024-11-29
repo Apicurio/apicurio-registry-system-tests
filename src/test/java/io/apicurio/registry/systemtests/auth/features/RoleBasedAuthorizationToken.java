@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
@@ -10,7 +10,7 @@ import io.apicurio.registry.systemtests.framework.KeycloakUtils;
 import org.junit.jupiter.api.Assertions;
 
 public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
-    public static void testRoleBasedAuthorizationToken(ApicurioRegistry apicurioRegistry) {
+    public static void testRoleBasedAuthorizationToken(ApicurioRegistry3 apicurioRegistry) {
         /* RUN PRE-TEST ACTIONS */
 
         // GET REGISTRY HOSTNAME

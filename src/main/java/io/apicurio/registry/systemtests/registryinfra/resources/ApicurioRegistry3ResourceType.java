@@ -1,17 +1,14 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.ApicurioRegistryBuilder;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Security;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.env.ValueFrom;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.env.valuefrom.SecretKeyRef;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.kafkasql.SecurityBuilder;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.security.Https;
-import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.Containers;
-import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.Volumes;
-import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.containers.VolumeMounts;
-import io.apicur.registry.v1.apicurioregistryspec.deployment.podtemplatespecpreview.spec.volumes.Secret;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.ApicurioRegistry3Builder;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
+import io.apicur.registry.v1.apicurioregistry3spec.app.env.ValueFrom;
+import io.apicur.registry.v1.apicurioregistry3spec.app.env.valuefrom.SecretKeyRef;
+import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Containers;
+import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Volumes;
+import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.containers.VolumeMounts;
+import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.volumes.Secret;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
@@ -25,8 +22,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegistry> {
-    private static String getApicurioRegistryFilePath(String filename) {
+public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegistry3> {
+    private static String getApicurioRegistry3FilePath(String filename) {
         return Paths.get(Environment.TESTSUITE_PATH, "kubefiles", "apicurio", filename).toString();
     }
 
@@ -41,34 +38,38 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
     }
 
     @Override
-    public ApicurioRegistry get(String namespace, String name) {
+    public ApicurioRegistry3 get(String namespace, String name) {
         return getOperation()
                 .inNamespace(namespace)
                 .withName(name)
                 .get();
     }
 
-    public static MixedOperation<ApicurioRegistry, KubernetesResourceList<ApicurioRegistry>, Resource<ApicurioRegistry>>
+    public static MixedOperation<
+            ApicurioRegistry3,
+            KubernetesResourceList<ApicurioRegistry3>,
+            Resource<ApicurioRegistry3>
+            >
     getOperation() {
-        return Kubernetes.getResources(ApicurioRegistry.class);
+        return Kubernetes.getResources(ApicurioRegistry3.class);
     }
 
     @Override
-    public void create(ApicurioRegistry resource) {
+    public void create(ApicurioRegistry3 resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .create(resource);
     }
 
     @Override
-    public void createOrReplace(ApicurioRegistry resource) {
+    public void createOrReplace(ApicurioRegistry3 resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .createOrReplace(resource);
     }
 
     @Override
-    public void delete(ApicurioRegistry resource) {
+    public void delete(ApicurioRegistry3 resource) {
         getOperation()
                 .inNamespace(resource.getMetadata().getNamespace())
                 .withName(resource.getMetadata().getName())
@@ -76,8 +77,8 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
     }
 
     @Override
-    public boolean isReady(ApicurioRegistry resource) {
-        ApicurioRegistry apicurioRegistry = get(
+    public boolean isReady(ApicurioRegistry3 resource) {
+        ApicurioRegistry3 apicurioRegistry = get(
                 resource.getMetadata().getNamespace(),
                 resource.getMetadata().getName()
         );
@@ -97,7 +98,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
     }
 
     @Override
-    public boolean doesNotExist(ApicurioRegistry resource) {
+    public boolean doesNotExist(ApicurioRegistry3 resource) {
         if (resource == null) {
             return true;
         }
@@ -106,7 +107,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
     }
 
     @Override
-    public void refreshResource(ApicurioRegistry existing, ApicurioRegistry newResource) {
+    public void refreshResource(ApicurioRegistry3 existing, ApicurioRegistry3 newResource) {
         existing.setMetadata(newResource.getMetadata());
         existing.setSpec(newResource.getSpec());
         existing.setStatus(newResource.getStatus());
@@ -116,100 +117,91 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
 
 
 
-    public static ApicurioRegistry getDefaultMem(String name, String namespace) {
-        return new ApicurioRegistryBuilder()
+    public static ApicurioRegistry3 getDefaultMem(String name, String namespace) {
+        return new ApicurioRegistry3Builder()
                 .withNewMetadata()
                     .withName(name)
                     .withNamespace(namespace)
                 .endMetadata()
                 .withNewSpec()
-                    .withNewConfiguration()
-                        .withPersistence("mem")
-                    .endConfiguration()
-                    .withNewDeployment()
-                        .withNewPodTemplateSpecPreview()
+                    .withNewApp()
+                        .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
                                 .withVolumes(getDefaultVolumes())
                             .endSpec()
-                        .endPodTemplateSpecPreview()
-                    .endDeployment()
+                        .endPodTemplateSpec()
+                    .endApp()
                 .endSpec()
                 .build();
     }
 
-    public static ApicurioRegistry getDefaultSql(String name, String namespace) {
+    public static ApicurioRegistry3 getDefaultSql(String name, String namespace) {
         return getDefaultSql(name, namespace, Constants.DB_NAME, Constants.DB_NAMESPACE);
     }
 
-    public static ApicurioRegistry getDefaultSql(String name, String namespace, String sqlName, String sqlNamespace) {
+    public static ApicurioRegistry3 getDefaultSql(String name, String namespace, String sqlName, String sqlNamespace) {
         String sqlUrl = "jdbc:postgresql://" + sqlName + "." + sqlNamespace + ".svc.cluster.local:5432/postgresdb";
 
-        return new ApicurioRegistryBuilder()
+        return new ApicurioRegistry3Builder()
                 .withNewMetadata()
                     .withName(name)
                     .withNamespace(namespace)
                 .endMetadata()
                 .withNewSpec()
-                    .withNewConfiguration()
-                        .withPersistence("sql")
+                    .withNewApp()
                         .withNewSql()
-                            .withNewDataSource()
+                            .withNewDatasource()
                                 .withUrl(sqlUrl)
-                                .withUserName(Constants.DB_USERNAME)
+                                .withUsername(Constants.DB_USERNAME)
                                 .withPassword(Constants.DB_PASSWORD)
-                            .endDataSource()
+                            .endDatasource()
                         .endSql()
-                    .endConfiguration()
-                    .withNewDeployment()
-                        .withNewPodTemplateSpecPreview()
+                        .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
                                 .withVolumes(getDefaultVolumes())
                             .endSpec()
-                        .endPodTemplateSpecPreview()
-                    .endDeployment()
+                        .endPodTemplateSpec()
+                    .endApp()
                 .endSpec()
                 .build();
 
     }
-    public static ApicurioRegistry getDefaultKafkasql(String name, String namespace) {
-       return new ApicurioRegistryBuilder()
-                .withNewMetadata()
+    public static ApicurioRegistry3 getDefaultKafkasql(String name, String namespace) {
+       return new ApicurioRegistry3Builder()
+               .withNewMetadata()
                     .withName(name)
                     .withNamespace(namespace)
-                .endMetadata()
-                .withNewSpec()
-                    .withNewConfiguration()
-                        .withPersistence("kafkasql")
+               .endMetadata()
+               .withNewSpec()
+                    .withNewApp()
                         .withNewKafkasql()
                             .withBootstrapServers(
                                     Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
                                             ".svc.cluster.local:9092"
                             )
                         .endKafkasql()
-                    .endConfiguration()
-                    .withNewDeployment()
-                        .withNewPodTemplateSpecPreview()
+                        .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
                                 .withVolumes(getDefaultVolumes())
                             .endSpec()
-                        .endPodTemplateSpecPreview()
-                    .endDeployment()
+                        .endPodTemplateSpec()
+                    .endApp()
                 .endSpec()
                .build();
     }
 
-    public static ApicurioRegistry getDefaultMem(String name) {
+    public static ApicurioRegistry3 getDefaultMem(String name) {
         return getDefaultMem(name, Environment.NAMESPACE);
     }
 
-    public static ApicurioRegistry getDefaultSql(String name) {
+    public static ApicurioRegistry3 getDefaultSql(String name) {
         return getDefaultSql(name, Environment.NAMESPACE);
     }
 
-    public static ApicurioRegistry getDefaultKafkasql(String name) {
+    public static ApicurioRegistry3 getDefaultKafkasql(String name) {
         return getDefaultKafkasql(name, Environment.NAMESPACE);
     }
 
@@ -322,7 +314,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                 setName("mytruststore");
                 setSecret(new Secret() {{
                     setSecretName(Constants.TRUSTSTORE_SECRET_NAME);
-                    setDefaultMode(420);
+                    setDefaultMode(420L);
                 }});
             }});
         }};
@@ -340,16 +332,15 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
         }};
     }
 
-    public static ApicurioRegistry getDefaultOAuthKafka(String name, String namespace) {
-        return new ApicurioRegistryBuilder()
+    public static ApicurioRegistry3 getDefaultOAuthKafka(String name, String namespace) {
+        return new ApicurioRegistry3Builder()
                 .withNewMetadata()
                     .withName(name)
                     .withNamespace(namespace)
                 .endMetadata()
                 .withNewSpec()
-                    .withNewConfiguration()
+                    .withNewApp()
                         .withEnv(getDefaultOAuthKafkaEnv())
-                        .withPersistence("kafkasql")
                         .withNewKafkasql()
                             .withBootstrapServers(
                                     // TODO: Use "public" URL with 443 port
@@ -359,32 +350,30 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                                     ) + ":443"
                             )
                         .endKafkasql()
-                    .endConfiguration()
-                    .withNewDeployment()
-                        .withNewPodTemplateSpecPreview()
+                        .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultOAuthKafkaContainers())
                                 .withVolumes(getDefaultOAuthKafkaVolumes())
                             .endSpec()
-                        .endPodTemplateSpecPreview()
-                    .endDeployment()
+                        .endPodTemplateSpec()
+                    .endApp()
                 .endSpec()
                 .build();
     }
 
-    public static ApicurioRegistry getDefaultMem() {
+    public static ApicurioRegistry3 getDefaultMem() {
         return getDefaultMem(Constants.REGISTRY);
     }
 
-    public static ApicurioRegistry getDefaultSql() {
+    public static ApicurioRegistry3 getDefaultSql() {
         return getDefaultSql(Constants.REGISTRY);
     }
 
-    public static ApicurioRegistry getDefaultKafkasql() {
+    public static ApicurioRegistry3 getDefaultKafkasql() {
         return getDefaultKafkasql(Constants.REGISTRY);
     }
 
-    public static void updateWithDefaultTLS(ApicurioRegistry apicurioRegistry) {
+    /*public static void updateWithDefaultTLS(ApicurioRegistry3 apicurioRegistry) {
         apicurioRegistry
                 .getSpec()
                 .getConfiguration()
@@ -406,9 +395,9 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                         Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
                                 ".svc.cluster.local:9093"
                 );
-    }
+    }*/
 
-    public static void updateWithDefaultSCRAM(ApicurioRegistry apicurioRegistry) {
+    /*public static void updateWithDefaultSCRAM(ApicurioRegistry3 apicurioRegistry) {
         apicurioRegistry
                 .getSpec()
                 .getConfiguration()
@@ -431,9 +420,9 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                         Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
                                 ".svc.cluster.local:9093"
                 );
-    }
+    }*/
 
-    public static void updateWithDefaultKeycloak(ApicurioRegistry apicurioRegistry) {
+    /*public static void updateWithDefaultKeycloak(ApicurioRegistry3 apicurioRegistry) {
         // Get env
         List<Env> envList = apicurioRegistry
                 .getSpec()
@@ -469,9 +458,105 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                                 .endKeycloak()
                                 .build()
                 );
+    }*/
+
+    private static ArrayList<Env> getDefaultKeycloakEnv() {
+        return new ArrayList<>() {{
+            add(new Env() {{
+                setName("QUARKUS_OIDC_TENANT_ENABLED");
+                setValue("true");
+            }});
+            add(new Env() {{
+                setName("QUARKUS_OIDC_AUTH_SERVER_URL");
+                setValue(KeycloakUtils.getDefaultKeycloakURL() + "/realms/" + Constants.SSO_REALM);
+            }});
+            add(new Env() {{
+                setName("QUARKUS_OIDC_TOKEN_PATH");
+                setValue(KeycloakUtils.getDefaultKeycloakURL() + "/realms/" + Constants.SSO_REALM +
+                        "/protocol/openid-connect/token"
+                );
+            }});
+            add(new Env() {{
+                setName("QUARKUS_OIDC_CLIENT_ID");
+                setValue(Constants.SSO_CLIENT_API);
+            }});
+            add(new Env() {{
+                setName("APICURIO_UI_AUTH_OIDC_CLIENT_ID");
+                setValue(Constants.SSO_CLIENT_UI);
+            }});
+        }};
     }
 
-    public static void updateWithDefaultHttpsSecret(ApicurioRegistry apicurioRegistry) {
+    /*
+            - name: APICURIO_UI_AUTH_OIDC_REDIRECT_URI
+              value: 'https://apicurio-registry-ui-registry3-test.apps.registry3.apicurio.integration-qe.com/'
+            - name: APICURIO_LOG_LEVEL
+              value: DEBUG
+            - name: LOG_LEVEL
+              value: INFO
+            - name: QUARKUS_PROFILE
+              value: prod
+            - name: APICURIO_CONFIG_CACHE_ENABLED
+              value: 'true'
+            - name: APICURIO_REST_DELETION_GROUP_ENABLED
+              value: 'true'
+            - name: APICURIO_REST_DELETION_ARTIFACT_ENABLED
+              value: 'true'
+            - name: APICURIO_REST_DELETION_ARTIFACT-VERSION_ENABLED
+              value: 'true'
+            - name: APICURIO_REST_MUTABILITY_ARTIFACT-VERSION-CONTENT_ENABLED
+              value: 'true'
+            - name: QUARKUS_HTTP_CORS_ORIGINS
+              value: '*'
+            - name: APICURIO_STORAGE_KIND
+              value: sql
+            - name: APICURIO_STORAGE_SQL_KIND
+              value: postgresql
+            - name: APICURIO_AUTHN_BASIC_CLIENT_CREDENTIALS_ENABLED
+              value: 'true'
+            - name: APICURIO_AUTHN_BASIC_CLIENT_CREDENTIALS_CACHE_EXPIRATION
+              value: '4'
+            - name: APICURIO_DATASOURCE_USERNAME
+              value: username
+            - name: APICURIO_DATASOURCE_PASSWORD
+              value: password
+            - name: APICURIO_DATASOURCE_URL
+              value: >-
+                jdbc:postgresql://postgresql.postgresql.svc.cluster.local:5432/postgresdb
+            - name: APICURIO_APIS_DATE_FORMAT
+              value: 'yyyy-MM-dd''T''HH:mm:ssZ'
+            - name: QUARKUS_HTTP_CORS_HEADERS
+              value: 'x-registry-name,x-registry-name-encoded,x-registry-description,x-registry-description-encoded,
+              x-registry-version,x-registry-artifactid,x-registry-artifacttype,x-registry-hash-algorithm,
+              x-registry-content-hash,access-control-request-method,access-control-allow-credentials,
+              access-control-allow-origin,access-control-allow-headers,authorization,content-type,content-encoding,
+              user-agent'
+     */
+
+    public static void updateWithDefaultKeycloak(ApicurioRegistry3 apicurioRegistry) {
+        // Get env
+        List<Env> envList = apicurioRegistry
+                .getSpec()
+                .getApp()
+                .getEnv();
+
+        // Check if env is not null
+        if (envList == null) {
+            // Create env when null
+            envList = new ArrayList<>();
+        }
+
+        // Add SSL truststore
+        envList.addAll(getDefaultSslTruststoreEnv());
+        envList.addAll(getDefaultKeycloakEnv());
+
+        apicurioRegistry
+                .getSpec()
+                .getApp()
+                .setEnv(envList);
+    }
+
+    /*public static void updateWithDefaultHttpsSecret(ApicurioRegistry3 apicurioRegistry) {
         Https https = new io.apicur.registry.v1.apicurioregistryspec.configuration.security.HttpsBuilder()
                 .withSecretName(Constants.HTTPS_SECRET_NAME)
                 .build();
@@ -495,5 +580,5 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
                     .getSecurity()
                     .setHttps(https);
         }
-    }
+    }*/
 }

@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
@@ -12,7 +12,7 @@ import org.apache.hc.core5.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 
 public class ArtifactGroupOwnerOnlyAuthorization {
-    public static void testArtifactGroupOwnerOnlyAuthorization(ApicurioRegistry apicurioRegistry) {
+    public static void testArtifactGroupOwnerOnlyAuthorization(ApicurioRegistry3 apicurioRegistry) {
         /* RUN PRE-TEST ACTIONS */
 
         // GET REGISTRY HOSTNAME
