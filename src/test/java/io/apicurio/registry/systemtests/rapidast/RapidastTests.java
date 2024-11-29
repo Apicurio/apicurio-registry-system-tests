@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.rapidast;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.executor.Exec;
 import io.apicurio.registry.systemtests.framework.RapidastUtils;
@@ -24,7 +24,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_unauthenticated.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -57,7 +57,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_unauthenticated.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -90,7 +90,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_unauthenticated.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -123,7 +123,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_unauthenticated.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -157,7 +157,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_unauthenticated.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -190,7 +190,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_unauthenticated.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -226,7 +226,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_http_basic.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -259,7 +259,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_http_basic.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -292,7 +292,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v1_http_basic.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -325,7 +325,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v6_http_basic.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -359,7 +359,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_http_basic.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
@@ -392,7 +392,7 @@ public abstract class RapidastTests extends TestBase {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("cncf_v0_http_basic.yaml");
         // Deploy and get registry
-        ApicurioRegistry apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
+        ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, true);
 
         // Get registry hostname
         String hostname = Kubernetes.getRouteByPrefixHost(
