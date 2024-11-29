@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
 public final class ResourceKind {
-    public static final String APICURIO_REGISTRY = "ApicurioRegistry";
+    public static final String APICURIO_REGISTRY = "ApicurioRegistry3";
     public static final String NAMESPACE = "Namespace";
     public static final String SERVICE = "Service";
     public static final String DEPLOYMENT = "Deployment";
