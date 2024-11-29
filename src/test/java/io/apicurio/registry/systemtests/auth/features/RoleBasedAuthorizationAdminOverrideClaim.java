@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import org.junit.jupiter.api.Assertions;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthorizationAdminOverride {
     public static void testRoleBasedAuthorizationAdminOverrideClaim(
-            ApicurioRegistry apicurioRegistry,
+            ApicurioRegistry3 apicurioRegistry,
             String claim,
             String claimValue,
             String adminSuffix,

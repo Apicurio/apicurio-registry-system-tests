@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.Base64Utils;
 import io.apicurio.registry.systemtests.framework.Certificate;
@@ -188,7 +188,7 @@ public abstract class TestBase {
         LoggerUtils.logDelimiter("#");
     }
 
-    protected ApicurioRegistry deployTestRegistry(
+    protected ApicurioRegistry3 deployTestRegistry(
             PersistenceKind persistenceKind,
             KafkaKind kafkaKind,
             boolean useKeycloak
@@ -207,7 +207,7 @@ public abstract class TestBase {
                 KafkaUtils.deployDefaultKafkaNoAuth();
 
                 return ApicurioRegistryUtils.deployDefaultApicurioRegistryKafkasqlNoAuth(useKeycloak);
-            } else if (kafkaKind.equals(KafkaKind.TLS)) {
+            /*} else if (kafkaKind.equals(KafkaKind.TLS)) {
                 // Deploy tlsKafka
                 kafka = KafkaUtils.deployDefaultKafkaTls();
 
@@ -219,7 +219,7 @@ public abstract class TestBase {
                 return ApicurioRegistryUtils.deployDefaultApicurioRegistryKafkasqlSCRAM(
                         kafka,
                         useKeycloak
-                );
+                );*/
             } else {
                 LOGGER.error("Unrecognized KafkaKind: {}.", kafkaKind);
 

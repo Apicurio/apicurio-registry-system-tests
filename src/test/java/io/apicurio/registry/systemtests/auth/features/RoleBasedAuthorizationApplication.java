@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryUserRole;
 import io.apicurio.registry.systemtests.client.AuthMethod;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleBasedAuthorizationApplication extends RoleBasedAuthorization {
-    public static void testRoleBasedAuthorizationApplication(ApicurioRegistry apicurioRegistry) {
+    public static void testRoleBasedAuthorizationApplication(ApicurioRegistry3 apicurioRegistry) {
         /* RUN PRE-TEST ACTIONS */
 
         // GET REGISTRY HOSTNAME

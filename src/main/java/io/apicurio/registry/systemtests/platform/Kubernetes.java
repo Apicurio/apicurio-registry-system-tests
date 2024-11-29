@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.platform;
 
-import io.apicur.registry.v1.ApicurioRegistry;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
@@ -251,7 +251,7 @@ public final class Kubernetes {
                 .get();
     }
 
-    public static Route getRoute(ApicurioRegistry apicurioRegistry) {
+    public static Route getRoute(ApicurioRegistry3 apicurioRegistry) {
         return ((OpenShiftClient) getClient())
                 .routes()
                 .inNamespace(apicurioRegistry.getMetadata().getNamespace())
