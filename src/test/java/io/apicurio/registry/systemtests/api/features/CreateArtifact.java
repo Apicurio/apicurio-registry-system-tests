@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.api.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactType;
@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Assertions;
 import java.util.UUID;
 
 public class CreateArtifact {
-    public static void testCreateArtifact(ApicurioRegistry apicurioRegistry) {
+    public static void testCreateArtifact(ApicurioRegistry3 apicurioRegistry) {
         testCreateArtifact(apicurioRegistry, null, null, false);
     }
 
     public static void testCreateArtifact(
-            ApicurioRegistry apicurioRegistry,
+            ApicurioRegistry3 apicurioRegistry,
             String username,
             String password,
             boolean useToken

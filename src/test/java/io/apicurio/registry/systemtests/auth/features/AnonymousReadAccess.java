@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class AnonymousReadAccess {
     public static void testAnonymousReadAccess(
-            ApicurioRegistry apicurioRegistry,
+            ApicurioRegistry3 apicurioRegistry,
             String username,
             String password,
             boolean useToken
