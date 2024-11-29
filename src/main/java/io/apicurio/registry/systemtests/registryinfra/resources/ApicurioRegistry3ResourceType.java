@@ -118,7 +118,11 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
     public static String getHost(String prefix) {
         return Kubernetes
                 .getRouteHost("openshift-console", "console")
-                .replace("console-openshift-console", "http://" + prefix);
+                .replace("console-openshift-console", prefix);
+    }
+
+    public static String getUrl(String prefix) {
+        return "http://" + getHost(prefix);
     }
 
     /** Get default instances **/
@@ -152,7 +156,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return new ArrayList<>() {{
             add(new io.apicur.registry.v1.apicurioregistry3spec.ui.Env() {{
                 setName("REGISTRY_API_URL");
-                setValue(getHost("apicurio-registry-api"));
+                setValue(getUrl("apicurio-registry-api"));
             }});
         }};
     }
