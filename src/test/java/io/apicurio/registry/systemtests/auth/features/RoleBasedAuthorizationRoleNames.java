@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
-    public static void initializeClientsDefaultRoles(ApicurioRegistry apicurioRegistry, String hostname) {
+    public static void initializeClientsDefaultRoles(ApicurioRegistry3 apicurioRegistry, String hostname) {
         // GET ADMIN API CLIENT
         // Create admin API client
         adminClient = new ApicurioRegistryApiClient(hostname);
@@ -49,7 +49,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
         readonlyClient.setAuthMethod(AuthMethod.TOKEN);
     }
 
-    public static void initializeClientsUserDefinedRoles(ApicurioRegistry apicurioRegistry, String hostname) {
+    public static void initializeClientsUserDefinedRoles(ApicurioRegistry3 apicurioRegistry, String hostname) {
         // DEFINE TEST USER SUFFIX
         // Define suffix for test users that use user-defined role names
         String userSuffix = "-role";
@@ -97,7 +97,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
         readonlyClient.setAuthMethod(AuthMethod.TOKEN);
     }
 
-    public static void testRoleBasedAuthorizationRoleNames(ApicurioRegistry apicurioRegistry) {
+    public static void testRoleBasedAuthorizationRoleNames(ApicurioRegistry3 apicurioRegistry) {
         /* RUN PRE-TEST ACTIONS */
 
         // GET REGISTRY HOSTNAME
