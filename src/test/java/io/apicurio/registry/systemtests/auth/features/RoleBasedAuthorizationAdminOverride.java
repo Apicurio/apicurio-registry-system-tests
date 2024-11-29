@@ -1,16 +1,16 @@
 package io.apicurio.registry.systemtests.auth.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
 
 public abstract class RoleBasedAuthorizationAdminOverride extends RoleBasedAuthorization {
-    public static void initializeClients(ApicurioRegistry apicurioRegistry, String hostname) {
+    public static void initializeClients(ApicurioRegistry3 apicurioRegistry, String hostname) {
         initializeClients(apicurioRegistry, hostname, "");
     }
-    public static void initializeClients(ApicurioRegistry apicurioRegistry, String hostname, String adminSuffix) {
+    public static void initializeClients(ApicurioRegistry3 apicurioRegistry, String hostname, String adminSuffix) {
         // GET ADMIN API CLIENT
         // Create admin API client
         adminClient = new ApicurioRegistryApiClient(hostname);
