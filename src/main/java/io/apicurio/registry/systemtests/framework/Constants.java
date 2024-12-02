@@ -38,6 +38,8 @@ public class Constants {
     public static final String DB_USERNAME = "username";
     public static final String TRUSTSTORE_SECRET_NAME = "mytruststore-secret";
     public static final String TRUSTSTORE_DATA_NAME = "myTrustStore";
+    public static final String REGISTRY_API_DEPLOYMENT_SUFFIX = "-app-deployment";
+    public static final String REGISTRY_UI_DEPLOYMENT_SUFFIX = "-ui-deployment";
     public static final String ROUTER_CERTS = "router-certs";
     public static final String OAUTH_KAFKA_NAME = "kafka1";
     public static final String HTTPS_SECRET_NAME = "https-cert-secret";
