@@ -1,6 +1,5 @@
 package io.apicurio.registry.systemtests.client;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
