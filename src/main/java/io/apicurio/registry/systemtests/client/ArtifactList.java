@@ -32,7 +32,7 @@ public class ArtifactList {
         }
 
         for (Artifact a : artifacts) {
-            if (a.getGroupId().equals(artifactGroupId) && a.getId().equals(artifactId)) {
+            if (a.getGroupId().equals(artifactGroupId) && a.getArtifactId().equals(artifactId)) {
                 return true;
             }
         }
@@ -49,7 +49,7 @@ public class ArtifactList {
             logger.info("----------------------");
 
             for (Artifact a : artifacts) {
-                logger.info("{}/{}", a.getGroupId(), a.getId());
+                logger.info("{}/{}", a.getGroupId(), a.getArtifactId());
             }
 
             logger.info("======================");
