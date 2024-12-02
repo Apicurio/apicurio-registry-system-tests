@@ -12,7 +12,8 @@ import java.util.Map;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Artifact {
-    private String id;
+    private String artifactId;
+    private String artifactType;
     private String name;
     private Date createdOn;
     private String createdBy;
@@ -23,7 +24,7 @@ public class Artifact {
     private String groupId;
     private String description;
     private String owner;
-    private List<String> labels;
+    private Map<String, String> labels;
     private String version;
     private Long globalId;
     private Map<String, String> properties;
