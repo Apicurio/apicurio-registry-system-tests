@@ -16,6 +16,7 @@ import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
+import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
 
@@ -80,7 +81,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
 
     @Override
     public boolean isReady(ApicurioRegistry3 resource) {
-        ApicurioRegistry3 apicurioRegistry = get(
+        /*ApicurioRegistry3 apicurioRegistry = get(
                 resource.getMetadata().getNamespace(),
                 resource.getMetadata().getName()
         );
@@ -96,7 +97,14 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .filter(condition -> condition.getType().equals("Ready"))
                 .map(condition -> condition.getStatus().name().equals("TRUE"))
                 .findFirst()
-                .orElse(false);
+                .orElse(false);*/
+        String namespace = resource.getMetadata().getNamespace();
+        String name = resource.getMetadata().getName();
+
+        boolean appReady = Kubernetes.isDeploymentReady(namespace, name + Constants.REGISTRY_API_DEPLOYMENT_SUFFIX);
+        boolean uiReady = Kubernetes.isDeploymentReady(namespace, name + Constants.REGISTRY_UI_DEPLOYMENT_SUFFIX);
+
+        return (appReady && uiReady);
     }
 
     @Override
