@@ -2,6 +2,7 @@ package io.apicurio.registry.systemtests.framework;
 
 
 public class Constants {
+    public static final String AVRO_ARTIFACT_ID_PLACEHOLDER = "<artifact_id_placeholder>";
     public static final String CATALOG_NAME = "testsuite-operators";
     public static final String CATALOG_NAMESPACE = "openshift-marketplace";
     public static final String KAFKA_CONNECT = "kafka-connect-for-registry";
