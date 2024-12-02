@@ -127,12 +127,13 @@ public class CertificateUtils {
             String namespace,
             String caCertSecretName,
             String truststoreSecretName,
+            String keyName,
             boolean shared
     ) throws InterruptedException {
         LOGGER.info("Preparing SSL truststore...");
 
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
-        String caCertSecretValue = decodeBase64Secret(namespace, caCertSecretName, Constants.TRUSTSTORE_DATA_NAME);
+        String caCertSecretValue = decodeBase64Secret(namespace, caCertSecretName, keyName);
         Path caPath = Environment.getTmpPath("tls-" + timestamp + ".crt");
 
         writeToFile(caCertSecretValue, caPath);

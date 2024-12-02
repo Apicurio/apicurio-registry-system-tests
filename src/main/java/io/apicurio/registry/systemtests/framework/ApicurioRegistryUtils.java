@@ -247,6 +247,7 @@ public class ApicurioRegistryUtils {
                 Environment.NAMESPACE,
                 Constants.ROUTER_CERTS,
                 Constants.TRUSTSTORE_SECRET_NAME,
+                "tls.crt",
                 true
         );
 
