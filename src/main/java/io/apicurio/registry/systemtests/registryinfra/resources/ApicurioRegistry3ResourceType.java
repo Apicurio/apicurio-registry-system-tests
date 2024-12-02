@@ -312,7 +312,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
 
     private static Containers getDefaultContainers() {
         return new Containers() {{
-            setName("registry");
+            setName("apicurio-registry-app");
             setVolumeMounts(new ArrayList<>() {{
                 add(new VolumeMounts() {{
                     setName("mytruststore");
