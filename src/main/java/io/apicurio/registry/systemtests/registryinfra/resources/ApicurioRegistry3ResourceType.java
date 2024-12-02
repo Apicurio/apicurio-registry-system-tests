@@ -121,8 +121,8 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .replace("console-openshift-console", prefix);
     }
 
-    public static String getUrl(String prefix) {
-        return "http://" + getHost(prefix);
+    public static String getApiUrl(String prefix) {
+        return "http://" + getHost(prefix) + "/apis/registry/v3";
     }
 
     /** Get default instances **/
@@ -156,7 +156,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return new ArrayList<>() {{
             add(new io.apicur.registry.v1.apicurioregistry3spec.ui.Env() {{
                 setName("REGISTRY_API_URL");
-                setValue(getUrl("apicurio-registry-api"));
+                setValue(getApiUrl("apicurio-registry-api"));
             }});
         }};
     }
