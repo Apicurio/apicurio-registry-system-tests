@@ -869,7 +869,10 @@ public class ApicurioRegistryApiClient {
 
     public boolean createArtifact(String groupId, String id, ArtifactType type, String content, int httpStatus) {
         // Log information about current action
-        LOGGER.info("Creating artifact: groupId={}, id={}, type={}.", groupId, id, type);
+        LOGGER.info("Creating artifact: groupId={}, artifactId={}, type={}.", groupId, id, type);
+
+        // Replace artifact ID placeholder with artifact ID
+        content = content.replace("<artifact_id>", id);
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
