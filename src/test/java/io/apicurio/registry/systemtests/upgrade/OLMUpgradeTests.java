@@ -8,6 +8,7 @@ import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactList;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.DatabaseUtils;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperatorType;
@@ -57,7 +58,9 @@ public class OLMUpgradeTests extends TestBase {
                     "testsuite-upgrade",
                     "upgrade-" + i,
                     ArtifactType.AVRO,
-                    ArtifactContent.DEFAULT_AVRO
+                    ArtifactContent
+                            .DEFAULT_AVRO
+                            .replace(Constants.AVRO_ARTIFACT_ID_PLACEHOLDER, "upgrade-" + i)
             );
         }
 
