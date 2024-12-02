@@ -94,10 +94,9 @@ public abstract class TestBase {
                 .withName(routerCertsDefaultSecret.getMetadata().getName())
                 .withNamespace(Environment.NAMESPACE)
                 .endMetadata()
-                .withType("kubernetes.io/tls")
+                .withType("Opaque")
                 .withData(new HashMap<>() {{
-                    put("tls.crt", Base64Utils.encode(CertificateUtils.getCertificates(certificates)));
-                    put("tls.key", Base64Utils.encode(CertificateUtils.getKeys(certificates)));
+                    put(Constants.TRUSTSTORE_DATA_NAME, Base64Utils.encode(CertificateUtils.getCertificates(certificates)));
                 }})
                 .build();
 

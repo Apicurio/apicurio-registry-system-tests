@@ -15,7 +15,6 @@ public class Constants {
     public static final String SSO_CLIENT_API = "registry-client-api"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_CLIENT_UI = "registry-client-ui"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_DEVELOPER_USER = "registry-developer"; // Defined in kubefiles/keycloak-realm.yaml
-    public static final String SSO_HTTP_SERVICE = "sso-http";
     public static final String SSO_NAME = "registry-sso"; // Defined in kubefiles/keycloak.yaml
     public static final String SSO_NO_ROLE_USER = "registry-no-role-user"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_READONLY_USER = "registry-user"; // Defined in kubefiles/keycloak-realm.yaml
@@ -30,6 +29,7 @@ public class Constants {
     public static final String DB_PASSWORD = "password";
     public static final String DB_USERNAME = "username";
     public static final String TRUSTSTORE_SECRET_NAME = "mytruststore-secret";
+    public static final String TRUSTSTORE_DATA_NAME = "myTrustStore";
     public static final String ROUTER_CERTS = "router-certs";
     public static final String OAUTH_KAFKA_NAME = "kafka1";
     public static final String HTTPS_SECRET_NAME = "https-cert-secret";
