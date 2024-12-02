@@ -107,6 +107,7 @@ public abstract class TestBase {
                 Environment.NAMESPACE,
                 Constants.ROUTER_CERTS,
                 Constants.TRUSTSTORE_SECRET_NAME,
+                Constants.TRUSTSTORE_DATA_NAME,
                 true
         );
 
