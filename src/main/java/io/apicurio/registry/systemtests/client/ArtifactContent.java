@@ -3,8 +3,17 @@ package io.apicurio.registry.systemtests.client;
 import java.util.HashMap;
 
 public final class ArtifactContent {
-    public static final String DEFAULT_AVRO = "{\"name\":\"price\",\"namespace\":\"com.example\",\"type\":\"record\"," +
-            "\"fields\":[{\"name\":\"symbol\",\"type\":\"string\"},{\"name\":\"price\",\"type\":\"string\"}]}";
+    public static final String DEFAULT_AVRO = "{" +
+            "\"artifactType\":\"AVRO\"," +
+            "\"name\":\"price\"," +
+            "\"namespace\":\"com.example\"," +
+            "\"type\":\"record\"," +
+            "\"fields\":" + "[" +
+            "{\"name\":\"symbol\"," + "\"type\":\"string\"}" +
+            "," +
+            "{\"name\":\"price\"," + "\"type\":\"string\"}" +
+            "]" +
+            "}";
     public static final String DEFAULT_AVRO_UPDATED = "{\"key\":\"id\"}";
 
     public static final String DEFAULT_PROTOBUF = "syntax = \"proto3\";\n" +
