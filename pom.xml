@@ -272,7 +272,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry/refs/heads/main/operator/install/install.yaml</url>
+                            <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry/82267446e28f87a2c171f7c0b91432f9a7218114/operator/install/install.yaml</url>
                             <outputFileName>registry.apicur.io_apicurioregistries.yaml</outputFileName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <skipCache>true</skipCache>
