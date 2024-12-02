@@ -151,7 +151,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Enabling global {} rule...", ruleType);
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/rules", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules", host, port);
 
         // Prepare request content
         String content = String.format(
@@ -213,7 +213,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Updating global {} rule to {}...", ruleType, ruleLevel);
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/rules/%s", host, port, ruleType);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules/%s", host, port, ruleType);
 
         // Prepare request content
         String content = String.format("{\"type\":\"%s\", \"config\":\"%s\"}", ruleType, ruleLevel);
@@ -275,7 +275,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Getting global {} rule...", ruleType);
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/rules/%s", host, port, ruleType);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules/%s", host, port, ruleType);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -320,7 +320,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Listing global rules...");
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/rules", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules", host, port);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -413,7 +413,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Disabling global {} rule...", ruleType);
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/rules/%s", host, port, ruleType);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules/%s", host, port, ruleType);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -454,7 +454,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Disabling all global rules...");
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/rules", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules", host, port);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -512,7 +512,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s/rules", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/rules", host, port, groupId, id
         );
 
         // Prepare request content
@@ -581,7 +581,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s/rules/%s", host, port, groupId, id, ruleType
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/rules/%s", host, port, groupId, id, ruleType
         );
 
         // Prepare request content
@@ -645,7 +645,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s/rules/%s", host, port, groupId, id, ruleType
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/rules/%s", host, port, groupId, id, ruleType
         );
 
         // Get request builder
@@ -692,7 +692,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s/rules", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/rules", host, port, groupId, id
         );
 
         // Get request builder
@@ -787,7 +787,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s/rules/%s", host, port, groupId, id, ruleType
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/rules/%s", host, port, groupId, id, ruleType
         );
 
         // Get request builder
@@ -830,7 +830,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s/rules", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/rules", host, port, groupId, id
         );
 
         // Get request builder
@@ -873,7 +873,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts", host, port, groupId
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts", host, port, groupId
         );
 
         // Get request builder
@@ -920,7 +920,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s", host, port, groupId, id
         );
 
         // Get request builder
@@ -967,7 +967,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URL
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s", host, port, groupId, id
         );
 
         // Get request builder
@@ -1010,7 +1010,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URL
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts/%s", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s", host, port, groupId, id
         );
 
         // Get request builder
@@ -1057,7 +1057,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/search/artifacts?limit=%d",
+                "http://%s:%d/apis/registry/v3/search/artifacts?limit=%d",
                 host,
                 port,
                 limit
@@ -1111,7 +1111,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/groups/%s/artifacts",
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts",
                 host,
                 port,
                 groupId
@@ -1164,7 +1164,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Listing registry users...");
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/roleMappings", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/roleMappings", host, port);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -1214,7 +1214,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/admin/roleMappings/%s",
+                "http://%s:%d/apis/registry/v3/admin/roleMappings/%s",
                 host,
                 port,
                 userId
@@ -1268,7 +1268,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/admin/roleMappings/%s",
+                "http://%s:%d/apis/registry/v3/admin/roleMappings/%s",
                 host,
                 port,
                 userId
@@ -1319,7 +1319,7 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v2/admin/roleMappings/%s",
+                "http://%s:%d/apis/registry/v3/admin/roleMappings/%s",
                 host,
                 port,
                 userId
@@ -1364,7 +1364,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Creating user {} with role {}...", userId, userRole);
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/admin/roleMappings", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/roleMappings", host, port);
 
         // Prepare request content
         String content = String.format(
@@ -1415,7 +1415,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Trying unauthorized access...");
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/search/artifacts", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/search/artifacts", host, port);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -1452,7 +1452,7 @@ public class ApicurioRegistryApiClient {
         LOGGER.info("Trying fake unauthorized access...");
 
         // Get request URI
-        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v2/search/artifacts", host, port);
+        URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/search/artifacts", host, port);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
