@@ -923,7 +923,8 @@ public class ApicurioRegistryApiClient {
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/versions/branch=latest/content",
+                host, port, groupId, id
         );
 
         // Get request builder
