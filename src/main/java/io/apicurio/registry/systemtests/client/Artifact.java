@@ -11,12 +11,10 @@ import java.util.Map;
 public class Artifact {
     private String id;
     private String name;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
     private Date createdOn;
     private String createdBy;
     private String type;
     private ArtifactState state;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
     private Date modifiedOn;
     private String modifiedBy;
     private String groupId;
