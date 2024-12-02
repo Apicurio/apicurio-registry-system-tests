@@ -132,7 +132,7 @@ public class CertificateUtils {
         LOGGER.info("Preparing SSL truststore...");
 
         String timestamp = String.valueOf(Instant.now().getEpochSecond());
-        String caCertSecretValue = decodeBase64Secret(namespace, caCertSecretName, "tls.crt");
+        String caCertSecretValue = decodeBase64Secret(namespace, caCertSecretName, Constants.TRUSTSTORE_DATA_NAME);
         Path caPath = Environment.getTmpPath("tls-" + timestamp + ".crt");
 
         writeToFile(caCertSecretValue, caPath);
@@ -142,7 +142,7 @@ public class CertificateUtils {
         runTruststoreCmd(truststorePath, "password", caPath);
 
         Map<String, String> secretData = new HashMap<>() {{
-            put("myTrustStore", Base64Utils.encode(truststorePath));
+            put(Constants.TRUSTSTORE_DATA_NAME, Base64Utils.encode(truststorePath));
         }};
 
         createSecret(namespace, truststoreSecretName, secretData, shared);
