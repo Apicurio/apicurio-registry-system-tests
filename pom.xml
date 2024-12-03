@@ -740,6 +740,14 @@
         <!-- RapiDAST tests -->
 
         <profile>
+            <id>bundle-rapidast-debug</id>
+            <properties>
+                <groups>bundle-rapidast &amp; debug</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
+        <profile>
             <id>bundle-rapidast-v2</id>
             <properties>
                 <groups>bundle-rapidast &amp; v2</groups>

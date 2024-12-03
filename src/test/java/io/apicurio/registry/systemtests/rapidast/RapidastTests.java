@@ -19,6 +19,7 @@ public abstract class RapidastTests extends TestBase {
     @Tag("unauthenticated")
     @Tag("v2")
     @Tag("v3")
+    @Tag("debug")
     public void testRapidastRegistryV2Unauthenticated() throws InterruptedException {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_unauthenticated.yaml");
