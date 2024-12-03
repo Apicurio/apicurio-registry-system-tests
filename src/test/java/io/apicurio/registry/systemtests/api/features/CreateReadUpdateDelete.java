@@ -7,7 +7,6 @@ import io.apicurio.registry.systemtests.client.ArtifactList;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
-import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
 import org.junit.jupiter.api.Assertions;
 
@@ -30,9 +29,7 @@ public class CreateReadUpdateDelete {
         // Prepare necessary variables
         String artifactGroupId = "registry-" + UUID.randomUUID();
         String artifactId = "registry-" + UUID.randomUUID();
-        String artifactContent = ArtifactContent
-                .DEFAULT_AVRO
-                .replace(Constants.AVRO_ARTIFACT_ID_PLACEHOLDER, artifactId);
+        String artifactContent = ArtifactContent.DEFAULT_AVRO;
         String updatedArtifactContent = "{\"key\":\"id\"}";
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
