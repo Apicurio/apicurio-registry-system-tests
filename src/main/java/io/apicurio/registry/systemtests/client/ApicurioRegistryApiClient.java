@@ -863,16 +863,48 @@ public class ApicurioRegistryApiClient {
         return true;
     }
 
-    public boolean createArtifact(String groupId, String id, ArtifactType type, String content) {
-        return createArtifact(groupId, id, type, content, HttpStatus.SC_OK);
+    public boolean createArtifact(
+            String groupId,
+            String id,
+            ArtifactType type,
+            String content
+    ) {
+        return createArtifact(groupId, id, type, content, ContentType.APPLICATION_JSON, HttpStatus.SC_OK);
     }
 
-    public boolean createArtifact(String groupId, String id, ArtifactType type, String content, int httpStatus) {
+    public boolean createArtifact(
+            String groupId,
+            String id,
+            ArtifactType type,
+            String content,
+            int httpStatus
+    ) {
+        return createArtifact(groupId, id, type, content, ContentType.APPLICATION_JSON, httpStatus);
+    }
+
+    public boolean createArtifact(
+            String groupId,
+            String id,
+            ArtifactType type,
+            String content,
+            String contentType
+    ) {
+        return createArtifact(groupId, id, type, content, contentType, HttpStatus.SC_OK);
+    }
+
+    public boolean createArtifact(
+            String groupId,
+            String id,
+            ArtifactType type,
+            String content,
+            String contentType,
+            int httpStatus
+    ) {
         // Log information about current action
         LOGGER.info("Creating artifact: groupId={}, artifactId={}, type={}.", groupId, id, type);
 
-        // Replace artifact ID placeholder with artifact ID
-        content = content.replace("<artifact_id>", id);
+        // Build artifact creation payload
+        String payload = Artifact.getArtifact(type, id, content, contentType);
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
@@ -885,10 +917,8 @@ public class ApicurioRegistryApiClient {
                 .uri(uri)
                 // Set common request headers
                 .header("Content-Type", "application/json")
-                .header("X-Registry-ArtifactId", id)
-                .header("X-Registry-ArtifactType", type.name())
                 // Set request type and content
-                .POST(HttpRequest.BodyPublishers.ofString(content));
+                .POST(HttpRequest.BodyPublishers.ofString(payload));
 
         // Set header with authentication when provided
         setAuthenticationHeader(requestBuilder);
