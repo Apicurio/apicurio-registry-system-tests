@@ -740,28 +740,28 @@
         <!-- RapiDAST tests -->
 
         <profile>
-            <id>bundle-rapidast</id>
+            <id>bundle-rapidast-v2</id>
             <properties>
                 <groups>bundle-rapidast &amp; v2</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
-            <id>olm-clusterwide-rapidast</id>
+            <id>olm-clusterwide-rapidast-v2</id>
             <properties>
                 <groups>olm-clusterwide-rapidast &amp; v2</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
-            <id>olm-namespace-rapidast</id>
+            <id>olm-namespace-rapidast-v2</id>
             <properties>
                 <groups>olm-namespace-rapidast &amp; v2</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
         <profile>
-            <id>rapidast-static</id>
+            <id>rapidast-static-v2</id>
             <properties>
                 <groups>rapidast-static &amp; v2</groups>
                 <skip.tests>false</skip.tests>
