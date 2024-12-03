@@ -31,4 +31,21 @@ public class Artifact {
     private Long contentId;
     private List<ArtifactReference> references;
 
+    public static String getArtifact(
+            ArtifactType artifactType,
+            String artifactId,
+            String artifactContent,
+            String contentType
+    ) {
+        return  "{" +
+            "\"artifactId\": \"" + artifactId + "\"," +
+            "\"artifactType\": \"" + artifactType + "\"," +
+            "\"firstVersion\": " + "{" +
+                "\"content\": " + "{" +
+                    "\"content\": " + artifactContent +"," +
+                    "\"contentType\":" + "\"" + contentType + "\"" +
+                "}" +
+            "}" +
+        "}";
+    }
 }
