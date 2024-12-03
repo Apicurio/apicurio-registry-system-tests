@@ -58,9 +58,7 @@ public class OLMUpgradeTests extends TestBase {
                     "testsuite-upgrade",
                     "upgrade-" + i,
                     ArtifactType.AVRO,
-                    ArtifactContent
-                            .DEFAULT_AVRO
-                            .replace(Constants.AVRO_ARTIFACT_ID_PLACEHOLDER, "upgrade-" + i)
+                    ArtifactContent.DEFAULT_AVRO
             );
         }
 
