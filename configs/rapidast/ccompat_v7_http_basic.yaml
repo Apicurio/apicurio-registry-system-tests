@@ -24,3 +24,6 @@ scanners:
 
     activeScan:
       policy: "Kubernetes-API-scan"
+
+    report:
+      format: ["json","html"]
