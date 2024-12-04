@@ -2,6 +2,7 @@ package io.apicurio.registry.systemtests.auth.features;
 
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryUserRole;
+import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.framework.CompatibilityLevel;
 import io.apicurio.registry.systemtests.framework.RuleType;
@@ -39,11 +40,14 @@ public abstract class RoleBasedAuthorization {
     // Artifact initial content for all artifacts
     protected static String initialContent = "{}";
     // Artifact updated content for all artifacts
-    protected static String updatedContent = "{\"key\":\"id\"}";
+    protected static String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
+    protected static String updatedContentPlain = ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN;
     // Second artifact updated content for all artifacts
-    protected static String secondUpdatedContent = "{\"id\":\"key\"}";
+    protected static String secondUpdatedContent = "\"{\\\"id\\\":\\\"key\\\"}\"";
+    protected static String secondUpdatedContentPlain = "{\"id\":\"key\"}";
     // Third artifact updated content for all artifacts
-    protected static String thirdUpdatedContent = "{\"key\":\"value\"}";
+    protected static String thirdUpdatedContent = "\"{\\\"key\\\":\\\"value\\\"}\"";
+    protected static String thirdUpdatedContentPlain = "{\"key\":\"value\"}";
     // Variable for list of rules used in test
     protected static List<String> ruleList;
     // Variable for level of validity rule used in test
@@ -371,7 +375,7 @@ public abstract class RoleBasedAuthorization {
         // Check that API returns 200 OK when updating admin artifact by admin
         Assertions.assertTrue(adminClient.updateArtifact(groupId, adminId, updatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(adminClient.readArtifactContent(groupId, adminId), updatedContent);
+        Assertions.assertEquals(adminClient.readArtifactContent(groupId, adminId), updatedContentPlain);
         // Check that API returns 403 Forbidden when updating artifact by developer
         Assertions.assertTrue(
                 developerClient.updateArtifact(groupId, developerId, updatedContent, HttpStatus.SC_FORBIDDEN)
@@ -1563,41 +1567,41 @@ public abstract class RoleBasedAuthorization {
         // Check that API returns 200 OK when updating admin artifact by admin
         Assertions.assertTrue(adminClient.updateArtifact(groupId, adminId, updatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(adminClient.readArtifactContent(groupId, adminId), updatedContent);
+        Assertions.assertEquals(adminClient.readArtifactContent(groupId, adminId), updatedContentPlain);
         // Check that API returns 200 OK when updating developer artifact by developer
         Assertions.assertTrue(developerClient.updateArtifact(groupId, developerId, updatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(developerClient.readArtifactContent(groupId, developerId), updatedContent);
+        Assertions.assertEquals(developerClient.readArtifactContent(groupId, developerId), updatedContentPlain);
         // Check that API returns 200 OK when updating readonly artifact by readonly
         Assertions.assertTrue(readonlyClient.updateArtifact(groupId, readonlyId, updatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, readonlyId), updatedContent);
+        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, readonlyId), updatedContentPlain);
 
         // --- UPDATE ACTION ON OTHER'S ARTIFACT
         // Check that API returns 200 OK when updating developer artifact by admin
         Assertions.assertTrue(adminClient.updateArtifact(groupId, developerId, secondUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(adminClient.readArtifactContent(groupId, developerId), secondUpdatedContent);
+        Assertions.assertEquals(adminClient.readArtifactContent(groupId, developerId), secondUpdatedContentPlain);
         // Check that API returns 200 OK when updating readonly artifact by admin
         Assertions.assertTrue(adminClient.updateArtifact(groupId, readonlyId, secondUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(adminClient.readArtifactContent(groupId, readonlyId), secondUpdatedContent);
+        Assertions.assertEquals(adminClient.readArtifactContent(groupId, readonlyId), secondUpdatedContentPlain);
         // Check that API returns 200 OK when updating admin artifact by developer
         Assertions.assertTrue(developerClient.updateArtifact(groupId, adminId, secondUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(developerClient.readArtifactContent(groupId, adminId), secondUpdatedContent);
+        Assertions.assertEquals(developerClient.readArtifactContent(groupId, adminId), secondUpdatedContentPlain);
         // Check that API returns 200 OK when updating readonly artifact by developer
         Assertions.assertTrue(developerClient.updateArtifact(groupId, readonlyId, thirdUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(developerClient.readArtifactContent(groupId, readonlyId), thirdUpdatedContent);
+        Assertions.assertEquals(developerClient.readArtifactContent(groupId, readonlyId), thirdUpdatedContentPlain);
         // Check that API returns 200 OK when updating admin artifact by readonly
         Assertions.assertTrue(readonlyClient.updateArtifact(groupId, adminId, thirdUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, adminId), thirdUpdatedContent);
+        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, adminId), thirdUpdatedContentPlain);
         // Check that API returns 200 OK when updating developer artifact by readonly
         Assertions.assertTrue(readonlyClient.updateArtifact(groupId, developerId, thirdUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, developerId), thirdUpdatedContent);
+        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, developerId), thirdUpdatedContentPlain);
 
         // --- DELETE ACTION ON OWN ARTIFACT
         // Check that API returns 204 No Content when deleting artifact by admin
@@ -2536,11 +2540,11 @@ public abstract class RoleBasedAuthorization {
         // Check that API returns 200 OK when updating admin artifact by admin
         Assertions.assertTrue(adminClient.updateArtifact(groupId, adminId, updatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(adminClient.readArtifactContent(groupId, adminId), updatedContent);
+        Assertions.assertEquals(adminClient.readArtifactContent(groupId, adminId), updatedContentPlain);
         // Check that API returns 200 OK when updating developer artifact by developer
         Assertions.assertTrue(developerClient.updateArtifact(groupId, developerId, updatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(developerClient.readArtifactContent(groupId, developerId), updatedContent);
+        Assertions.assertEquals(developerClient.readArtifactContent(groupId, developerId), updatedContentPlain);
         // Check that API returns 403 Forbidden when updating readonly artifact by readonly
         Assertions.assertTrue(
                 readonlyClient.updateArtifact(groupId, readonlyId, updatedContent, HttpStatus.SC_FORBIDDEN)
@@ -2552,23 +2556,23 @@ public abstract class RoleBasedAuthorization {
         // Check that API returns 200 OK when updating developer artifact by admin
         Assertions.assertTrue(adminClient.updateArtifact(groupId, developerId, secondUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(adminClient.readArtifactContent(groupId, developerId), secondUpdatedContent);
+        Assertions.assertEquals(adminClient.readArtifactContent(groupId, developerId), secondUpdatedContentPlain);
         // Check that API returns 200 OK when updating admin artifact by developer
         Assertions.assertTrue(developerClient.updateArtifact(groupId, adminId, secondUpdatedContent));
         // Check artifact content after update
-        Assertions.assertEquals(developerClient.readArtifactContent(groupId, adminId), secondUpdatedContent);
+        Assertions.assertEquals(developerClient.readArtifactContent(groupId, adminId), secondUpdatedContentPlain);
         // Check that API returns 403 Forbidden when updating admin artifact by readonly
         Assertions.assertTrue(
                 readonlyClient.updateArtifact(groupId, adminId, initialContent, HttpStatus.SC_FORBIDDEN)
         );
         // Check artifact content after update
-        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, adminId), secondUpdatedContent);
+        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, adminId), secondUpdatedContentPlain);
         // Check that API returns 403 Forbidden when updating developer artifact by readonly
         Assertions.assertTrue(
                 readonlyClient.updateArtifact(groupId, developerId, initialContent, HttpStatus.SC_FORBIDDEN)
         );
         // Check artifact content after update
-        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, developerId), secondUpdatedContent);
+        Assertions.assertEquals(readonlyClient.readArtifactContent(groupId, developerId), secondUpdatedContentPlain);
 
         // --- DELETE ACTION ON OWN ARTIFACT
         // Check that API returns 204 No Content when deleting artifact by admin

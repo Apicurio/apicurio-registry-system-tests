@@ -144,6 +144,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .endMetadata()
                 .withNewSpec()
                     .withNewApp()
+                        .withEnv(getDefaultAppEnv())
                         .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
@@ -176,6 +177,15 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .build();
     }
 
+    public static ArrayList<Env> getDefaultAppEnv() {
+        return new ArrayList<>() {{
+            add(new Env() {{
+                setName("APICURIO_REST_DELETION_ARTIFACT_ENABLED");
+                setValue("true");
+            }});
+        }};
+    }
+
     public static ApicurioRegistry3 getDefaultSql(String name, String namespace, String sqlName, String sqlNamespace) {
         String sqlUrl = "jdbc:postgresql://" + sqlName + "." + sqlNamespace + ".svc.cluster.local:5432/postgresdb";
 
@@ -186,6 +196,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .endMetadata()
                 .withNewSpec()
                     .withNewApp()
+                        .withEnv(getDefaultAppEnv())
                         .withHost(getHost("apicurio-registry-api"))
                         .withNewSql()
                             .withDatasource(getDefaultSqlDataSource(sqlUrl))
@@ -213,6 +224,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                .endMetadata()
                .withNewSpec()
                     .withNewApp()
+                        .withEnv(getDefaultAppEnv())
                         .withNewKafkasql()
                             .withBootstrapServers(
                                     Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
@@ -313,6 +325,8 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         ArrayList<Env> fullList = getDefaultOAuthKafkaEnv1();
 
         fullList.addAll(getDefaultOAuthKafkaEnv2());
+
+        fullList.addAll(getDefaultAppEnv());
 
         return fullList;
     }

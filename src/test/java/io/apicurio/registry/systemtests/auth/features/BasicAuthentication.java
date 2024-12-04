@@ -3,6 +3,7 @@ package io.apicurio.registry.systemtests.auth.features;
 import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
+import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.client.KeycloakAdminApiClient;
@@ -71,7 +72,7 @@ public class BasicAuthentication {
         // Define artifact initial content
         String initialContent = "{}";
         // Define artifact updated content
-        String updatedContent = "{\"key\":\"id\"}";
+        String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
 
         // PREPARE REGISTRY CONTENT
         // Create artifact for test
