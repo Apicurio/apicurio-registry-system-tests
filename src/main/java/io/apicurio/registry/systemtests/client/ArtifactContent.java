@@ -10,7 +10,7 @@ public final class ArtifactContent {
             "{\\\"name\\\":\\\"price\\\", \\\"type\\\":\\\"string\\\"}" +
         "]" +
     "}\"";
-    public static final String DEFAULT_AVRO_PLAIN = "\"{" +
+    public static final String DEFAULT_AVRO_PLAIN = "{" +
         "\"name\":\"price\"" + "," +
         "\"namespace\":\"com.example\"" + "," +
         "\"type\":\"record\"" + "," +
@@ -18,5 +18,6 @@ public final class ArtifactContent {
             "{\"name\":\"symbol\", \"type\":\"string\"}" + "," +
             "{\"name\":\"price\", \"type\":\"string\"}" +
         "]" +
-    "}\"";
+    "}";
+    public static final String DEFAULT_AVRO_UPDATED = "\"{\\\"key\\\":\\\"id\\\"}\"";
 }
