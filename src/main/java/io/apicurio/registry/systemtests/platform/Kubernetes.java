@@ -18,7 +18,7 @@ import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
 import io.fabric8.openshift.api.model.Route;
-import io.fabric8.openshift.api.model.operatorhub.lifecyclemanager.v1.PackageManifest;
+import io.fabric8.openshift.api.model.operatorhub.packages.v1.PackageManifest;
 import io.fabric8.openshift.api.model.operatorhub.v1.OperatorGroup;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.CatalogSource;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.ClusterServiceVersion;
