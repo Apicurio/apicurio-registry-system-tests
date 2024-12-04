@@ -991,25 +991,34 @@ public class ApicurioRegistryApiClient {
         }
     }
 
-    public boolean updateArtifact(String groupId, String id, String newContent) {
-        return updateArtifact(groupId, id, newContent, HttpStatus.SC_OK);
+    public boolean updateArtifact(String groupId, String id, String newContent, int httpStatus) {
+        return updateArtifact(groupId, id, newContent, ContentType.APPLICATION_JSON, httpStatus);
     }
 
-    public boolean updateArtifact(String groupId, String id, String newContent, int httpStatus) {
+    public boolean updateArtifact(String groupId, String id, String newContent) {
+        return updateArtifact(groupId, id, newContent, ContentType.APPLICATION_JSON, HttpStatus.SC_OK);
+    }
+
+    public boolean updateArtifact(String groupId, String id, String newContent, String contentType, int httpStatus) {
         // Log information about current action
         LOGGER.info("Updating artifact: groupId={}, id={}.", groupId, id);
 
+        String payload = Artifact.getUpdateArtifact(newContent, contentType);
+
         // Get request URL
         URI uri = HttpClientUtils.buildURI(
-                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s", host, port, groupId, id
+                "http://%s:%d/apis/registry/v3/groups/%s/artifacts/%s/versions",
+                host, port, groupId, id
         );
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
                 // Set request URI
                 .uri(uri)
+                // Set common request headers
+                .header("Content-Type", "application/json")
                 // Set request type and data
-                .PUT(HttpRequest.BodyPublishers.ofString(newContent));
+                .POST(HttpRequest.BodyPublishers.ofString(payload));
 
         // Set header with authentication when provided
         setAuthenticationHeader(requestBuilder);

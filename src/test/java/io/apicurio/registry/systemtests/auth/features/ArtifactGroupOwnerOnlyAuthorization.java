@@ -3,6 +3,7 @@ package io.apicurio.registry.systemtests.auth.features;
 import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
+import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
@@ -61,7 +62,7 @@ public class ArtifactGroupOwnerOnlyAuthorization {
         // Define artifact initial content
         String initialContent = "{}";
         // Define artifact updated content
-        String updatedContent = "{\"key\":\"id\"}";
+        String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
 
         // ENABLE ARTIFACT OWNER ONLY AUTHORIZATION THAT IS REQUIRED FOR ARTIFACT GROUP OWNER ONLY AUTHORIZATION
         // Set environment variable REGISTRY_AUTH_OBAC_ENABLED of deployment to true
