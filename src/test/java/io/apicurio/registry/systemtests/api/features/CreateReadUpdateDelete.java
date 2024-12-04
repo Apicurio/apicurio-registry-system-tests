@@ -30,7 +30,7 @@ public class CreateReadUpdateDelete {
         String artifactGroupId = "registry-" + UUID.randomUUID();
         String artifactId = "registry-" + UUID.randomUUID();
         String artifactContent = ArtifactContent.DEFAULT_AVRO;
-        String updatedArtifactContent = "{\"key\":\"id\"}";
+        String updatedArtifactContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
         // Get API client
@@ -66,7 +66,7 @@ public class CreateReadUpdateDelete {
         // Update artifact
         Assertions.assertTrue(client.updateArtifact(artifactGroupId, artifactId, updatedArtifactContent));
         // Check update of artifact
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), updatedArtifactContent);
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN);
 
         // Delete artifact
         Assertions.assertTrue(client.deleteArtifact(artifactGroupId, artifactId));

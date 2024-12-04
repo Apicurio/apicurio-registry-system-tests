@@ -48,4 +48,13 @@ public class Artifact {
             "}" +
         "}";
     }
+
+    public static String getUpdateArtifact(String content, String contentType) {
+        return "{" +
+            "\"content\":" + "{" +
+                "\"content\":" + content + "," +
+                "\"contentType\":" + "\"" + contentType + "\"" +
+            "}" +
+        "}";
+    }
 }
