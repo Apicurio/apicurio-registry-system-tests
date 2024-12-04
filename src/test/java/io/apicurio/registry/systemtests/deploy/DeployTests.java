@@ -13,6 +13,7 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("sql")
+    @Tag("debug-v3")
     public void testRegistrySqlNoIAM() throws InterruptedException {
         deployTestRegistry(PersistenceKind.SQL, null, false);
     }
