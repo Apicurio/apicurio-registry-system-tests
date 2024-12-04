@@ -20,4 +20,5 @@ public final class ArtifactContent {
         "]" +
     "}";
     public static final String DEFAULT_AVRO_UPDATED = "\"{\\\"key\\\":\\\"id\\\"}\"";
+    public static final String DEFAULT_AVRO_UPDATED_PLAIN = "{\"key\":\"id\"}";
 }
