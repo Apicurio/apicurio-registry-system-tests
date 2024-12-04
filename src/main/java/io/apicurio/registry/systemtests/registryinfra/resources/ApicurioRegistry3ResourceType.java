@@ -9,8 +9,8 @@ import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Cont
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Volumes;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.containers.VolumeMounts;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.volumes.Secret;
-import io.apicur.registry.v1.apicurioregistry3spec.app.sql.Datasource;
-import io.apicur.registry.v1.apicurioregistry3spec.app.sql.DatasourceBuilder;
+import io.apicur.registry.v1.apicurioregistry3spec.app.sql.DataSource;
+import io.apicur.registry.v1.apicurioregistry3spec.app.sql.DataSourceBuilder;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
@@ -169,8 +169,8 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         }};
     }
 
-    public static Datasource getDefaultSqlDataSource(String sqlUrl) {
-        return new DatasourceBuilder()
+    public static DataSource getDefaultSqlDataSource(String sqlUrl) {
+        return new DataSourceBuilder()
                 .withUrl(sqlUrl)
                 .withUsername(Constants.DB_USERNAME)
                 .withPassword(Constants.DB_PASSWORD)
@@ -199,7 +199,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                         .withEnv(getDefaultAppEnv())
                         .withHost(getHost("apicurio-registry-api"))
                         .withNewSql()
-                            .withDatasource(getDefaultSqlDataSource(sqlUrl))
+                            .withDataSource(getDefaultSqlDataSource(sqlUrl))
                         .endSql()
                         .withNewPodTemplateSpec()
                             .withNewSpec()
