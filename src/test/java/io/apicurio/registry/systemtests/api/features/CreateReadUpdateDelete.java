@@ -104,7 +104,7 @@ public class CreateReadUpdateDelete {
         Assertions.assertNotNull(artifactList);
         // Check creation of artifact
         Assertions.assertTrue(artifactList.contains(artifactGroupId, artifactId));
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactContent);
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), ArtifactContent.DEFAULT_AVRO_PLAIN);
 
         // Update artifact
         Assertions.assertTrue(client.updateArtifact(artifactGroupId, artifactId, updatedArtifactContent));
