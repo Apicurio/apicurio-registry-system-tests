@@ -804,5 +804,13 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+
+        <profile>
+            <id>rapidast-static-debug</id>
+            <properties>
+                <groups>rapidast-static &amp; debug</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
     </profiles>
 </project>
