@@ -41,7 +41,7 @@ public final class Environment {
     public static final String KAFKA_DEPLOYMENT_DEFAULT = "amq-streams-cluster-operator"; // Default from catalog
     public static final String KAFKA_PACKAGE_DEFAULT = "amq-streams"; // Default from catalog
     public static final String POSTGRESQL_VERSION_DEFAULT = "17";
-    public static final String REGISTRY_CHANNEL_DEFAULT = "2.x";
+    public static final String REGISTRY_CHANNEL_DEFAULT = "3.x";
     public static final String REGISTRY_CSV_DEFAULT = "apicurio-registry-3.v3.0.4";
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
@@ -49,7 +49,7 @@ public final class Environment {
     public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v2.6.12-r1";
     public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_UPGRADE_DEFAULT
             = "apicurio-registry-operator-v2.6.12-r1";
-    public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
+    public static final String REGISTRY_PACKAGE_DEFAULT = "apicurio-registry-3"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
     public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
     public static final String TESTSUITE_PATH_DEFAULT = System.getProperty("user.dir");
