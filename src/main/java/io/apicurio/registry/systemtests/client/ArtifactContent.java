@@ -21,7 +21,7 @@ public final class ArtifactContent {
             "{\"name\":\"price\", \"type\":\"string\"}" +
             "]" +
             "}\"";
-    public static final String DEFAULT_AVRO_UPDATED = "{\"key\":\"id\"}";
+    public static final String DEFAULT_AVRO_UPDATED = "\"{\\\"key\\\":\\\"id\\\"}\"";;
 
     public static final String DEFAULT_PROTOBUF = "syntax = \"proto3\";\n" +
             "\n" +
