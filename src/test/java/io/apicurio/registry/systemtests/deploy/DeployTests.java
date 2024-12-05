@@ -28,6 +28,7 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("debug-v3")
     public void testRegistryKafkasqlNoAuthNoIAM() throws InterruptedException {
         deployTestRegistry(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
