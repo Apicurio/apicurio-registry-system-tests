@@ -221,6 +221,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("sql")
+    @Tag("debug-v3")
     public void testRegistrySqlNoIAMCreateReadUpdateDeleteAvro() throws InterruptedException {
         runCreateReadUpdateDeleteTestAvro(PersistenceKind.SQL, null, false);
     }
@@ -232,6 +233,7 @@ public abstract class APITests extends TestBase {
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteAvro() throws InterruptedException {
         runCreateReadUpdateDeleteTestAvro(PersistenceKind.SQL, null, true);
     }
+    /* -------------------------------------------------------------------------------------------------------------- */
 
     /* TESTS AVRO - KafkaSQL */
 
