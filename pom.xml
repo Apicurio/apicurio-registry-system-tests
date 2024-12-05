@@ -486,9 +486,9 @@
         </profile>
 
         <profile>
-            <id>olm-clusterwide-deploy-debug-v3</id>
+            <id>olm-clusterwide-debug-v3</id>
             <properties>
-                <groups>olm-clusterwide-deploy &amp; debug-v3</groups>
+                <groups>olm-clusterwide &amp; debug-v3</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
