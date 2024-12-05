@@ -52,6 +52,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("sql")
+    @Tag("debug-v3")
     public void testRegistrySqlNoIAMCreateReadUpdateDelete() throws InterruptedException {
         runCreateReadUpdateDeleteTest(PersistenceKind.SQL, null, false);
     }
@@ -66,6 +67,7 @@ public abstract class APITests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("debug-v3")
     public void testRegistrySqlNoIAMCreateArtifact() throws InterruptedException {
         runCreateArtifactTest(PersistenceKind.SQL, null, false);
     }
@@ -80,6 +82,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("debug-v3")
     public void testRegistryKafkasqlNoAuthNoIAMCreateReadUpdateDelete() throws InterruptedException {
         runCreateReadUpdateDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
@@ -118,6 +121,7 @@ public abstract class APITests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("debug-v3")
     public void testRegistryKafkasqlNoAuthNoIAMCreateArtifact() throws InterruptedException {
         runCreateArtifactTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
