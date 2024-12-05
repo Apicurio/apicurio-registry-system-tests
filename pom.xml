@@ -851,15 +851,5 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
-
-        <!-- Registry v3 debug tests -->
-
-        <profile>
-            <id>debug-v3</id>
-            <properties>
-                <groups>debug-v3</groups>
-                <skip.tests>false</skip.tests>
-            </properties>
-        </profile>
     </profiles>
 </project>
