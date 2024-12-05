@@ -10,6 +10,7 @@ public abstract class OAuthKafkaTests extends TestBaseOAuthKafka {
     @Test
     @Tag("smoke")
     @Tag("oauthkafka")
+    @Tag("debug-v3")
     public void testRegistryOAuthKafka() throws InterruptedException {
         deployOAuthKafkaTestRegistry();
     }
