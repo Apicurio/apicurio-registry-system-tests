@@ -31,7 +31,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -64,7 +64,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -97,7 +97,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -130,7 +130,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -164,7 +164,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -197,7 +197,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -233,7 +233,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -266,7 +266,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -299,7 +299,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -332,7 +332,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -366,7 +366,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
@@ -399,7 +399,7 @@ public abstract class RapidastTests extends TestBase {
                 // Use registry namespace
                 apicurioRegistry.getMetadata().getNamespace(),
                 // Use registry name for prefix
-                apicurioRegistry.getMetadata().getName() + "-ingress"
+                apicurioRegistry.getMetadata().getName() + "-app-ingress"
         );
 
         // Replace placeholder in config file with registry hostname
