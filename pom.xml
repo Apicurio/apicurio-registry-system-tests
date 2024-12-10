@@ -830,6 +830,13 @@
             </properties>
         </profile>
         <profile>
+            <id>olm-clusterwide-rapidast-v3-beta</id>
+            <properties>
+                <groups>olm-clusterwide-rapidast &amp; v3-beta</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
             <id>olm-namespace-rapidast-v3</id>
             <properties>
                 <groups>olm-namespace-rapidast &amp; v3</groups>
