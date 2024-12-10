@@ -20,6 +20,7 @@ public abstract class RapidastTests extends TestBase {
     @Tag("v2")
     @Tag("v3")
     @Tag("debug")
+    @Tag("v3-beta")
     public void testRapidastRegistryV2Unauthenticated() throws InterruptedException {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v2_unauthenticated.yaml");
@@ -53,6 +54,7 @@ public abstract class RapidastTests extends TestBase {
     @Test
     @Tag("unauthenticated")
     @Tag("v3")
+    @Tag("v3-beta")
     public void testRapidastRegistryV3Unauthenticated() throws InterruptedException {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("registry_v3_unauthenticated.yaml");
@@ -153,6 +155,7 @@ public abstract class RapidastTests extends TestBase {
     @Tag("unauthenticated")
     @Tag("v2")
     @Tag("v3")
+    @Tag("v3-beta")
     public void testRapidastCcompatV7Unauthenticated() throws InterruptedException {
         // Get path to config file
         String configFilePath = RapidastUtils.getRapidastFilePath("ccompat_v7_unauthenticated.yaml");
