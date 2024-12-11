@@ -13,7 +13,7 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("sql")
-    @Tag("debug-v3")
+    @Tag("v3")
     public void testRegistrySqlNoIAM() throws InterruptedException {
         deployTestRegistry(PersistenceKind.SQL, null, false);
     }
@@ -28,7 +28,7 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
-    @Tag("debug-v3")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthNoIAM() throws InterruptedException {
         deployTestRegistry(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
