@@ -486,9 +486,23 @@
         </profile>
 
         <profile>
-            <id>olm-clusterwide-debug-v3</id>
+            <id>bundle-deploy-v3</id>
             <properties>
-                <groups>olm-clusterwide &amp; debug-v3</groups>
+                <groups>bundle-deploy &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-clusterwide-deploy-v3</id>
+            <properties>
+                <groups>olm-clusterwide-deploy &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-deploy-v3</id>
+            <properties>
+                <groups>olm-namespace-deploy &amp; v3</groups>
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
