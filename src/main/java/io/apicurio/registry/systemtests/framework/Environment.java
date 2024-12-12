@@ -32,7 +32,7 @@ public final class Environment {
     public static final String SSO_CATALOG_DEFAULT = "redhat-operators";
     public static final String KAFKA_DEPLOYMENT_DEFAULT = "amq-streams-cluster-operator"; // Default from catalog
     public static final String KAFKA_PACKAGE_DEFAULT = "amq-streams"; // Default from catalog
-    public static final String POSTGRESQL_VERSION_DEFAULT = "15";
+    public static final String POSTGRESQL_VERSION_DEFAULT = "17";
     public static final String REGISTRY_CHANNEL_DEFAULT = "2.x";
     public static final String REGISTRY_CSV_DEFAULT = "service-registry-operator.v2.6.5-0.1731946870.p";
     public static final String REGISTRY_BUNDLE_DEFAULT =
