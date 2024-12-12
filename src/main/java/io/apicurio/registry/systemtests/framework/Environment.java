@@ -40,7 +40,7 @@ public final class Environment {
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
     public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
-    public static final String SSO_CHANNEL_DEFAULT = "stable-v24";
+    public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
     public static final String TESTSUITE_PATH_DEFAULT = System.getProperty("user.dir");
     public static final String TMP_PATH_DEFAULT = "/tmp";
 
