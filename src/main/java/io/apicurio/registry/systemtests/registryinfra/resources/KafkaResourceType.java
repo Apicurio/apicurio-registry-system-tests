@@ -328,7 +328,7 @@ public class KafkaResourceType implements ResourceType<Kafka> {
                         .withNewJbodStorage()
                             .withVolumes(getDefaultOAuthKafkaPersistentClaimStorage())
                         .endJbodStorage()
-                        .withVersion("3.9.0")
+                        .withVersion("3.8.0")
                         .withConfig(getDefaultOAuthKafkaConfig())
                         .withListeners(
                                 getDefaultOAuthKafkaSecureListener(), getDefaultOAuthKafkaOAuthListener()
