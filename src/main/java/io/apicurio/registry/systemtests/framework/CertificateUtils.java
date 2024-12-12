@@ -27,7 +27,7 @@ public class CertificateUtils {
      * @param password Password for the new truststore
      * @param publicKey Path to the public key to be imported
      */
-    private static void runTruststoreCmd(Path path, String password, Path publicKey) {
+    public static void runTruststoreCmd(Path path, String password, Path publicKey) {
         Exec.executeAndCheck(
                 "keytool",
                 "-keystore", path.toString(),
@@ -67,11 +67,11 @@ public class CertificateUtils {
         );
     }
 
-    private static String decodeBase64Secret(String namespace, String name, String key) {
+    public static String decodeBase64Secret(String namespace, String name, String key) {
         return Base64Utils.decode(Kubernetes.getSecretValue(namespace, name, key));
     }
 
-    private static void writeToFile(String data, Path path) {
+    public static void writeToFile(String data, Path path) {
         try {
             Files.writeString(path, data, StandardCharsets.UTF_8);
         } catch (IOException e) {
