@@ -225,6 +225,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                .withNewSpec()
                     .withNewApp()
                         .withEnv(getDefaultAppEnv())
+                        .withHost(getHost("apicurio-registry-api"))
                         .withNewKafkasql()
                             .withBootstrapServers(
                                     Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
