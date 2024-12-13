@@ -19,5 +19,5 @@ spec:
   ingress:
     className: openshift-default
   http:
-    httpEnabled: false
+    httpEnabled: true
   instances: 1
