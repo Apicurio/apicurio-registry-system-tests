@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Tag("api")
 public abstract class APITests extends TestBase {
     /* TEST RUNNERS */
 
@@ -53,6 +54,7 @@ public abstract class APITests extends TestBase {
     @Test
     @Tag("sql")
     @Tag("debug-v3")
+    @Tag("v3")
     public void testRegistrySqlNoIAMCreateReadUpdateDelete() throws InterruptedException {
         runCreateReadUpdateDeleteTest(PersistenceKind.SQL, null, false);
     }
@@ -61,6 +63,7 @@ public abstract class APITests extends TestBase {
     @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakCreateReadUpdateDelete() throws InterruptedException {
         runCreateReadUpdateDeleteTest(PersistenceKind.SQL, null, true);
     }
@@ -83,12 +86,14 @@ public abstract class APITests extends TestBase {
     @Test
     @Tag("kafkasql")
     @Tag("debug-v3")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthNoIAMCreateReadUpdateDelete() throws InterruptedException {
         runCreateReadUpdateDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDelete() throws InterruptedException {
         runCreateReadUpdateDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
