@@ -155,7 +155,7 @@ public class ApicurioRegistryApiClient {
 
         // Prepare request content
         String content = String.format(
-                "{\"type\":\"%s\", \"config\":\"%s\"}",
+                "{\"ruleType\":\"%s\", \"config\":\"%s\"}",
                 ruleType,
                 ruleType == RuleType.VALIDITY ? ValidityLevel.FULL : CompatibilityLevel.BACKWARD
         );
@@ -216,7 +216,7 @@ public class ApicurioRegistryApiClient {
         URI uri = HttpClientUtils.buildURI("http://%s:%d/apis/registry/v3/admin/rules/%s", host, port, ruleType);
 
         // Prepare request content
-        String content = String.format("{\"type\":\"%s\", \"config\":\"%s\"}", ruleType, ruleLevel);
+        String content = String.format("{\"ruleType\":\"%s\", \"config\":\"%s\"}", ruleType, ruleLevel);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
@@ -517,7 +517,7 @@ public class ApicurioRegistryApiClient {
 
         // Prepare request content
         String content = String.format(
-                "{\"type\":\"%s\", \"config\":\"%s\"}",
+                "{\"ruleType\":\"%s\", \"config\":\"%s\"}",
                 ruleType,
                 ruleType == RuleType.VALIDITY ? ValidityLevel.FULL : CompatibilityLevel.BACKWARD
         );
@@ -585,7 +585,7 @@ public class ApicurioRegistryApiClient {
         );
 
         // Prepare request content
-        String content = String.format("{\"type\":\"%s\", \"config\":\"%s\"}", ruleType, ruleLevel);
+        String content = String.format("{\"ruleType\":\"%s\", \"config\":\"%s\"}", ruleType, ruleLevel);
 
         // Get request builder
         HttpRequest.Builder requestBuilder = HttpClientUtils.newBuilder()
