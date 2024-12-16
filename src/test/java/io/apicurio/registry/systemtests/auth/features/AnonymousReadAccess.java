@@ -66,7 +66,7 @@ public class AnonymousReadAccess {
         // ENABLE REGISTRY AUTHENTICATION WITHOUT ANONYMOUS READ ACCESS AND TEST IT
         // Set environment variable AUTH_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("AUTH_ENABLED");
+            setName("QUARKUS_OIDC_TENANT_ENABLED");
             setValue("true");
         }});
         // Wait for API availability
