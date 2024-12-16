@@ -64,7 +64,7 @@ public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY AND TEST IT
         // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("true");
         }});
         // Wait for API availability
@@ -75,7 +75,7 @@ public class RoleBasedAuthorizationToken extends RoleBasedAuthorization {
         // DISABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY AND TEST IT
         // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to false
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("false");
         }});
         // Wait for API availability
