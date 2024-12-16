@@ -467,6 +467,13 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+        <profile>
+            <id>bundle-api-v3</id>
+            <properties>
+                <groups>bundle-api &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
 
         <!-- deploy tests -->
 
