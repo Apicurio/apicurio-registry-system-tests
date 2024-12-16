@@ -60,14 +60,14 @@ public class ArtifactGroupOwnerOnlyAuthorization {
         // Define artifact type
         ArtifactType type = ArtifactType.JSON;
         // Define artifact initial content
-        String initialContent = "{}";
+        String initialContent = ArtifactContent.DEFAULT_AVRO;
         // Define artifact updated content
         String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
 
         // ENABLE ARTIFACT OWNER ONLY AUTHORIZATION THAT IS REQUIRED FOR ARTIFACT GROUP OWNER ONLY AUTHORIZATION
         // Set environment variable REGISTRY_AUTH_OBAC_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_OBAC_ENABLED");
+            setName("APICURIO_AUTH_OBAC_ENABLED");
             setValue("true");
         }});
         // Wait for API availability
@@ -119,7 +119,7 @@ public class ArtifactGroupOwnerOnlyAuthorization {
         // --- enable feature
         // Set environment variable REGISTRY_AUTH_OBAC_LIMIT_GROUP_ACCESS of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_OBAC_LIMIT_GROUP_ACCESS");
+            setName("APICURIO_AUTH_OBAC_LIMIT_GROUP_ACCESS");
             setValue("true");
         }});
         // Wait for API availability
@@ -165,7 +165,7 @@ public class ArtifactGroupOwnerOnlyAuthorization {
         // DISABLE ARTIFACT GROUP OWNER ONLY AUTHORIZATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_OBAC_LIMIT_GROUP_ACCESS of deployment to false
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_OBAC_LIMIT_GROUP_ACCESS");
+            setName("APICURIO_AUTH_OBAC_LIMIT_GROUP_ACCESS");
             setValue("false");
         }});
         // Define artifact ID for the owner part

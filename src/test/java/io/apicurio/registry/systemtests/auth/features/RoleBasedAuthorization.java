@@ -38,7 +38,7 @@ public abstract class RoleBasedAuthorization {
     // Artifact type for all artifacts
     protected static ArtifactType type = ArtifactType.JSON;
     // Artifact initial content for all artifacts
-    protected static String initialContent = "{}";
+    protected static String initialContent = ArtifactContent.DEFAULT_AVRO;
     // Artifact updated content for all artifacts
     protected static String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
     protected static String updatedContentPlain = ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN;

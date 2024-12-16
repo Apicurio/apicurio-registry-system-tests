@@ -58,7 +58,7 @@ public class ArtifactOwnerOnlyAuthorization {
         // Define artifact type
         ArtifactType type = ArtifactType.JSON;
         // Define artifact initial content
-        String initialContent = "{}";
+        String initialContent = ArtifactContent.DEFAULT_AVRO;
         // Define artifact updated content
         String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
 
@@ -91,7 +91,7 @@ public class ArtifactOwnerOnlyAuthorization {
         // ENABLE ARTIFACT OWNER ONLY AUTHORIZATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_OBAC_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_OBAC_ENABLED");
+            setName("APICURIO_AUTH_OBAC_ENABLED");
             setValue("true");
         }});
         // Define artifact ID for the owner part
@@ -124,7 +124,7 @@ public class ArtifactOwnerOnlyAuthorization {
         // DISABLE ARTIFACT OWNER ONLY AUTHORIZATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_OBAC_ENABLED of deployment to false
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_OBAC_ENABLED");
+            setName("APICURIO_AUTH_OBAC_ENABLED");
             setValue("false");
         }});
         // Define artifact ID for the owner part
