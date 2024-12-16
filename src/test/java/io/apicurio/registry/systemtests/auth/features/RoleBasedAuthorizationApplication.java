@@ -76,12 +76,12 @@ public class RoleBasedAuthorizationApplication extends RoleBasedAuthorization {
         List<Env> testEnvVars = new ArrayList<>();
         // Enable role based authorization
         testEnvVars.add(new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("true");
         }});
         // Set authorization source to application
         testEnvVars.add(new Env() {{
-            setName("ROLE_BASED_AUTHZ_SOURCE");
+            setName("APICURIO_AUTH_ROLE_SOURCE");
             setValue("application");
         }});
         // Enable admin override to use super admin client as registry admin
