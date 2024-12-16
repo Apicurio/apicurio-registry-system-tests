@@ -53,7 +53,7 @@ public class AnonymousReadAccess {
         // Define artifact type
         ArtifactType type = ArtifactType.JSON;
         // Define artifact initial content
-        String initialContent = "{}";
+        String initialContent = ArtifactContent.DEFAULT_AVRO;
         // Define artifact updated content
         String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
 
@@ -85,7 +85,7 @@ public class AnonymousReadAccess {
         // ENABLE ANONYMOUS READ ACCESS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED");
+            setName("APICURIO_AUTH_ANONYMOUS_READ_ACCESS_ENABLED");
             setValue("true");
         }});
         // Wait for API availability
@@ -104,7 +104,7 @@ public class AnonymousReadAccess {
         // DISABLE ANONYMOUS READ ACCESS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED of deployment to false
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED");
+            setName("APICURIO_AUTH_ANONYMOUS_READ_ACCESS_ENABLED");
             setValue("false");
         }});
         // Wait for API availability
