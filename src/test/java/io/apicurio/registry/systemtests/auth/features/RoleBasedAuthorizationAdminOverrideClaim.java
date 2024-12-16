@@ -33,7 +33,7 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         }});
         // Add environment variable to enable admin override into list
         envVarList.add(new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_ENABLED");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_ENABLED");
             setValue("true");
         }});
         //
@@ -42,14 +42,14 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         //
         // Add environment variable to set type of information used to determine if user is admin to claim into list
         envVarList.add(new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_TYPE");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_TYPE");
             setValue("claim");
         }});
         // If claim should not be default
         if (!claim.equals("default")) {
             // Add environment variable to set name of admin override claim into list
             envVarList.add(new Env() {{
-                setName("REGISTRY_AUTH_ADMIN_OVERRIDE_CLAIM");
+                setName("APICURIO_AUTH_ADMIN_OVERRIDE_CLAIM");
                 setValue(claim);
             }});
         }
@@ -57,7 +57,7 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         if (!claimValue.equals("default")) {
             // Add environment variable to set value of admin override claim into list
             envVarList.add(new Env() {{
-                setName("REGISTRY_AUTH_ADMIN_OVERRIDE_CLAIM_VALUE");
+                setName("APICURIO_AUTH_ADMIN_OVERRIDE_CLAIM_VALUE");
                 setValue(claimValue);
             }});
         }
