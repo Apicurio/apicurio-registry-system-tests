@@ -116,34 +116,34 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
         List<Env> defaultRolesEnvVars = new ArrayList<>();
         // * Define name of admin role
         defaultRolesEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ROLES_ADMIN");
+            setName("APICURIO_AUTH_ROLES_ADMIN");
             setValue("sr-admin");
         }});
         // * Define name of developer role
         defaultRolesEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ROLES_DEVELOPER");
+            setName("APICURIO_AUTH_ROLES_DEVELOPER");
             setValue("sr-developer");
         }});
         // * Define name of readonly role
         defaultRolesEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ROLES_READONLY");
+            setName("APICURIO_AUTH_ROLES_READONLY");
             setValue("sr-readonly");
         }});
         // Environment variables with user-defined roles
         List<Env> userDefinedRolesEnvVars = new ArrayList<>();
         // * Define name of admin role
         userDefinedRolesEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ROLES_ADMIN");
+            setName("APICURIO_AUTH_ROLES_ADMIN");
             setValue("test-admin-role");
         }});
         // * Define name of developer role
         userDefinedRolesEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ROLES_DEVELOPER");
+            setName("APICURIO_AUTH_ROLES_DEVELOPER");
             setValue("test-developer-role");
         }});
         // * Define name of readonly role
         userDefinedRolesEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ROLES_READONLY");
+            setName("APICURIO_AUTH_ROLES_READONLY");
             setValue("test-readonly-role");
         }});
 
