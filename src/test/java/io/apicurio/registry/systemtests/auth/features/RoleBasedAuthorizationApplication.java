@@ -86,7 +86,7 @@ public class RoleBasedAuthorizationApplication extends RoleBasedAuthorization {
         }});
         // Enable admin override to use super admin client as registry admin
         testEnvVars.add(new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_ENABLED");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_ENABLED");
             setValue("true");
         }});
 
