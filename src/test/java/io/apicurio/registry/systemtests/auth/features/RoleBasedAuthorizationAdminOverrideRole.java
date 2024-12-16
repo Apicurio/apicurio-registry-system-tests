@@ -12,12 +12,12 @@ public class RoleBasedAuthorizationAdminOverrideRole extends RoleBasedAuthorizat
         // PREPARE NECESSARY VARIABLES
         // Basic environment variable to enable/disable role based authorization
         Env roleBasedAuth = new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("true");
         }};
         // Environment variable to set authorization source to application
         Env roleBasedAuthSource = new Env() {{
-            setName("ROLE_BASED_AUTHZ_SOURCE");
+            setName("APICURIO_AUTH_ROLE_SOURCE");
             setValue("application");
         }};
         // Environment variable to enable/disable admin override
@@ -58,7 +58,7 @@ public class RoleBasedAuthorizationAdminOverrideRole extends RoleBasedAuthorizat
         testRoleBasedDisabled();
 
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN IN REGISTRY AND TEST IT
-        // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to true
+        // Set environment variable APICURIO_AUTH_ROLE_BASED_AUTHORIZATION of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, roleBasedAuth);
         // Initialize API clients with default roles
         initializeClients(apicurioRegistry, hostname);
@@ -68,7 +68,7 @@ public class RoleBasedAuthorizationAdminOverrideRole extends RoleBasedAuthorizat
         testRoleBasedEnabled();
 
         // SET ROLE BASED AUTHORIZATION SOURCE IN REGISTRY TO APPLICATION AND TEST IT
-        // Set environment variable ROLE_BASED_AUTHZ_SOURCE of deployment to application
+        // Set environment variable APICURIO_AUTH_ROLE_BASED_AUTHORIZATION of deployment to application
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, roleBasedAuthSource);
         // Initialize API clients with default roles
         initializeClients(apicurioRegistry, hostname);
