@@ -270,11 +270,11 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return new ArrayList<>() {{
             addAll(getDefaultSslTruststoreEnv());
             add(new Env() {{
-                setName("QUARKUS_LOG_LEVEL"); setValue("INFO"); }});
+                setName("QUARKUS_LOG_LEVEL"); setValue("DEBUG"); }});
             add(new Env() {{
-                setName("ENABLE_KAFKA_SASL"); setValue("true"); }});
+                setName("APICURIO_KAFKASQL_SECURITY_SASL_ENABLED"); setValue("true"); }});
             add(new Env() {{
-                setName("CLIENT_ID");
+                setName("APICURIO_KAFKASQL_SECURITY_SASL_CLIENT_ID");
                 setValueFrom(new ValueFrom() {{
                     setSecretKeyRef(new SecretKeyRef() {{
                         setName("console-ui-secrets"); setKey("REGISTRY_CLIENT_ID");
@@ -282,7 +282,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 }});
             }});
             add(new Env() {{
-                setName("CLIENT_SECRET");
+                setName("APICURIO_KAFKASQL_SECURITY_SASL_CLIENT_SECRET");
                 setValueFrom(new ValueFrom() {{
                     setSecretKeyRef(new SecretKeyRef() {{
                         setName("console-ui-secrets"); setKey("REGISTRY_CLIENT_SECRET");
@@ -316,7 +316,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 }});
             }});
             add(new Env() {{
-                setName("OAUTH_TOKEN_ENDPOINT_URI");
+                setName("APICURIO_KAFKASQL_SECURITY_SASL_TOKEN_ENDPOINT");
                 setValue(KeycloakUtils.getDefaultOAuthKafkaTokenEndpointUri());
             }});
         }};
@@ -346,7 +346,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
 
     private static Containers getDefaultOAuthKafkaContainers() {
         return new Containers() {{
-            setName("registry");
+            setName("apicurio-registry-app");
             setVolumeMounts(new ArrayList<>() {{
                 add(new VolumeMounts() {{
                     setName("cluster-ca-cert");
