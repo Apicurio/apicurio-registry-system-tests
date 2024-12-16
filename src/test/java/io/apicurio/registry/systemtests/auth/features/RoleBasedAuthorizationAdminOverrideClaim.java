@@ -23,12 +23,12 @@ public class RoleBasedAuthorizationAdminOverrideClaim extends RoleBasedAuthoriza
         List<Env> envVarList = new ArrayList<>();
         // Add basic environment variable to enable role based authorization into list
         envVarList.add(new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("true");
         }});
         // Add environment variable to set authorization source to application into list
         envVarList.add(new Env() {{
-            setName("ROLE_BASED_AUTHZ_SOURCE");
+            setName("APICURIO_AUTH_ROLE_SOURCE");
             setValue("application");
         }});
         // Add environment variable to enable admin override into list
