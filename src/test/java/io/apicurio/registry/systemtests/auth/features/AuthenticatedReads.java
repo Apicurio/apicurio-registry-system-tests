@@ -65,9 +65,9 @@ public class AuthenticatedReads {
         /* RUN TEST ACTIONS */
 
         // ENABLE ROLE-BASED AUTHORIZATION AND TEST DEFAULT VALUE (false) OF REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED
-        // Set environment variable ROLE_BASED_AUTHZ_ENABLED of deployment to true
+        // Set environment variable APICURIO_AUTH_ROLE_BASED_AUTHORIZATION of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("true");
         }});
         // Wait for API availability

@@ -109,7 +109,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
         // PREPARE NECESSARY VARIABLES
         // Basic environment variable to enable role based authorization
         Env basicEnvVar = new Env() {{
-            setName("ROLE_BASED_AUTHZ_ENABLED");
+            setName("APICURIO_AUTH_ROLE_BASED_AUTHORIZATION");
             setValue("true");
         }};
         // Environment variables with default roles
@@ -150,7 +150,7 @@ public class RoleBasedAuthorizationRoleNames extends RoleBasedAuthorization {
         /* RUN TEST ACTIONS */
 
         // ENABLE ROLE BASED AUTHORIZATION BY TOKEN
-        // Set variable ROLE_BASED_AUTHZ_ENABLED to true
+        // Set variable APICURIO_AUTH_ROLE_BASED_AUTHORIZATION to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, basicEnvVar);
         // Initialize clients with default roles
         initializeClientsDefaultRoles(apicurioRegistry, hostname);
