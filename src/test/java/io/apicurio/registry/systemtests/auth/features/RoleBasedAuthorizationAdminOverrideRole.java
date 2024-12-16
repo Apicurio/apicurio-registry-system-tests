@@ -22,22 +22,22 @@ public class RoleBasedAuthorizationAdminOverrideRole extends RoleBasedAuthorizat
         }};
         // Environment variable to enable/disable admin override
         Env roleBasedAuthAdminOverride = new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_ENABLED");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_ENABLED");
             setValue("true");
         }};
         // Environment variable to set admin override information source
         Env roleBasedAuthAdminOverrideSource = new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_FROM");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_FROM");
             setValue("token");
         }};
         // Set the type of information used to determine if a user is an admin
         Env roleBasedAuthAdminOverrideType = new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_TYPE");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_TYPE");
             setValue("role");
         }};
         // Set name of admin override role
         Env roleBasedAuthAdminOverrideRole = new Env() {{
-            setName("REGISTRY_AUTH_ADMIN_OVERRIDE_ROLE");
+            setName("APICURIO_AUTH_ADMIN_OVERRIDE_ROLE");
             setValue("sr-admin");
         }};
 

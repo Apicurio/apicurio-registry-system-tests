@@ -70,7 +70,7 @@ public class BasicAuthentication {
         // Define artifact type
         ArtifactType type = ArtifactType.JSON;
         // Define artifact initial content
-        String initialContent = "{}";
+        String initialContent = ArtifactContent.DEFAULT_AVRO;
         // Define artifact updated content
         String updatedContent = ArtifactContent.DEFAULT_AVRO_UPDATED;
 
@@ -97,7 +97,7 @@ public class BasicAuthentication {
         // ENABLE HTTP BASIC AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_ANONYMOUS_READ_ACCESS_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED");
+            setName("APICURIO_AUTHN_BASIC_CLIENT_CREDENTIALS_ENABLED");
             setValue("true");
         }});
         // Define artifact ID for the test part
@@ -116,7 +116,7 @@ public class BasicAuthentication {
         // DISABLE HTTP BASIC AUTHENTICATION AND TEST IT
         // Set environment variable CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED of deployment to false
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("CLIENT_CREDENTIALS_BASIC_AUTH_ENABLED");
+            setName("APICURIO_AUTHN_BASIC_CLIENT_CREDENTIALS_ENABLED");
             setValue("false");
         }});
         // Wait for API availability
