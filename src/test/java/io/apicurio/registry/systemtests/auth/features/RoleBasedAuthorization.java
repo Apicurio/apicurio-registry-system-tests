@@ -195,7 +195,7 @@ public abstract class RoleBasedAuthorization {
 
         // --- CREATE ACTION
         // Check that API returns 200 OK when creating artifact by admin
-        Assertions.assertTrue(adminClient.createArtifact(groupId, adminId, type, initialContentPlain));
+        Assertions.assertTrue(adminClient.createArtifact(groupId, adminId, type, initialContent));
         // Check creation of artifact
         Assertions.assertTrue(adminClient.listArtifacts().contains(groupId, adminId));
         // Check content of created artifact
