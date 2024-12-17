@@ -86,7 +86,7 @@ public class AuthenticatedReads {
         // ENABLE AUTHENTICATED READS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("APICURIO_AUTH_AUTHENTICATED_READS_ENABLED");
+            setName("APICURIO_AUTH_AUTHENTICATED_READ_ACCESS_ENABLED");
             setValue("true");
         }});
         // Wait for API availability
@@ -105,7 +105,7 @@ public class AuthenticatedReads {
         // DISABLE AUTHENTICATED READS IN REGISTRY AUTHENTICATION AND TEST IT
         // Set environment variable REGISTRY_AUTH_AUTHENTICATED_READS_ENABLED of deployment to false
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("APICURIO_AUTH_AUTHENTICATED_READS_ENABLED");
+            setName("APICURIO_AUTH_AUTHENTICATED_READ_ACCESS_ENABLED");
             setValue("false");
         }});
         // Wait for API availability
