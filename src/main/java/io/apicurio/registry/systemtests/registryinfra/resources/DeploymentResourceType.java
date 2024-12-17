@@ -90,7 +90,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
     private static Container getDefaultPostgresqlContainer(String name) {
         return new ContainerBuilder()
                 .withEnv(getDefaultPostgresqlEnvVars())
-                .withImage("postgres:" + Environment.POSTGRESQL_VERSION)
+                .withImage("mirror.gcr.io/library/postgres:" + Environment.POSTGRESQL_VERSION)
                 .withImagePullPolicy("IfNotPresent")
                 .withName(name)
                 .addNewPort()
@@ -118,7 +118,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
     private static Container getDefaultPostgresqlContainer(String name, String databaseName) {
         return new ContainerBuilder()
                 .withEnv(getDefaultPostgresqlEnvVars(databaseName))
-                .withImage("postgres:" + Environment.POSTGRESQL_VERSION)
+                .withImage("mirror.gcr.io/library/postgres:" + Environment.POSTGRESQL_VERSION)
                 .withImagePullPolicy("IfNotPresent")
                 .withName(name)
                 .addNewPort()
