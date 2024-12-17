@@ -634,6 +634,13 @@
             </properties>
         </profile>
         <profile>
+            <id>olm-clusterwide-auth-sql-retest</id>
+            <properties>
+                <groups>olm-clusterwide-auth &amp; sql &amp; retest &amp; !extended</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
             <id>olm-namespace-auth-sql</id>
             <properties>
                 <groups>olm-namespace-auth &amp; sql &amp; !extended</groups>
