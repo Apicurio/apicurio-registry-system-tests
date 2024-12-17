@@ -167,6 +167,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("retest")
     public void testRegistrySqlKeycloakAuthenticatedReads() throws InterruptedException {
         runAuthenticatedReadsTest(PersistenceKind.SQL, null);
     }
@@ -179,6 +180,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("retest")
     public void testRegistrySqlKeycloakArtifactGroupOwnerOnlyAuthorization() throws InterruptedException {
         runArtifactGroupOwnerOnlyAuthorizationTest(PersistenceKind.SQL, null);
     }
@@ -203,6 +205,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("retest")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideRole(
     ) throws InterruptedException {
         runRoleBasedAuthorizationAdminOverrideRoleTest(PersistenceKind.SQL, null);
@@ -211,6 +214,7 @@ public abstract class AuthTests extends TestBase {
     @ParameterizedTest
     @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
     @Tag("sql")
+    @Tag("retest")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
