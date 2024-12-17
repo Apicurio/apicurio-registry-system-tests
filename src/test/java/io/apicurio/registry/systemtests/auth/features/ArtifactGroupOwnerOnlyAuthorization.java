@@ -67,7 +67,7 @@ public class ArtifactGroupOwnerOnlyAuthorization {
         // ENABLE ARTIFACT OWNER ONLY AUTHORIZATION THAT IS REQUIRED FOR ARTIFACT GROUP OWNER ONLY AUTHORIZATION
         // Set environment variable REGISTRY_AUTH_OBAC_ENABLED of deployment to true
         ApicurioRegistryUtils.createOrReplaceEnvVar(apicurioRegistry, new Env() {{
-            setName("APICURIO_AUTH_OBAC_ENABLED");
+            setName("APICURIO_AUTH_OWNER_ONLY_AUTHORIZATION");
             setValue("true");
         }});
         // Wait for API availability
