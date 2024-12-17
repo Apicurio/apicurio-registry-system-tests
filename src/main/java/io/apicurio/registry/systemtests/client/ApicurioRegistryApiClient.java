@@ -2,7 +2,6 @@ package io.apicurio.registry.systemtests.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
 import io.apicurio.registry.systemtests.framework.Base64Utils;
 import io.apicurio.registry.systemtests.framework.CompatibilityLevel;
 import io.apicurio.registry.systemtests.framework.HttpClientUtils;
@@ -26,10 +25,6 @@ import java.util.stream.Collectors;
 public class ApicurioRegistryApiClient {
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final CollectionType USER_LIST_COLLECTION_TYPE = MAPPER.getTypeFactory().constructCollectionType(
-            List.class,
-            ApicurioRegistryUser.class
-    );
     private String host;
     private int port;
     private String token;
@@ -1198,11 +1193,11 @@ public class ApicurioRegistryApiClient {
         }
     }
 
-    public List<ApicurioRegistryUser> getUserList() {
+    public ApicurioRegistryUserList getUserList() {
         return getUserList(HttpStatus.SC_OK);
     }
 
-    public List<ApicurioRegistryUser> getUserList(int httpStatus) {
+    public ApicurioRegistryUserList getUserList(int httpStatus) {
         // Log information about current action
         LOGGER.info("Listing registry users...");
 
@@ -1238,7 +1233,7 @@ public class ApicurioRegistryApiClient {
 
         try {
             if (httpStatus == HttpStatus.SC_OK) {
-                return MAPPER.readValue(response.body(), USER_LIST_COLLECTION_TYPE);
+                return MAPPER.readValue(response.body(), ApicurioRegistryUserList.class);
             } else {
                 return null;
             }
