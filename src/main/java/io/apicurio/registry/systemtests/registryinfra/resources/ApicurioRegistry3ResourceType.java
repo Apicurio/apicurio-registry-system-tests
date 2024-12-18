@@ -239,6 +239,10 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                             .endSpec()
                         .endPodTemplateSpec()
                     .endApp()
+                    .withNewUi()
+                        .withEnv(getDefaultUiEnv())
+                        .withHost(getHost("apicurio-registry-ui"))
+                    .endUi()
                 .endSpec()
                .build();
     }
