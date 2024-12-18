@@ -474,6 +474,20 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+        <profile>
+            <id>olm-clusterwide-api-v3</id>
+            <properties>
+                <groups>olm-clusterwide-api &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-namespace-api-v3</id>
+            <properties>
+                <groups>olm-namespace-api &amp; v3</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
 
         <!-- deploy tests -->
 
