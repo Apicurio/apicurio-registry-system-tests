@@ -145,6 +145,7 @@ public abstract class AuthTests extends TestBase {
 
     @Test
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlNoIAMAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.SQL, null, false);
     }
@@ -153,6 +154,7 @@ public abstract class AuthTests extends TestBase {
     @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.SQL, null, true);
     }
@@ -161,51 +163,56 @@ public abstract class AuthTests extends TestBase {
     @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakBasicAuthentication() throws InterruptedException {
         runBasicAuthenticationTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
-    @Tag("retest")
+    @Tag("v3")
     public void testRegistrySqlKeycloakAuthenticatedReads() throws InterruptedException {
         runAuthenticatedReadsTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakArtifactOwnerOnlyAuthorization() throws InterruptedException {
         runArtifactOwnerOnlyAuthorizationTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
-    @Tag("retest")
+    @Tag("v3")
     public void testRegistrySqlKeycloakArtifactGroupOwnerOnlyAuthorization() throws InterruptedException {
         runArtifactGroupOwnerOnlyAuthorizationTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationToken() throws InterruptedException {
         runRoleBasedAuthorizationTokenTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationApplication() throws InterruptedException {
         runRoleBasedAuthorizationApplicationTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationRoleNames() throws InterruptedException {
         runRoleBasedAuthorizationRoleNamesTest(PersistenceKind.SQL, null);
     }
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("sql")
-    @Tag("retest")
+    @Tag("v3")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideRole(
     ) throws InterruptedException {
         runRoleBasedAuthorizationAdminOverrideRoleTest(PersistenceKind.SQL, null);
@@ -214,7 +221,6 @@ public abstract class AuthTests extends TestBase {
     @ParameterizedTest
     @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
     @Tag("sql")
-    @Tag("retest")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
@@ -235,6 +241,7 @@ public abstract class AuthTests extends TestBase {
     @CsvFileSource(resources = "/adminOverrideClaimDataExtended.csv", numLinesToSkip = 1)
     @Tag("sql")
     @Tag("extended")
+    @Tag("v3")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaimExtended(
             String claim,
             String claimValue,
@@ -255,12 +262,14 @@ public abstract class AuthTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthNoIAMAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -291,6 +300,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakBasicAuthentication() throws InterruptedException {
         runBasicAuthenticationTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -311,6 +321,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakAuthenticatedReads() throws InterruptedException {
         runAuthenticatedReadsTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -329,6 +340,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakArtifactOwnerOnlyAuthorization() throws InterruptedException {
         runArtifactOwnerOnlyAuthorizationTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -347,6 +359,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakArtifactGroupOwnerOnlyAuthorization() throws InterruptedException {
         runArtifactGroupOwnerOnlyAuthorizationTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -365,6 +378,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakRoleBasedAuthorizationToken() throws InterruptedException {
         runRoleBasedAuthorizationTokenTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -383,6 +397,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakRoleBasedAuthorizationApplication() throws InterruptedException {
         runRoleBasedAuthorizationApplicationTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -401,6 +416,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakRoleBasedAuthorizationRoleNames() throws InterruptedException {
         runRoleBasedAuthorizationRoleNamesTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
     }
@@ -419,6 +435,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakRoleBasedAuthorizationAdminOverrideRole(
     ) throws InterruptedException {
         runRoleBasedAuthorizationAdminOverrideRoleTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
@@ -441,6 +458,7 @@ public abstract class AuthTests extends TestBase {
     @ParameterizedTest
     @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
