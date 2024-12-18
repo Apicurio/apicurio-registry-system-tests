@@ -20,6 +20,7 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloak() throws InterruptedException {
         deployTestRegistry(PersistenceKind.SQL, null, true);
     }
@@ -35,6 +36,7 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloak() throws InterruptedException {
         deployTestRegistry(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
