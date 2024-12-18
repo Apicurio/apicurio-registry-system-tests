@@ -221,6 +221,7 @@ public abstract class AuthTests extends TestBase {
     @ParameterizedTest
     @CsvFileSource(resources = "/adminOverrideClaimData.csv", numLinesToSkip = 1)
     @Tag("sql")
+    @Tag("v3")
     public void testRegistrySqlKeycloakRoleBasedAuthorizationAdminOverrideClaim(
             String claim,
             String claimValue,
