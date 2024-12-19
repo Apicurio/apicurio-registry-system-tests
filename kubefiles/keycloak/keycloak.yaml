@@ -5,6 +5,8 @@ metadata:
   labels:
     app: sso
 spec:
+  proxy:
+    headers: forwarded
   db:
     host: keycloak-db
     passwordSecret:
