@@ -240,7 +240,7 @@ public class KeycloakUtils {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Map.Entry<Object, Object> entry : data.entrySet()) {
-            if (stringBuilder.length() > 0) {
+            if (!stringBuilder.isEmpty()) {
                 stringBuilder.append("&");
             }
 
