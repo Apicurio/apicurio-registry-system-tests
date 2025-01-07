@@ -16,6 +16,7 @@ import io.fabric8.kubernetes.api.model.apps.StatefulSet;
 import io.fabric8.kubernetes.api.model.apps.StatefulSetStatus;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
 import io.fabric8.openshift.api.model.Route;
@@ -24,7 +25,6 @@ import io.fabric8.openshift.api.model.operatorhub.v1.OperatorGroup;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.CatalogSource;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.ClusterServiceVersion;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.Subscription;
-import io.fabric8.openshift.client.DefaultOpenShiftClient;
 import io.fabric8.openshift.client.OpenShiftClient;
 import io.fabric8.openshift.client.OpenShiftConfig;
 
@@ -48,7 +48,7 @@ public final class Kubernetes {
                 System.getenv().getOrDefault("TEST_CLUSTER_CONTEXT", null)
         );
 
-        client = new DefaultOpenShiftClient(new OpenShiftConfig(config));
+        client = new KubernetesClientBuilder().withConfig(new OpenShiftConfig(config)).build().adapt(OpenShiftClient.class);
     }
 
     public static Kubernetes getInstance() {
@@ -126,14 +126,16 @@ public final class Kubernetes {
         getClient()
                 .secrets()
                 .inNamespace(namespace)
-                .create(secret);
+                .resource(secret)
+                .create();
     }
 
     public static void createOrReplaceSecret(String namespace, Secret secret) {
         getClient()
                 .secrets()
                 .inNamespace(namespace)
-                .createOrReplace(secret);
+                .resource(secret)
+                .serverSideApply();
     }
 
     public static void deleteSecret(String namespace, String name) {
@@ -158,7 +160,8 @@ public final class Kubernetes {
                 .operatorHub()
                 .catalogSources()
                 .inNamespace(namespace)
-                .create(catalogSource);
+                .resource(catalogSource)
+                .create();
     }
 
     public static void createOrReplaceCatalogSource(String namespace, CatalogSource catalogSource) {
@@ -166,7 +169,8 @@ public final class Kubernetes {
                 .operatorHub()
                 .catalogSources()
                 .inNamespace(namespace)
-                .createOrReplace(catalogSource);
+                .resource(catalogSource)
+                .serverSideApply();
     }
 
     public static CatalogSource getCatalogSource(String namespace, String name) {
@@ -200,13 +204,15 @@ public final class Kubernetes {
     public static void createNamespace(Namespace namespace) {
         Kubernetes.getClient()
                 .namespaces()
-                .create(namespace);
+                .resource(namespace)
+                .create();
     }
 
     public static void createOrReplaceNamespace(Namespace namespace) {
         Kubernetes.getClient()
                 .namespaces()
-                .createOrReplace(namespace);
+                .resource(namespace)
+                .serverSideApply();
     }
 
     public static Namespace getNamespace(String name) {
@@ -263,14 +269,16 @@ public final class Kubernetes {
         ((OpenShiftClient) getClient())
                 .routes()
                 .inNamespace(namespace)
-                .create(route);
+                .resource(route)
+                .create();
     }
 
     public static void createOrReplaceRoute(String namespace, Route route) {
         ((OpenShiftClient) getClient())
                 .routes()
                 .inNamespace(namespace)
-                .createOrReplace(route);
+                .resource(route)
+                .serverSideApply();
     }
 
     public static void deleteRoute(String namespace, String name) {
@@ -288,10 +296,10 @@ public final class Kubernetes {
             return false;
         }
 
-        return route
+        return !route
                 .getStatus()
                 .getIngress()
-                .size() > 0;
+                .isEmpty();
     }
 
     public static PodList getPods(String namespace, String labelKey, String labelValue) {
@@ -336,7 +344,8 @@ public final class Kubernetes {
                 .operatorHub()
                 .operatorGroups()
                 .inNamespace(namespace)
-                .create(operatorGroup);
+                .resource(operatorGroup)
+                .create();
     }
 
     public static void createOrReplaceOperatorGroup(String namespace, OperatorGroup operatorGroup) {
@@ -344,7 +353,8 @@ public final class Kubernetes {
                 .operatorHub()
                 .operatorGroups()
                 .inNamespace(namespace)
-                .createOrReplace(operatorGroup);
+                .resource(operatorGroup)
+                .serverSideApply();
     }
 
     public static void deleteOperatorGroup(String namespace, String name) {
@@ -361,7 +371,8 @@ public final class Kubernetes {
                 .operatorHub()
                 .subscriptions()
                 .inNamespace(namespace)
-                .create(subscription);
+                .resource(subscription)
+                .create();
     }
 
     public static void createOrReplaceSubscription(String namespace, Subscription subscription) {
@@ -369,7 +380,8 @@ public final class Kubernetes {
                 .operatorHub()
                 .subscriptions()
                 .inNamespace(namespace)
-                .createOrReplace(subscription);
+                .resource(subscription)
+                .serverSideApply();
     }
 
     public static Subscription getSubscription(String namespace, String name) {
@@ -522,7 +534,8 @@ public final class Kubernetes {
                 .apps()
                 .deployments()
                 .inNamespace(namespace)
-                .create(deployment);
+                .resource(deployment)
+                .create();
     }
 
     public static void createOrReplaceDeployment(String namespace, Deployment deployment) {
@@ -530,15 +543,8 @@ public final class Kubernetes {
                 .apps()
                 .deployments()
                 .inNamespace(namespace)
-                .createOrReplace(deployment);
-    }
-
-    public static void replaceDeployment(String namespace, Deployment deployment) {
-        getClient()
-                .apps()
-                .deployments()
-                .inNamespace(namespace)
-                .replace(deployment);
+                .resource(deployment)
+                .serverSideApply();
     }
 
     public static void deleteDeployment(String namespace, String name) {
@@ -568,14 +574,16 @@ public final class Kubernetes {
         getClient()
                 .services()
                 .inNamespace(namespace)
-                .create(service);
+                .resource(service)
+                .create();
     }
 
     public static void createOrReplaceService(String namespace, Service service) {
         getClient()
                 .services()
                 .inNamespace(namespace)
-                .createOrReplace(service);
+                .resource(service)
+                .serverSideApply();
     }
 
     public static void deleteService(String namespace, String name) {
@@ -587,13 +595,13 @@ public final class Kubernetes {
     }
 
     public static boolean isServiceReady(String namespace, Map<String, String> selector) {
-        return getClient()
+        return !getClient()
                 .pods()
                 .inNamespace(namespace)
                 .withLabels(selector)
                 .list()
                 .getItems()
-                .size() > 0;
+                .isEmpty();
     }
 
     public static PersistentVolumeClaim getPersistentVolumeClaim(String namespace, String name) {
@@ -608,14 +616,16 @@ public final class Kubernetes {
         getClient()
                 .persistentVolumeClaims()
                 .inNamespace(namespace)
-                .create(volumeClaim);
+                .resource(volumeClaim)
+                .create();
     }
 
     public static void createOrReplacePersistentVolumeClaim(String namespace, PersistentVolumeClaim volumeClaim) {
         getClient()
                 .persistentVolumeClaims()
                 .inNamespace(namespace)
-                .createOrReplace(volumeClaim);
+                .resource(volumeClaim)
+                .serverSideApply();
     }
 
     public static void deletePersistentVolumeClaim(String namespace, String name) {
@@ -648,14 +658,13 @@ public final class Kubernetes {
     }
 
     public static boolean namespaceHasAnyOperatorGroup(String name) {
-        int namespaceOperatorGroupsCount = ((OpenShiftClient) getClient())
+        return !((OpenShiftClient) getClient())
                 .operatorHub()
                 .operatorGroups()
                 .inNamespace(name)
                 .list()
                 .getItems()
-                .size();
-        return namespaceOperatorGroupsCount > 0;
+                .isEmpty();
     }
 
     public static boolean isDeploymentReady(String namespace, String name) {
