@@ -5,6 +5,7 @@ import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
 import io.apicurio.registry.systemtests.framework.ResourceUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
+import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.DeploymentSpec;
 import io.fabric8.kubernetes.api.model.apps.DeploymentStatus;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 
 import java.nio.file.Path;
 import java.time.Instant;
+import java.util.Collection;
 
 public class ApicurioRegistryBundleOperatorType extends BundleOperator implements OperatorType {
     protected static final Logger LOGGER = LoggerUtils.getLogger();
@@ -100,7 +102,22 @@ public class ApicurioRegistryBundleOperatorType extends BundleOperator implement
 
     @Override
     public void install() {
-        Kubernetes.createOrReplaceResources(getNamespace(), getResources());
+        Collection<HasMetadata> resources = getResources();
+        String namespace = getNamespace();
+
+        for (HasMetadata resource : resources) {
+            LOGGER.info("Creating {}...", resource.getKind());
+
+            Kubernetes.createOrReplaceResource(namespace, resource);
+
+            if (resource.getKind().equals("CustomResourceDefinition")) {
+                try {
+                    Thread.sleep(5_000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     @Override
