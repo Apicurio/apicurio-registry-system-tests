@@ -112,6 +112,8 @@ public class ApicurioRegistryBundleOperatorType extends BundleOperator implement
 
             if (resource.getKind().equals("CustomResourceDefinition")) {
                 try {
+                    LOGGER.info("Waiting for 5 seconds for CustomResourceDefinition creation...");
+
                     Thread.sleep(5_000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
