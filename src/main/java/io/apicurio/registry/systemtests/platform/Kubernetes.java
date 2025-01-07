@@ -48,7 +48,10 @@ public final class Kubernetes {
                 System.getenv().getOrDefault("TEST_CLUSTER_CONTEXT", null)
         );
 
-        client = new KubernetesClientBuilder().withConfig(new OpenShiftConfig(config)).build().adapt(OpenShiftClient.class);
+        client = new KubernetesClientBuilder()
+                .withConfig(new OpenShiftConfig(config))
+                .build()
+                .adapt(OpenShiftClient.class);
     }
 
     public static Kubernetes getInstance() {
