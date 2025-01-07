@@ -4,9 +4,12 @@
  */
 package io.apicurio.registry.systemtests.executor;
 
+import lombok.Getter;
+
 public class ExecutionResultData {
     private final boolean retCode;
     private final String stdOut;
+    @Getter
     private final String stdErr;
 
     public ExecutionResultData(int retCode, String stdOut, String stdErr) {
@@ -27,7 +30,4 @@ public class ExecutionResultData {
         return stdOut.trim().replace("'", "");
     }
 
-    public String getStdErr() {
-        return stdErr;
-    }
 }
