@@ -1,6 +1,7 @@
 package io.apicurio.registry.systemtests.platform;
 
 import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.KubernetesResourceList;
@@ -97,10 +98,22 @@ public final class Kubernetes {
     }
 
     public static void createOrReplaceResources(String namespace, Collection<HasMetadata> resourcesList) {
-        getClient()
-                .resourceList(resourcesList)
-                .inNamespace(namespace)
-                .createOrReplace();
+        for (HasMetadata hasMetadata : resourcesList) {
+            LoggerUtils.getLogger().info("Creating {}...", hasMetadata.getKind());
+
+            getClient()
+                    .resource(hasMetadata)
+                    .inNamespace(namespace)
+                    .serverSideApply();
+
+            if (hasMetadata.getKind().equals("CustomResourceDefinition")) {
+                try {
+                    Thread.sleep(5_000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     public static void deleteResources(String namespace, Collection<HasMetadata> resourcesList) {
