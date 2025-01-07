@@ -42,14 +42,14 @@ public class ResourceUtils {
         return true;
     }
 
-    public static boolean waitPackageManifestExists(String catalog, String name) {
-        return waitPackageManifestExists(catalog, name, TimeoutBudget.ofDuration(Duration.ofMinutes(5)));
+    public static void waitPackageManifestExists(String catalog, String name) {
+        waitPackageManifestExists(catalog, name, TimeoutBudget.ofDuration(Duration.ofMinutes(5)));
     }
 
-    public static boolean waitPackageManifestExists(String catalog, String name, TimeoutBudget timeoutBudget) {
+    public static void waitPackageManifestExists(String catalog, String name, TimeoutBudget timeoutBudget) {
         while (!timeoutBudget.timeoutExpired()) {
             if (Kubernetes.getPackageManifest(catalog, name) != null) {
-                return true;
+                return;
             }
 
             try {
@@ -57,17 +57,15 @@ public class ResourceUtils {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
 
-                return false;
+                return;
             }
         }
 
         if (Kubernetes.getPackageManifest(catalog, name) == null) {
             LOGGER.error("PackageManifest with name {} in catalog {} failed existence check.", name, catalog);
 
-            return false;
         }
 
-        return true;
     }
 
     public static void updateRoleBindingNamespace(List<HasMetadata> resources, String namespace) {

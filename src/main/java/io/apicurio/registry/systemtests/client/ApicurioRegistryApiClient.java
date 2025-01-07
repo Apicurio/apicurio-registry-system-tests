@@ -9,6 +9,8 @@ import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.RuleType;
 import io.apicurio.registry.systemtests.framework.ValidityLevel;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +24,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Setter
+@Getter
 public class ApicurioRegistryApiClient {
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -1522,51 +1526,4 @@ public class ApicurioRegistryApiClient {
         return true;
     }
 
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public AuthMethod getAuthMethod() {
-        return authMethod;
-    }
-
-    public void setAuthMethod(AuthMethod authMethod) {
-        this.authMethod = authMethod;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
