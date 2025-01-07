@@ -329,7 +329,7 @@ public class ApicurioRegistryUtils {
         String namespace = apicurioRegistry.getMetadata().getNamespace();
         String name = apicurioRegistry.getMetadata().getName();
 
-        Kubernetes.createOrReplaceResources(namespace, Collections.singletonList(apicurioRegistry));
+        Kubernetes.createOrReplaceResource(namespace, apicurioRegistry);
 
         try {
             LOGGER.info("Waiting for 5 seconds to re-create registry.");
