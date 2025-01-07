@@ -4,6 +4,8 @@ import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.HttpClientUtils;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.hc.core5.http.HttpStatus;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -15,6 +17,8 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+@Setter
+@Getter
 public class KeycloakAdminApiClient {
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private String host;
@@ -161,27 +165,4 @@ public class KeycloakAdminApiClient {
         return true;
     }
 
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }
