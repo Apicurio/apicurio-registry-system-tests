@@ -1,30 +1,18 @@
 package io.apicurio.registry.systemtests.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 
 import java.util.List;
 
+@Setter
+@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArtifactList {
     private int count;
     private List<Artifact> artifacts;
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public List<Artifact> getArtifacts() {
-        return artifacts;
-    }
-
-    public void setArtifacts(List<Artifact> artifacts) {
-        this.artifacts = artifacts;
-    }
 
     public boolean contains(String artifactGroupId, String artifactId) {
         if (artifacts == null) {
