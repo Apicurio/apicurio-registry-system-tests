@@ -99,12 +99,12 @@ public final class Kubernetes {
     }
 
     public static void createOrReplaceResources(String namespace, Collection<HasMetadata> resourcesList) {
-        for (HasMetadata hasMetadata : resourcesList) {
-            LoggerUtils.getLogger().info("Creating {}...", hasMetadata.getKind());
+        for (HasMetadata resource : resourcesList) {
+            LoggerUtils.getLogger().info("Creating {}...", resource.getKind());
 
-            createOrReplaceResource(namespace, hasMetadata);
+            createOrReplaceResource(namespace, resource);
 
-            if (hasMetadata.getKind().equals("CustomResourceDefinition")) {
+            if (resource.getKind().equals("CustomResourceDefinition")) {
                 try {
                     Thread.sleep(5_000);
                 } catch (InterruptedException e) {
