@@ -49,7 +49,7 @@ public class OperatorUtils {
     }
 
     public static void downloadFile(String source, Path destination) throws Exception {
-        LOGGER.info("Downloading file " + source + " to " + destination + "...");
+        LOGGER.info("Downloading file {} to {}...", source, destination);
 
         try (InputStream inputStream = (new URL(source)).openStream()) {
             Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
@@ -58,7 +58,7 @@ public class OperatorUtils {
 
     public static boolean waitPodsExist(String namespace, String labelKey, String labelValue, TimeoutBudget timeout) {
         while (!timeout.timeoutExpired()) {
-            if (Kubernetes.getPods(namespace, labelKey, labelValue).getItems().size() > 0) {
+            if (!Kubernetes.getPods(namespace, labelKey, labelValue).getItems().isEmpty()) {
                 return true;
             }
 
@@ -71,7 +71,7 @@ public class OperatorUtils {
             }
         }
 
-        if (Kubernetes.getPods(namespace, labelKey, labelValue).getItems().size() == 0) {
+        if (Kubernetes.getPods(namespace, labelKey, labelValue).getItems().isEmpty()) {
             LOGGER.error(
                     "Pod(s) of catalog source in namespace {} with label {}={} failed creation check.",
                     namespace, labelKey, labelValue
@@ -88,7 +88,7 @@ public class OperatorUtils {
     }
 
     private static boolean collectPodsReadiness(PodList podList) {
-        if (podList.getItems().size() > 0) {
+        if (!podList.getItems().isEmpty()) {
             boolean allPodsReady = true;
 
             for (Pod p : podList.getItems()) {
@@ -97,7 +97,7 @@ public class OperatorUtils {
                 if (
                         p.getStatus() != null
                         && p.getStatus().getContainerStatuses() != null
-                        && p.getStatus().getContainerStatuses().size() > 0
+                        && !p.getStatus().getContainerStatuses().isEmpty()
                 ) {
                     podReady = p.getStatus().getContainerStatuses().get(0).getReady();
                 }
@@ -142,10 +142,10 @@ public class OperatorUtils {
         return waitPodsReady(namespace, labelKey, labelValue, TimeoutBudget.ofDuration(Duration.ofMinutes(3)));
     }
 
-    public static boolean waitCatalogSourceExists(String namespace, String name, TimeoutBudget timeout) {
+    public static void waitCatalogSourceExists(String namespace, String name, TimeoutBudget timeout) {
         while (!timeout.timeoutExpired()) {
             if (Kubernetes.getCatalogSource(namespace, name) != null) {
-                return true;
+                return;
             }
 
             try {
@@ -153,27 +153,25 @@ public class OperatorUtils {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
 
-                return false;
+                return;
             }
         }
 
         if (Kubernetes.getCatalogSource(namespace, name) == null) {
             LOGGER.error("Catalog source in namespace {} with name {} failed creation check.", namespace, name);
 
-            return false;
         }
 
-        return true;
     }
 
-    public static boolean waitCatalogSourceExists(String namespace, String name) {
-        return waitCatalogSourceExists(namespace, name, TimeoutBudget.ofDuration(Duration.ofMinutes(3)));
+    public static void waitCatalogSourceExists(String namespace, String name) {
+        waitCatalogSourceExists(namespace, name, TimeoutBudget.ofDuration(Duration.ofMinutes(3)));
     }
 
-    public static boolean waitCatalogSourceReady(String namespace, String name, TimeoutBudget timeout) {
+    public static void waitCatalogSourceReady(String namespace, String name, TimeoutBudget timeout) {
         while (!timeout.timeoutExpired()) {
             if (Kubernetes.isCatalogSourceReady(namespace, name)) {
-                return true;
+                return;
             }
 
             try {
@@ -181,21 +179,19 @@ public class OperatorUtils {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
 
-                return false;
+                return;
             }
         }
 
         if (!Kubernetes.isCatalogSourceReady(namespace, name)) {
             LOGGER.error("Catalog source in namespace {} with name {} failed readiness check.", namespace, name);
 
-            return false;
         }
 
-        return true;
     }
 
-    public static boolean waitCatalogSourceReady(String namespace, String name) {
-        return waitCatalogSourceReady(namespace, name, TimeoutBudget.ofDuration(Duration.ofMinutes(5)));
+    public static void waitCatalogSourceReady(String namespace, String name) {
+        waitCatalogSourceReady(namespace, name, TimeoutBudget.ofDuration(Duration.ofMinutes(5)));
     }
 
     public static OperatorGroup createOperatorGroup(String namespace) throws InterruptedException {
@@ -260,7 +256,7 @@ public class OperatorUtils {
     }
 
     public static void deleteClusterServiceVersion(String namespace, String clusterServiceVersion) {
-        if (clusterServiceVersion != null && !clusterServiceVersion.equals("")) {
+        if (clusterServiceVersion != null && !clusterServiceVersion.isEmpty()) {
             LOGGER.info("Removing ClusterServiceVersion {} in namespace {}...", clusterServiceVersion, namespace);
 
             Kubernetes.deleteClusterServiceVersion(namespace, clusterServiceVersion);
