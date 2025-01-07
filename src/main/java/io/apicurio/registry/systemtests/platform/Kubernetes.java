@@ -1,6 +1,5 @@
 package io.apicurio.registry.systemtests.platform;
 
-import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
 import io.fabric8.kubernetes.api.model.HasMetadata;
