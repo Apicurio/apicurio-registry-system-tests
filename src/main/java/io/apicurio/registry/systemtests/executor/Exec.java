@@ -4,6 +4,8 @@
  */
 package io.apicurio.registry.systemtests.executor;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -36,15 +38,19 @@ import java.util.regex.Pattern;
 public class Exec {
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private Process process;
+    @Getter
     private String stdOut;
+    @Getter
     private String stdErr;
     private StreamGobbler stdOutReader;
     private StreamGobbler stdErrReader;
     private Path logPath;
+    @Setter
     private Map<String, String> env;
     private final boolean appendLineSeparator;
+    @Setter
     private Subscriber<String> stdErrProcessor;
-    private static final Pattern PATH_SPLITTER = Pattern.compile(System.getProperty("path.separator"));
+    private static final Pattern PATH_SPLITTER = Pattern.compile(File.pathSeparator);
     protected static final Object LOCK = new Object();
 
     public Exec() {
@@ -58,32 +64,6 @@ public class Exec {
 
     public Exec(boolean appendLineSeparator) {
         this.appendLineSeparator = appendLineSeparator;
-    }
-
-    public void setEnv(Map<String, String> env) {
-        this.env = env;
-    }
-
-    public void setStdErrProcessor(Subscriber<String> stdErrProcessor) {
-        this.stdErrProcessor = stdErrProcessor;
-    }
-
-    /**
-     * Getter for stdOutput
-     *
-     * @return string stdOut
-     */
-    public String getStdOut() {
-        return stdOut;
-    }
-
-    /**
-     * Getter for stdErrorOutput
-     *
-     * @return string stdErr
-     */
-    public String getStdErr() {
-        return stdErr;
     }
 
     public boolean isRunning() {
@@ -103,9 +83,9 @@ public class Exec {
      *
      * @param commands arguments for command
      * @return returns ecode of execution
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ExecutionException
+     * @throws IOException throws IOException
+     * @throws InterruptedException throws InterruptedException
+     * @throws ExecutionException throws ExecutionException
      */
     public int exec(List<String> commands) throws IOException, InterruptedException, ExecutionException {
         return exec(commands, 0);
@@ -117,9 +97,9 @@ public class Exec {
      * @param commands arguments for command
      * @param timeout  timeout in ms for kill
      * @return returns ecode of execution
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ExecutionException
+     * @throws IOException throws IOException
+     * @throws InterruptedException throws InterruptedException
+     * @throws ExecutionException throws ExecutionException
      */
     public int exec(List<String> commands, int timeout) throws IOException, InterruptedException, ExecutionException {
         return exec(null, commands, timeout);
@@ -172,14 +152,14 @@ public class Exec {
      * @param commands arguments for command
      * @param timeout  timeout in ms for kill
      * @return returns ecode of execution
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ExecutionException
+     * @throws IOException throws IOException
+     * @throws InterruptedException throws InterruptedException
+     * @throws ExecutionException throws ExecutionException
      */
     public int exec(
             String input, List<String> commands, int timeout
     ) throws IOException, InterruptedException, ExecutionException {
-        LOGGER.debug("Running command - " + String.join(" ", commands.toArray(new String[0])));
+        LOGGER.debug("Running command - {}", String.join(" ", commands.toArray(new String[0])));
 
         process = getProcessBuilder(commands).start();
 
@@ -213,7 +193,7 @@ public class Exec {
     /**
      * Method kills process
      *
-     * @throws InterruptedException
+     * @throws InterruptedException throws InterruptedException
      */
     public void stop() throws InterruptedException {
         if (!process.destroyForcibly().waitFor(10, TimeUnit.SECONDS)) {
@@ -355,7 +335,7 @@ public class Exec {
             int ret = executor.exec(input, command, timeout);
             synchronized (LOCK) {
                 if (logToOutput) {
-                    LOGGER.info("Command - " + String.join(" ", command.toArray(new String[0])));
+                    LOGGER.info("Command - {}", String.join(" ", command.toArray(new String[0])));
                     LOGGER.info("Return code: {}", ret);
                     if (!executor.getStdOut().isEmpty()) {
                         LOGGER.info("======STDOUT START=======");
