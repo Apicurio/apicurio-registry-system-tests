@@ -8,29 +8,98 @@ import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.client.AuthMethod;
 import io.apicurio.registry.systemtests.framework.ApicurioRegistryUtils;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
+import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import org.junit.jupiter.api.Assertions;
+import org.slf4j.Logger;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class CreateReadUpdateDelete {
-    public static void testCreateReadUpdateDelete(ApicurioRegistry apicurioRegistry) {
-        testCreateReadUpdateDelete(apicurioRegistry, null, null, false);
+    protected static Logger LOGGER = LoggerUtils.getLogger();
+
+    private static final HashMap<ArtifactType, String> artifacts = new HashMap<>(){{
+        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO);
+        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF);
+        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON);
+        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI);
+        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI);
+        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL);
+        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT);
+        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL);
+        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD);
+        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML);
+    }};
+    private static final HashMap<ArtifactType, String> updatedArtifacts = new HashMap<>(){{
+        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED);
+        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_UPDATED);
+        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_UPDATED);
+        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_UPDATED);
+        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_UPDATED);
+        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_UPDATED);
+        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_UPDATED);
+        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_UPDATED);
+        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_UPDATED);
+        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_UPDATED);
+    }};
+
+    public static void testCreateReadUpdateDeleteAvro(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.AVRO, false);
+    }
+
+    public static void testCreateReadUpdateDeleteProtobuf(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.PROTOBUF, false);
+    }
+
+    public static void testCreateReadUpdateDeleteJson(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.JSON, false);
+    }
+
+    public static void testCreateReadUpdateDeleteOpenapi(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.OPENAPI, false);
+    }
+
+    public static void testCreateReadUpdateDeleteAsyncapi(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.ASYNCAPI, false);
+    }
+
+    public static void testCreateReadUpdateDeleteGraphql(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.GRAPHQL, false);
+    }
+
+    public static void testCreateReadUpdateDeleteKconnect(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.KCONNECT, false);
+    }
+
+    public static void testCreateReadUpdateDeleteWsdl(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.WSDL, false);
+    }
+
+    public static void testCreateReadUpdateDeleteXsd(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.XSD, false);
+    }
+
+    public static void testCreateReadUpdateDeleteXml(ApicurioRegistry apicurioRegistry) {
+        testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.XML, false);
     }
 
     public static void testCreateReadUpdateDelete(
             ApicurioRegistry apicurioRegistry,
             String username,
             String password,
+            ArtifactType artifactType,
             boolean useToken
     ) {
+        LOGGER.info("Testing CRUD of {} artifact...", artifactType.name());
+
         // Wait for readiness of Apicurio Registry hostname
         Assertions.assertTrue(ApicurioRegistryUtils.waitApicurioRegistryHostnameReady(apicurioRegistry));
 
         // Prepare necessary variables
         String artifactGroupId = "registry-" + UUID.randomUUID();
         String artifactId = "registry-" + UUID.randomUUID();
-        String artifactContent = ArtifactContent.DEFAULT_AVRO;
-        String updatedArtifactContent = "{\"key\":\"id\"}";
+        String artifactContent = artifacts.get(artifactType);
+        String updatedArtifactContent = updatedArtifacts.get(artifactType);
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
         // Get API client
@@ -54,7 +123,7 @@ public class CreateReadUpdateDelete {
         Assertions.assertFalse(artifactList.contains(artifactGroupId, artifactId));
 
         // Create artifact
-        Assertions.assertTrue(client.createArtifact(artifactGroupId, artifactId, ArtifactType.AVRO, artifactContent));
+        Assertions.assertTrue(client.createArtifact(artifactGroupId, artifactId, artifactType, artifactContent));
 
         // List artifacts
         artifactList = client.listArtifacts();
