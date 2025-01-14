@@ -101,10 +101,7 @@ public final class Kubernetes {
         for (HasMetadata hasMetadata : resourcesList) {
             LoggerUtils.getLogger().info("Creating {}...", hasMetadata.getKind());
 
-            getClient()
-                    .resource(hasMetadata)
-                    .inNamespace(namespace)
-                    .serverSideApply();
+            createOrReplaceResource(namespace, hasMetadata);
 
             if (hasMetadata.getKind().equals("CustomResourceDefinition")) {
                 try {
@@ -114,6 +111,16 @@ public final class Kubernetes {
                 }
             }
         }
+    }
+
+    public static void createOrReplaceResource(String namespace, HasMetadata resource) {
+        resource.getMetadata().setManagedFields(null);
+
+        getClient()
+                .resource(resource)
+                .inNamespace(namespace)
+                .forceConflicts()
+                .serverSideApply();
     }
 
     public static void deleteResources(String namespace, Collection<HasMetadata> resourcesList) {
