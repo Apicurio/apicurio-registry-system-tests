@@ -29,6 +29,9 @@ public class CreateReadUpdateDelete {
         put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD);
         put(ArtifactType.XML, ArtifactContent.DEFAULT_XML);
     }};
+    private static final HashMap<ArtifactType, String> artifactsPlain = new HashMap<>(){{
+       put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_PLAIN);
+    }};
     private static final HashMap<ArtifactType, String> updatedArtifacts = new HashMap<>(){{
         put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED);
         put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_UPDATED);
@@ -40,6 +43,9 @@ public class CreateReadUpdateDelete {
         put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_UPDATED);
         put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_UPDATED);
         put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_UPDATED);
+    }};
+    private static final HashMap<ArtifactType, String> artifactsUpdatedPlain = new HashMap<>(){{
+        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN);
     }};
 
     public static void testCreateReadUpdateDeleteAvro(ApicurioRegistry3 apicurioRegistry) {
@@ -134,12 +140,12 @@ public class CreateReadUpdateDelete {
         Assertions.assertNotNull(artifactList);
         // Check creation of artifact
         Assertions.assertTrue(artifactList.contains(artifactGroupId, artifactId));
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), ArtifactContent.DEFAULT_AVRO_PLAIN);
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactsPlain.get(artifactType));
 
         // Update artifact
         Assertions.assertTrue(client.updateArtifact(artifactGroupId, artifactId, updatedArtifactContent));
         // Check update of artifact
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN);
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactsUpdatedPlain.get(artifactType));
 
         // Delete artifact
         Assertions.assertTrue(client.deleteArtifact(artifactGroupId, artifactId));
