@@ -3,7 +3,7 @@ package io.apicurio.registry.systemtests.client;
 import java.util.HashMap;
 
 public final class ArtifactContent {
-    public static final String DEFAULT_AVRO = "\"{" +
+    public static final String DEFAULT_AVRO = "{" +
             "\\\"name\\\":\\\"price\\\"" + "," +
             "\\\"namespace\\\":\\\"com.example\\\"" + "," +
             "\\\"type\\\":\\\"record\\\"" + "," +
@@ -11,8 +11,8 @@ public final class ArtifactContent {
                 "{\\\"name\\\":\\\"symbol\\\", \\\"type\\\":\\\"string\\\"}" + "," +
                 "{\\\"name\\\":\\\"price\\\", \\\"type\\\":\\\"string\\\"}" +
             "]" +
-            "}\"";
-    public static final String DEFAULT_AVRO_PLAIN = "\"{" +
+            "}";
+    public static final String DEFAULT_AVRO_PLAIN = "{" +
             "\"name\":\"price\"" + "," +
             "\"namespace\":\"com.example\"" + "," +
             "\"type\":\"record\"" + "," +
@@ -20,9 +20,9 @@ public final class ArtifactContent {
             "{\"name\":\"symbol\", \"type\":\"string\"}" + "," +
             "{\"name\":\"price\", \"type\":\"string\"}" +
             "]" +
-            "}\"";
-    public static final String DEFAULT_AVRO_UPDATED = "\"{\\\"key\\\":\\\"id\\\"}\"";
-    public static final String DEFAULT_AVRO_UPDATED_PLAIN = "\"{\"key\":\"id\"}\"";
+            "}";
+    public static final String DEFAULT_AVRO_UPDATED = "{\\\"key\\\":\\\"id\\\"}";
+    public static final String DEFAULT_AVRO_UPDATED_PLAIN = "{\"key\":\"id\"}";
 
     public static final String DEFAULT_PROTOBUF = "syntax = \"proto3\";\n" +
             "\n" +
