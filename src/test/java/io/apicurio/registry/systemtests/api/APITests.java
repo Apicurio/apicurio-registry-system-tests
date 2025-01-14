@@ -61,7 +61,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -81,7 +81,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -101,7 +101,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -121,7 +121,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -141,7 +141,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -161,7 +161,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -181,7 +181,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
@@ -201,7 +201,7 @@ public abstract class APITests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadUpdateDelete.testCreateReadUpdateDelete(
