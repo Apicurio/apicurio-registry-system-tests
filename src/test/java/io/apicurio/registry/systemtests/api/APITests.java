@@ -250,6 +250,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteAvro() throws InterruptedException {
         runCreateReadUpdateDeleteTestAvro(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);

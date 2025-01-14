@@ -270,6 +270,7 @@ public abstract class AuthTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
@@ -301,6 +302,7 @@ public abstract class AuthTests extends TestBase {
     /* -------------------------------------------------------------------------------------------------------------- */
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     @Tag("v3")
     public void testRegistryKafkasqlNoAuthKeycloakBasicAuthentication() throws InterruptedException {
         runBasicAuthenticationTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH);
