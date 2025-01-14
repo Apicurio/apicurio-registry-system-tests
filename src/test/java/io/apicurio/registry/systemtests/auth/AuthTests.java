@@ -314,7 +314,6 @@ public abstract class AuthTests extends TestBase {
 
     @Test
     @Tag("interop")
-    @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlSCRAMKeycloakBasicAuthentication() throws InterruptedException {
         runBasicAuthenticationTest(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM);

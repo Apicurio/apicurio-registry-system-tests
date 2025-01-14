@@ -26,7 +26,6 @@ import java.util.concurrent.TimeoutException;
 public abstract class ConfigTests extends TestBase {
     /*@Test
     @Tag("https")
-    @Tag("smoke")
     public void testConfigHttps() throws InterruptedException, ExecutionException, TimeoutException {
         // Deploy registry with PostgreSQL storage and without Keycloak
         ApicurioRegistry3 apicurioRegistry = deployTestRegistry(PersistenceKind.SQL, null, false);
