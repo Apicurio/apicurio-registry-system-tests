@@ -263,7 +263,6 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("interop")
-    @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteAvro() throws InterruptedException {
         runCreateReadUpdateDeleteTestAvro(PersistenceKind.KAFKA_SQL, KafkaKind.TLS, true);
