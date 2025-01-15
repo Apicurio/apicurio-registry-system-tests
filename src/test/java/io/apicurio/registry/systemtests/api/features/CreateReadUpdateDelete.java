@@ -30,7 +30,16 @@ public class CreateReadUpdateDelete {
         put(ArtifactType.XML, ArtifactContent.DEFAULT_XML);
     }};
     private static final HashMap<ArtifactType, String> artifactsPlain = new HashMap<>(){{
-       put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_PLAIN);
+        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_PLAIN);
+        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_PLAIN);
+        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_PLAIN);
+        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_PLAIN);
+        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_PLAIN);
+        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_PLAIN);
+        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_PLAIN);
+        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_PLAIN);
+        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_PLAIN);
+        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_PLAIN);
     }};
     private static final HashMap<ArtifactType, String> updatedArtifacts = new HashMap<>(){{
         put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED);
@@ -46,6 +55,15 @@ public class CreateReadUpdateDelete {
     }};
     private static final HashMap<ArtifactType, String> artifactsUpdatedPlain = new HashMap<>(){{
         put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN);
+        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_UPDATED_PLAIN);
+        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_UPDATED_PLAIN);
+        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_UPDATED_PLAIN);
+        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_UPDATED_PLAIN);
+        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_UPDATED_PLAIN);
+        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_UPDATED_PLAIN);
+        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_UPDATED_PLAIN);
+        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_UPDATED_PLAIN);
+        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_UPDATED_PLAIN);
     }};
 
     public static void testCreateReadUpdateDeleteAvro(ApicurioRegistry3 apicurioRegistry) {
