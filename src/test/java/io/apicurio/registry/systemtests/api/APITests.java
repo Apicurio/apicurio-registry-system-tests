@@ -308,6 +308,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteProtobuf() throws InterruptedException {
         runCreateReadUpdateDeleteTestProtobuf(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -365,6 +366,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteJson() throws InterruptedException {
         runCreateReadUpdateDeleteTestJson(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -422,6 +424,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteOpenapi() throws InterruptedException {
         runCreateReadUpdateDeleteTestOpenapi(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -479,6 +482,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteAsyncapi() throws InterruptedException {
         runCreateReadUpdateDeleteTestAsyncapi(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -536,6 +540,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteGraphql() throws InterruptedException {
         runCreateReadUpdateDeleteTestGraphql(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -593,6 +598,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteKconnect() throws InterruptedException {
         runCreateReadUpdateDeleteTestKconnect(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -650,6 +656,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteWsdl() throws InterruptedException {
         runCreateReadUpdateDeleteTestWsdl(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -707,6 +714,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteXsd() throws InterruptedException {
         runCreateReadUpdateDeleteTestXsd(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
@@ -764,6 +772,7 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Tag("smoke")
     public void testRegistryKafkasqlNoAuthKeycloakCreateReadUpdateDeleteXml() throws InterruptedException {
         runCreateReadUpdateDeleteTestXml(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, true);
     }
