@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,6 +36,18 @@ public class ApicurioRegistryApiClient {
     private AuthMethod authMethod;
     private String username;
     private String password;
+    private static final HashMap<ArtifactType, String> CONTENT_TYPES = new HashMap<>() {{
+        put(ArtifactType.AVRO, ContentType.APPLICATION_JSON);
+        put(ArtifactType.PROTOBUF, ContentType.APPLICATION_PROTOBUF);
+        put(ArtifactType.JSON, ContentType.APPLICATION_JSON);
+        put(ArtifactType.OPENAPI, ContentType.APPLICATION_YAML);
+        put(ArtifactType.ASYNCAPI, ContentType.APPLICATION_YAML);
+        put(ArtifactType.GRAPHQL, ContentType.APPLICATION_GRAPHQL);
+        put(ArtifactType.KCONNECT, ContentType.APPLICATION_JSON);
+        put(ArtifactType.WSDL, ContentType.APPLICATION_XML);
+        put(ArtifactType.XSD, ContentType.APPLICATION_XML);
+        put(ArtifactType.XML, ContentType.APPLICATION_XML);
+    }};
 
     public ApicurioRegistryApiClient(String host) {
         this.host = host;
@@ -862,48 +875,16 @@ public class ApicurioRegistryApiClient {
         return true;
     }
 
-    public boolean createArtifact(
-            String groupId,
-            String id,
-            ArtifactType type,
-            String content
-    ) {
-        return createArtifact(groupId, id, type, content, ContentType.APPLICATION_JSON, HttpStatus.SC_OK);
+    public boolean createArtifact(String groupId, String id, ArtifactType type, String content) {
+        return createArtifact(groupId, id, type, content, HttpStatus.SC_OK);
     }
 
-    public boolean createArtifact(
-            String groupId,
-            String id,
-            ArtifactType type,
-            String content,
-            int httpStatus
-    ) {
-        return createArtifact(groupId, id, type, content, ContentType.APPLICATION_JSON, httpStatus);
-    }
-
-    public boolean createArtifact(
-            String groupId,
-            String id,
-            ArtifactType type,
-            String content,
-            String contentType
-    ) {
-        return createArtifact(groupId, id, type, content, contentType, HttpStatus.SC_OK);
-    }
-
-    public boolean createArtifact(
-            String groupId,
-            String id,
-            ArtifactType type,
-            String content,
-            String contentType,
-            int httpStatus
-    ) {
+    public boolean createArtifact(String groupId, String id, ArtifactType type, String content, int httpStatus) {
         // Log information about current action
         LOGGER.info("Creating artifact: groupId={}, artifactId={}, type={}.", groupId, id, type);
 
         // Build artifact creation payload
-        String payload = Artifact.getArtifact(type, id, content, contentType);
+        String payload = Artifact.getArtifact(type, id, content, CONTENT_TYPES.get(type));
 
         // Get request URI
         URI uri = HttpClientUtils.buildURI(
