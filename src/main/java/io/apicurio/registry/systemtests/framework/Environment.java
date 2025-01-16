@@ -26,6 +26,7 @@ public final class Environment {
     public static final String TMP_PATH_ENV_VAR = "TMP_PATH";
 
     public static final String FORCE_NAMESPACE = "FORCE_NAMESPACE";
+    public static final String DELETE_RESOURCES_ENV_VAR = "DELETE_RESOURCES";
 
     /** Default values of environment variables */
     public static final String CATALOG_DEFAULT = "redhat-operators";
@@ -43,6 +44,8 @@ public final class Environment {
     public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
     public static final String TESTSUITE_PATH_DEFAULT = System.getProperty("user.dir");
     public static final String TMP_PATH_DEFAULT = "/tmp";
+
+    public static final String DELETE_RESOURCES_DEFAULT = "true";
 
     /** Collecting environment variables */
     public static final String CATALOG_IMAGE = get(CATALOG_IMAGE_ENV_VAR);
@@ -68,6 +71,8 @@ public final class Environment {
     public static final String TMP_PATH = getOrDefault(TMP_PATH_ENV_VAR, TMP_PATH_DEFAULT);
 
     public static final String NAMESPACE = getOrDefault(FORCE_NAMESPACE, Constants.TESTSUITE_NAMESPACE);
+    public static final boolean DELETE_RESOURCES = Boolean
+            .parseBoolean(getOrDefault(DELETE_RESOURCES_ENV_VAR, DELETE_RESOURCES_DEFAULT));
 
     public static final String KAFKA_BUNDLE_DEFAULT =
             "https://strimzi.io/install/latest?namespace=" + NAMESPACE;
