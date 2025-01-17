@@ -7,9 +7,11 @@ public class Constants {
     public static final String KAFKA_CONNECT = "kafka-connect-for-registry";
     public static final String KAFKA = "kafka-for-registry";
     public static final String KAFKA_USER = "kafka-user-for-registry";
-    public static final String REGISTRY_OPERATOR_DEPLOYMENT
-            = "apicurio-registry-operator-v1.3.1-redhat.1"; // Default from catalog
+    public static final String KAFKA_SUBSCRIPTION_NAME = "kafka-subscription";
+    public static final String KAFKA_CSV_PREFIX = "amqstreams";
     public static final String REGISTRY = "registry";
+    public static final String REGISTRY_SUBSCRIPTION = "registry-subscription";
+    public static final String REGISTRY_CSV_PREFIX = "service-registry-operator";
     public static final String SSO_ADMIN_CLIENT_ID = "admin-cli";
     public static final String SSO_ADMIN_USER = "registry-admin"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_CLIENT_API = "registry-client-api"; // Defined in kubefiles/keycloak-realm.yaml
@@ -23,9 +25,14 @@ public class Constants {
     public static final String SSO_SCOPE = "user-attributes"; // Defined in configs/user-attribute-client-scope.json
     public static final String SSO_TEST_CLIENT_API = "test-client-api"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_USER_PASSWORD = "changeme"; // Defined in kubefiles/keycloak-realm.yaml
+    public static final String SSO_SUBSCRIPTION = "sso-subscription";
     public static final String TESTSUITE_NAMESPACE = "testsuite-namespace";
 
     public static final String SSO_DB_SECRET_NAME = "keycloak-db-secret";
+    public static final String DB_NAME = "postgresql";
+    public static final String DB_NAMESPACE = "postgresql";
+    public static final String DB_PORT_NAME = "postgresql";
+    public static final String DB_MOUNT_PATH = "postgresql";
     public static final String DB_PASSWORD = "password";
     public static final String DB_USERNAME = "username";
     public static final String TRUSTSTORE_SECRET_NAME = "mytruststore-secret";
