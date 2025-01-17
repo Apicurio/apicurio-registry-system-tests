@@ -59,7 +59,7 @@ public abstract class TestBase {
     protected void beforeAllTests() throws InterruptedException, IOException {
         // Install Keycloak operator
         LoggerUtils.logDelimiter("#");
-        LOGGER.info("Deploying shared keycloak operator and instance!");
+        LOGGER.info("Deploying shared keycloak operator and instance...");
         LoggerUtils.logDelimiter("#");
 
         DatabaseUtils.createKeycloakPostgresqlDatabaseSecret();
@@ -71,14 +71,14 @@ public abstract class TestBase {
         KeycloakUtils.deployKeycloak();
         Thread.sleep(Duration.ofMinutes(2).toMillis());
         LoggerUtils.logDelimiter("#");
-        LOGGER.info("Deploying shared strimzi operator and kafka");
+        LOGGER.info("Deploying shared strimzi operator...");
         LoggerUtils.logDelimiter("#");
 
         StrimziClusterOLMOperatorType strimziOperator = new StrimziClusterOLMOperatorType();
         operatorManager.installOperatorShared(strimziOperator);
 
         LoggerUtils.logDelimiter("#");
-        LOGGER.info("Creating SSL truststore");
+        LOGGER.info("Creating SSL truststore...");
         LoggerUtils.logDelimiter("#");
 
         /* */
@@ -112,23 +112,29 @@ public abstract class TestBase {
         );
 
         LoggerUtils.logDelimiter("#");
-        LOGGER.info("Deployment of shared resources is done!");
+        LOGGER.info("Deployment of shared resources is done.");
         LoggerUtils.logDelimiter("#");
     }
 
     @AfterAll
     protected void afterAllTests() throws InterruptedException {
-        LoggerUtils.logDelimiter("#");
-        LOGGER.info("Cleaning shared resources!");
-        LoggerUtils.logDelimiter("#");
-        resourceManager.deleteKafka();
-        KeycloakUtils.removeKeycloak(Environment.NAMESPACE);
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
-        operatorManager.uninstallSharedOperators();
-        resourceManager.deleteSharedResources();
-        LoggerUtils.logDelimiter("#");
-        LOGGER.info("Cleaning done!");
-        LoggerUtils.logDelimiter("#");
+        if (Environment.DELETE_RESOURCES) {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("Cleaning shared resources...");
+            LoggerUtils.logDelimiter("#");
+            resourceManager.deleteKafka();
+            KeycloakUtils.removeKeycloak(Environment.NAMESPACE);
+            Thread.sleep(Duration.ofMinutes(2).toMillis());
+            operatorManager.uninstallSharedOperators();
+            resourceManager.deleteSharedResources();
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("Cleaning of shared resources done.");
+            LoggerUtils.logDelimiter("#");
+        } else {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("NOT cleaning shared resources!");
+            LoggerUtils.logDelimiter("#");
+        }
     }
 
     @BeforeEach
@@ -145,9 +151,15 @@ public abstract class TestBase {
 
     @AfterEach
     protected void afterEachTest(ExtensionContext testContext) {
-        resourceManager.deleteResources();
+        if (Environment.DELETE_RESOURCES) {
+            resourceManager.deleteResources();
 
-        operatorManager.uninstallOperators();
+            operatorManager.uninstallOperators();
+        } else {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("NOT cleaning test resources!");
+            LoggerUtils.logDelimiter("#");
+        }
 
         LOGGER.info("");
         LoggerUtils.logDelimiter("#");
