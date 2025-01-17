@@ -8,6 +8,7 @@ public final class Environment {
     public static final String CATALOG_IMAGE_ENV_VAR = "CATALOG_IMAGE";
     public static final String CATALOG_ENV_VAR = "CATALOG";
     public static final String SSO_CATALOG_ENV_VAR = "SSO_CATALOG";
+    public static final String KAFKA_CATALOG_ENV_VAR = "KAFKA_CATALOG";
     public static final String CATALOG_NAMESPACE_ENV_VAR = "CATALOG_NAMESPACE";
     public static final String CONVERTERS_SHA512SUM_ENV_VAR = "CONVERTERS_SHA512SUM";
     public static final String CONVERTERS_URL_ENV_VAR = "CONVERTERS_URL";
@@ -19,6 +20,7 @@ public final class Environment {
     public static final String REGISTRY_CHANNEL_ENV_VAR = "REGISTRY_CHANNEL";
     public static final String REGISTRY_CSV_ENV_VAR = "REGISTRY_CSV";
     public static final String REGISTRY_HOSTNAME_ENV_VAR = "REGISTRY_HOSTNAME";
+    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_ENV_VAR = "REGISTRY_OPERATOR_DEPLOYMENT_NAME";
     public static final String REGISTRY_PACKAGE_ENV_VAR = "REGISTRY_PACKAGE";
     public static final String SSO_PACKAGE_ENV_VAR = "SSO_PACKAGE";
     public static final String SSO_CHANNEL_ENV_VAR = "SSO_CHANNEL";
@@ -31,6 +33,7 @@ public final class Environment {
     /** Default values of environment variables */
     public static final String CATALOG_DEFAULT = "redhat-operators";
     public static final String SSO_CATALOG_DEFAULT = "redhat-operators";
+    public static final String KAFKA_CATALOG_DEFAULT = "redhat-operators";
     public static final String KAFKA_DEPLOYMENT_DEFAULT = "amq-streams-cluster-operator"; // Default from catalog
     public static final String KAFKA_PACKAGE_DEFAULT = "amq-streams"; // Default from catalog
     public static final String POSTGRESQL_VERSION_DEFAULT = "17";
@@ -39,6 +42,7 @@ public final class Environment {
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
+    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v1.3.1-redhat.1";
     public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
     public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
@@ -51,6 +55,7 @@ public final class Environment {
     public static final String CATALOG_IMAGE = get(CATALOG_IMAGE_ENV_VAR);
     public static final String CATALOG = getOrDefault(CATALOG_ENV_VAR, CATALOG_DEFAULT);
     public static final String SSO_CATALOG = getOrDefault(SSO_CATALOG_ENV_VAR, SSO_CATALOG_DEFAULT);
+    public static final String KAFKA_CATALOG = getOrDefault(KAFKA_CATALOG_ENV_VAR, KAFKA_CATALOG_DEFAULT);
 
     public static final String CATALOG_NAMESPACE = getOrDefault(CATALOG_NAMESPACE_ENV_VAR, Constants.CATALOG_NAMESPACE);
     public static final String CONVERTERS_SHA512SUM = get(CONVERTERS_SHA512SUM_ENV_VAR);
@@ -80,6 +85,8 @@ public final class Environment {
     public static final String KAFKA_BUNDLE = getOrDefault(KAFKA_BUNDLE_ENV_VAR, KAFKA_BUNDLE_DEFAULT);
 
     public static final String CLUSTER_WIDE_NAMESPACE =  "openshift-operators";
+    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME
+            = getOrDefault(REGISTRY_OPERATOR_DEPLOYMENT_NAME_ENV_VAR, REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT);
 
 
     private static String get(String key) {
