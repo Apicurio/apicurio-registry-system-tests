@@ -419,6 +419,19 @@ public final class Kubernetes {
                 .get();
     }
 
+    public static ClusterServiceVersion getClusterServiceVersionByPrefix(String namespace, String prefix) {
+        return ((OpenShiftClient) getClient())
+                .operatorHub()
+                .clusterServiceVersions()
+                .inNamespace(namespace)
+                .list()
+                .getItems()
+                .stream()
+                .filter(r -> r.getMetadata().getName().startsWith(prefix))
+                .findFirst()
+                .orElse(null);
+    }
+
     public static boolean isClusterServiceVersionReady(String namespace, String name) {
         ClusterServiceVersion csvToBeReady = ((OpenShiftClient) getClient())
                 .operatorHub()
