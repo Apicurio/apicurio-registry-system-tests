@@ -139,7 +139,7 @@ public class ApicurioRegistryResourceType implements ResourceType<ApicurioRegist
     }
 
     public static ApicurioRegistry getDefaultSql(String name, String namespace) {
-        return getDefaultSql(name, namespace, "postgresql", "postgresql");
+        return getDefaultSql(name, namespace, Constants.DB_NAME, Constants.DB_NAMESPACE);
     }
 
     public static ApicurioRegistry getDefaultSql(String name, String namespace, String sqlName, String sqlNamespace) {

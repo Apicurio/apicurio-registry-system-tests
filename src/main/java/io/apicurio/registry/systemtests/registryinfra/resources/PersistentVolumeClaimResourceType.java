@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.PersistentVolumeClaim;
 import io.fabric8.kubernetes.api.model.PersistentVolumeClaimBuilder;
@@ -94,6 +95,6 @@ public class PersistentVolumeClaimResourceType implements ResourceType<Persisten
     }
 
     public static PersistentVolumeClaim getDefaultPostgresql() {
-        return getDefaultPostgresql("postgresql", "postgresql");
+        return getDefaultPostgresql(Constants.DB_NAME, Constants.DB_NAMESPACE);
     }
 }

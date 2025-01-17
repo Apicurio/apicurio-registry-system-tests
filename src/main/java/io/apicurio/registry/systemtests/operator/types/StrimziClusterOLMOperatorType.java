@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.operator.types;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
@@ -59,7 +60,7 @@ public class StrimziClusterOLMOperatorType extends OLMOperator implements Operat
     public void install() throws InterruptedException {
         /* Operator namespace is created in OperatorManager. */
 
-        String catalogName = Environment.CATALOG;
+        String catalogName = Environment.KAFKA_CATALOG;
         String catalogNamespace = Environment.CATALOG_NAMESPACE;
         String kafkaPackage = Environment.KAFKA_PACKAGE;
 
@@ -80,7 +81,7 @@ public class StrimziClusterOLMOperatorType extends OLMOperator implements Operat
         LOGGER.info("OLM operator CSV: {}", getClusterServiceVersion());
 
         setSubscription(SubscriptionResourceType.getDefault(
-                "kafka-subscription",
+                Constants.KAFKA_SUBSCRIPTION_NAME,
                 getNamespace(),
                 kafkaPackage,
                 catalogName,

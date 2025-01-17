@@ -124,7 +124,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
 
     @Override
     public String getDeploymentName() {
-        return Constants.REGISTRY_OPERATOR_DEPLOYMENT;
+        return Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME;
     }
 
     @Override
@@ -161,7 +161,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         LOGGER.info("OLM operator CSV: {}", getClusterServiceVersion());
 
         setSubscription(SubscriptionResourceType.getDefault(
-                "registry-subscription",
+                Constants.REGISTRY_SUBSCRIPTION,
                 getNamespace(),
                 registryPackage,
                 catalogName,

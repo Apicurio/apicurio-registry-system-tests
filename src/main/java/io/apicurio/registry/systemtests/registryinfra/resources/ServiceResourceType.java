@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.fabric8.kubernetes.api.model.IntOrString;
 import io.fabric8.kubernetes.api.model.Service;
@@ -85,7 +86,7 @@ public class ServiceResourceType implements ResourceType<Service> {
                 .endMetadata()
                 .withNewSpec()
                     .withPorts(new ServicePort() {{
-                        setName("postgresql");
+                        setName(Constants.DB_PORT_NAME);
                         setPort(5432);
                         setProtocol("TCP");
                         setTargetPort(new IntOrString(5432));
@@ -99,7 +100,7 @@ public class ServiceResourceType implements ResourceType<Service> {
     }
 
     public static Service getDefaultPostgresql() {
-        return getDefaultPostgresql("postgresql", "postgresql");
+        return getDefaultPostgresql(Constants.DB_NAME, Constants.DB_NAMESPACE);
     }
 
     public static Service getDefaultSelenium(String name, String namespace) {

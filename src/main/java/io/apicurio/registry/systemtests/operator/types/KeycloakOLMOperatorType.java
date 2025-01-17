@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.operator.types;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
@@ -68,7 +69,7 @@ public class KeycloakOLMOperatorType extends OLMOperator implements OperatorType
         LOGGER.info("OLM operator CSV: {}", getClusterServiceVersion());
 
         setSubscription(SubscriptionResourceType.getDefault(
-                "sso-subscription",
+                Constants.SSO_SUBSCRIPTION,
                 getNamespace(),
                 ssoPackage,
                 catalogName,

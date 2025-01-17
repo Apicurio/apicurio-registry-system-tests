@@ -78,7 +78,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
         envVars.add(new EnvVar("POSTGRES_DB", databaseName, null));
         envVars.add(new EnvVar("POSTGRES_USER", Constants.DB_USERNAME, null));
         envVars.add(new EnvVar("POSTGRES_PASSWORD", Constants.DB_PASSWORD, null));
-        envVars.add(new EnvVar("PGDATA", "/postgresql/data", null));
+        envVars.add(new EnvVar("PGDATA", "/" + Constants.DB_MOUNT_PATH + "/data", null));
 
         return envVars;
     }
@@ -95,7 +95,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                 .withName(name)
                 .addNewPort()
                     .withContainerPort(5432)
-                    .withName("postgresql")
+                    .withName(Constants.DB_PORT_NAME)
                     .withProtocol("TCP")
                 .endPort()
                 .withNewReadinessProbe()
@@ -109,7 +109,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                     .endTcpSocket()
                 .endLivenessProbe()
                 .withVolumeMounts(new VolumeMount() {{
-                    setMountPath("/postgresql");
+                    setMountPath("/" + Constants.DB_MOUNT_PATH);
                     setName(name);
                 }})
                 .build();
@@ -123,7 +123,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                 .withName(name)
                 .addNewPort()
                     .withContainerPort(5432)
-                    .withName("postgresql")
+                    .withName(Constants.DB_PORT_NAME)
                     .withProtocol("TCP")
                 .endPort()
                 .withNewReadinessProbe()
@@ -137,7 +137,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
                     .endTcpSocket()
                 .endLivenessProbe()
                 .withVolumeMounts(new VolumeMount() {{
-                    setMountPath("/postgresql");
+                    setMountPath("/" + Constants.DB_MOUNT_PATH);
                     setName(name);
                 }})
                 .build();
@@ -202,7 +202,7 @@ public class DeploymentResourceType implements ResourceType<Deployment> {
     }
 
     public static Deployment getDefaultPostgresql() {
-        return getDefaultPostgresql("postgresql", "postgresql");
+        return getDefaultPostgresql(Constants.DB_NAME, Constants.DB_NAMESPACE);
     }
 
     private static Container getDefaultSeleniumContainer(String name) {

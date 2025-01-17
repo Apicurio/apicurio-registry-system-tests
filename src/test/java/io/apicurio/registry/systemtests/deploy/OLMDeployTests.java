@@ -47,9 +47,9 @@ public abstract class OLMDeployTests extends DeployTests {
         // Set suffix of second resources
         String suffix = "-multi";
         // Get second PostgreSQL database name
-        String secondSqlName = "postgresql" + suffix;
+        String secondSqlName = Constants.DB_NAME + suffix;
         // Get second PostgreSQL database namespace
-        String secondSqlNamespace = "postgresql" + suffix;
+        String secondSqlNamespace = Constants.DB_NAMESPACE + suffix;
 
         // Deploy second PostgreSQL database
         DatabaseUtils.deployPostgresqlDatabase(secondSqlName, secondSqlNamespace);
