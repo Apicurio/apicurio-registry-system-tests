@@ -60,7 +60,7 @@ public abstract class TestBase {
         if (Environment.DEPLOY_KEYCLOAK) {
             // Install Keycloak operator
             LoggerUtils.logDelimiter("#");
-            LOGGER.info("Deploying shared keycloak operator and instance...");
+            LOGGER.info("Deploying shared Keycloak operator and instance...");
             LoggerUtils.logDelimiter("#");
 
             DatabaseUtils.createKeycloakPostgresqlDatabaseSecret();
@@ -71,6 +71,10 @@ public abstract class TestBase {
             operatorManager.installOperatorShared(keycloakOLMOperator);
             KeycloakUtils.deployKeycloak();
             Thread.sleep(Duration.ofMinutes(2).toMillis());
+        } else {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("SKIPPED: Deploying of shared Keycloak operator and instance.");
+            LoggerUtils.logDelimiter("#");
         }
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deploying shared strimzi operator...");
