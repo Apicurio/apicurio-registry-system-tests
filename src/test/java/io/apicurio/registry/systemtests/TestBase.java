@@ -76,12 +76,19 @@ public abstract class TestBase {
             LOGGER.info("SKIPPED: Deploying of shared Keycloak operator and instance.");
             LoggerUtils.logDelimiter("#");
         }
-        LoggerUtils.logDelimiter("#");
-        LOGGER.info("Deploying shared strimzi operator...");
-        LoggerUtils.logDelimiter("#");
 
-        StrimziClusterOLMOperatorType strimziOperator = new StrimziClusterOLMOperatorType();
-        operatorManager.installOperatorShared(strimziOperator);
+        if (Environment.DEPLOY_KAFKA) {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("Deploying shared strimzi operator...");
+            LoggerUtils.logDelimiter("#");
+
+            StrimziClusterOLMOperatorType strimziOperator = new StrimziClusterOLMOperatorType();
+            operatorManager.installOperatorShared(strimziOperator);
+        } else {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("SKIPPED: Deploying shared strimzi operator.");
+            LoggerUtils.logDelimiter("#");
+        }
 
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Creating SSL truststore...");
@@ -128,7 +135,9 @@ public abstract class TestBase {
             LoggerUtils.logDelimiter("#");
             LOGGER.info("Cleaning shared resources...");
             LoggerUtils.logDelimiter("#");
-            resourceManager.deleteKafka();
+            if (Environment.DEPLOY_KAFKA) {
+                resourceManager.deleteKafka();
+            }
             if (Environment.DEPLOY_KEYCLOAK) {
                 KeycloakUtils.removeKeycloak(Environment.NAMESPACE);
                 Thread.sleep(Duration.ofMinutes(2).toMillis());
