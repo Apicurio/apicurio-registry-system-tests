@@ -1,10 +1,12 @@
 package io.apicurio.registry.systemtests.operator.types;
 
+import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.framework.OperatorUtils;
 import io.apicurio.registry.systemtests.framework.ResourceUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
+import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.DeploymentSpec;
@@ -12,6 +14,7 @@ import io.fabric8.kubernetes.api.model.apps.DeploymentStatus;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Collection;
 
@@ -104,6 +107,8 @@ public class ApicurioRegistryBundleOperatorType extends BundleOperator implement
     public void install() {
         Collection<HasMetadata> resources = getResources();
         String namespace = getNamespace();
+        int timeoutInMinutes = 3;
+        TimeoutBudget timeoutBudget = TimeoutBudget.ofDuration(Duration.ofMinutes(timeoutInMinutes));
 
         for (HasMetadata resource : resources) {
             LOGGER.info("Creating {}...", resource.getKind());
@@ -111,13 +116,9 @@ public class ApicurioRegistryBundleOperatorType extends BundleOperator implement
             Kubernetes.createOrReplaceResource(namespace, resource);
 
             if (resource.getKind().equals("CustomResourceDefinition")) {
-                try {
-                    LOGGER.info("Waiting for 5 seconds for CustomResourceDefinition creation...");
+                LOGGER.info("Waiting for {} minutes for CustomResourceDefinition existence...", timeoutInMinutes);
 
-                    Thread.sleep(5_000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                OperatorUtils.waitCustomResourceDefinitionExists(Constants.REGISTRY_CRD_NAME, timeoutBudget);
             }
         }
     }

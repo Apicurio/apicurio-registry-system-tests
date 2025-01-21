@@ -4,6 +4,7 @@ package io.apicurio.registry.systemtests.framework;
 public class Constants {
     public static final String CATALOG_NAME = "testsuite-operators";
     public static final String CATALOG_NAMESPACE = "openshift-marketplace";
+    public static final String REGISTRY_CRD_NAME = "apicurioregistries3.registry.apicur.io";
     public static final String KAFKA_CONNECT = "kafka-connect-for-registry";
     public static final String KAFKA_CHANNEL = "amq-streams-2.x";
     public static final String KAFKA = "kafka-for-registry";

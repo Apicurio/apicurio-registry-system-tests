@@ -10,6 +10,7 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodList;
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.kubernetes.api.model.Service;
+import io.fabric8.kubernetes.api.model.apiextensions.v1.CustomResourceDefinition;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.StatefulSet;
 import io.fabric8.kubernetes.api.model.apps.StatefulSetStatus;
@@ -406,6 +407,15 @@ public final class Kubernetes {
                 .inNamespace(namespace)
                 .withName(name)
                 .delete();
+    }
+
+    public static CustomResourceDefinition getCustomServiceDefinition(String name) {
+        return getClient()
+                .apiextensions()
+                .v1()
+                .customResourceDefinitions()
+                .withName(name)
+                .get();
     }
 
     public static ClusterServiceVersion getClusterServiceVersion(String namespace, String name) {
