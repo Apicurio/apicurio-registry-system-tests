@@ -164,6 +164,28 @@ public class OperatorUtils {
 
     }
 
+    public static void waitCustomResourceDefinitionExists(String name, TimeoutBudget timeout) {
+        while (!timeout.timeoutExpired()) {
+            if (Kubernetes.getCustomServiceDefinition(name) != null) {
+                return;
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+
+                return;
+            }
+        }
+
+        if (Kubernetes.getCustomServiceDefinition(name) == null) {
+            LOGGER.error("CustomServiceDefinition with name {} failed existence check.", name);
+
+        }
+
+    }
+
     public static void waitCatalogSourceExists(String namespace, String name) {
         waitCatalogSourceExists(namespace, name, TimeoutBudget.ofDuration(Duration.ofMinutes(3)));
     }
