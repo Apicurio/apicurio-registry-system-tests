@@ -57,19 +57,21 @@ public abstract class TestBase {
 
     @BeforeAll
     protected void beforeAllTests() throws InterruptedException, IOException {
-        // Install Keycloak operator
-        LoggerUtils.logDelimiter("#");
-        LOGGER.info("Deploying shared keycloak operator and instance...");
-        LoggerUtils.logDelimiter("#");
+        if (Environment.DEPLOY_KEYCLOAK) {
+            // Install Keycloak operator
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("Deploying shared keycloak operator and instance...");
+            LoggerUtils.logDelimiter("#");
 
-        DatabaseUtils.createKeycloakPostgresqlDatabaseSecret();
+            DatabaseUtils.createKeycloakPostgresqlDatabaseSecret();
 
-        DatabaseUtils.deployKeycloakPostgresqlDatabase();
+            DatabaseUtils.deployKeycloakPostgresqlDatabase();
 
-        KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType(Environment.SSO_CHANNEL);
-        operatorManager.installOperatorShared(keycloakOLMOperator);
-        KeycloakUtils.deployKeycloak();
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
+            KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType(Environment.SSO_CHANNEL);
+            operatorManager.installOperatorShared(keycloakOLMOperator);
+            KeycloakUtils.deployKeycloak();
+            Thread.sleep(Duration.ofMinutes(2).toMillis());
+        }
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deploying shared strimzi operator...");
         LoggerUtils.logDelimiter("#");
@@ -123,8 +125,10 @@ public abstract class TestBase {
             LOGGER.info("Cleaning shared resources...");
             LoggerUtils.logDelimiter("#");
             resourceManager.deleteKafka();
-            KeycloakUtils.removeKeycloak(Environment.NAMESPACE);
-            Thread.sleep(Duration.ofMinutes(2).toMillis());
+            if (Environment.DEPLOY_KEYCLOAK) {
+                KeycloakUtils.removeKeycloak(Environment.NAMESPACE);
+                Thread.sleep(Duration.ofMinutes(2).toMillis());
+            }
             operatorManager.uninstallSharedOperators();
             resourceManager.deleteSharedResources();
             LoggerUtils.logDelimiter("#");
