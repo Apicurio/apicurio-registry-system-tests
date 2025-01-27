@@ -66,7 +66,7 @@ public abstract class TestBaseOAuthKafka {
         KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType(Environment.SSO_CHANNEL);
         operatorManager.installOperatorShared(keycloakOLMOperator);
         KeycloakUtils.deployOAuthKafkaKeycloak();
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deploying shared strimzi operator");
         LoggerUtils.logDelimiter("#");
@@ -86,7 +86,7 @@ public abstract class TestBaseOAuthKafka {
         LoggerUtils.logDelimiter("#");
         resourceManager.deleteKafka();
         KeycloakUtils.removeOAuthKafkaKeycloak(Environment.NAMESPACE);
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
         operatorManager.uninstallSharedOperators();
         resourceManager.deleteSharedResources();
         LoggerUtils.logDelimiter("#");

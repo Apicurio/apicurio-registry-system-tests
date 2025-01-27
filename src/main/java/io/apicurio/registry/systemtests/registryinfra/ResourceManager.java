@@ -106,8 +106,6 @@ public class ResourceManager {
 
         LOGGER.info("Resource {} created.", resourceInfo);
 
-        Thread.sleep(Duration.ofMinutes(1).toMillis());
-
         if (waitReady) {
             Assertions.assertTrue(
                     waitResourceCondition(resource, type::isReady),
@@ -120,6 +118,8 @@ public class ResourceManager {
             type.refreshResource(resource, updated);
         } else {
             LOGGER.info("Do not wait for resource {} to be ready.", resourceInfo);
+
+            Thread.sleep(Duration.ofSeconds(30).toMillis());
         }
     }
 

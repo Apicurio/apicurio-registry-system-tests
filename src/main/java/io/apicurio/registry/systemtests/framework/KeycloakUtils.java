@@ -80,7 +80,7 @@ public class KeycloakUtils {
         // Create Keycloak Realm
         Exec.executeAndCheck("oc", "apply", "-n", namespace, "-f", getKeycloakFilePath("keycloak-realm.yaml"));
 
-        Thread.sleep(Duration.ofMinutes(3).toMillis());
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
 
         // CREATE AND MAP KEYCLOAK CLIENT SCOPE FOR MAPPING USER ATTRIBUTES INTO TOKEN
         // Get Keycloak API admin client
@@ -169,7 +169,7 @@ public class KeycloakUtils {
 
     public static void removeKeycloak(String namespace) throws InterruptedException {
         removeKeycloakRealm(namespace);
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
         LOGGER.info("Removing Keycloak...");
         Exec.executeAndCheck(
                 "oc",
@@ -183,7 +183,7 @@ public class KeycloakUtils {
 
     public static void removeOAuthKafkaKeycloak(String namespace) throws InterruptedException {
         removeOAuthKafkaKeycloakRealm(namespace);
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
         LOGGER.info("Removing OAuth Kafka Keycloak...");
         Exec.executeAndCheck(
                 "oc",

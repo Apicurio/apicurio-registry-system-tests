@@ -70,7 +70,7 @@ public abstract class TestBase {
             KeycloakOLMOperatorType keycloakOLMOperator = new KeycloakOLMOperatorType(Environment.SSO_CHANNEL);
             operatorManager.installOperatorShared(keycloakOLMOperator);
             KeycloakUtils.deployKeycloak();
-            Thread.sleep(Duration.ofMinutes(2).toMillis());
+            Thread.sleep(Duration.ofMinutes(1).toMillis());
         } else {
             LoggerUtils.logDelimiter("#");
             LOGGER.info("SKIPPED: Deploying of shared Keycloak operator and instance.");
@@ -140,7 +140,7 @@ public abstract class TestBase {
             }
             if (Environment.DEPLOY_KEYCLOAK) {
                 KeycloakUtils.removeKeycloak(Environment.NAMESPACE);
-                Thread.sleep(Duration.ofMinutes(2).toMillis());
+                Thread.sleep(Duration.ofMinutes(1).toMillis());
             }
             operatorManager.uninstallSharedOperators();
             resourceManager.deleteSharedResources();

@@ -33,7 +33,7 @@ public class PrepareIntegrationTests {
 
         KeycloakUtils.deployKeycloak();
 
-        Thread.sleep(Duration.ofMinutes(2).toMillis());
+        Thread.sleep(Duration.ofMinutes(1).toMillis());
 
         LoggerUtils.logDelimiter("#");
         LOGGER.info("Deployment of keycloak operator and instance is done.");
