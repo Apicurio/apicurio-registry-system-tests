@@ -9,6 +9,7 @@ import io.apicurio.registry.systemtests.operator.types.ApicurioRegistryOLMOperat
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistryResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -28,13 +29,18 @@ public abstract class OLMDeployTests extends DeployTests {
         this.clusterWide = clusterWide;
     }
 
-    @BeforeEach
-    public void testBeforeEach(ExtensionContext testContext) throws InterruptedException {
-        LOGGER.info("BeforeEach: " + testContext.getTestMethod().get().getName());
+    @BeforeAll
+    public void testBeforeAll(ExtensionContext testContext) throws InterruptedException {
+        LOGGER.info("BeforeAll: " + testContext.getTestClass().get().getSimpleName());
 
         ApicurioRegistryOLMOperatorType registryOLMOperator = new ApicurioRegistryOLMOperatorType(clusterWide);
 
-        operatorManager.installOperator(registryOLMOperator);
+        operatorManager.installOperatorShared(registryOLMOperator);
+    }
+
+    @BeforeEach
+    public void testBeforeEach(ExtensionContext testContext) {
+        LOGGER.info("BeforeEach: " + testContext.getTestMethod().get().getName());
     }
 
     @Test
