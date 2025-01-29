@@ -284,7 +284,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteProtobuf() throws InterruptedException {
@@ -312,7 +311,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteProtobuf() throws InterruptedException {
@@ -342,7 +340,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteJson() throws InterruptedException {
@@ -370,7 +367,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteJson() throws InterruptedException {
@@ -400,7 +396,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteOpenapi() throws InterruptedException {
@@ -428,7 +423,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteOpenapi() throws InterruptedException {
@@ -458,7 +452,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteAsyncapi() throws InterruptedException {
@@ -486,7 +479,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteAsyncapi() throws InterruptedException {
@@ -516,7 +508,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteGraphql() throws InterruptedException {
@@ -544,7 +535,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteGraphql() throws InterruptedException {
@@ -574,7 +564,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteKconnect() throws InterruptedException {
@@ -602,7 +591,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteKconnect() throws InterruptedException {
@@ -632,7 +620,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteWsdl() throws InterruptedException {
@@ -660,7 +647,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteWsdl() throws InterruptedException {
@@ -690,7 +676,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteXsd() throws InterruptedException {
@@ -718,7 +703,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteXsd() throws InterruptedException {
@@ -748,7 +732,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadUpdateDeleteXml() throws InterruptedException {
@@ -776,7 +759,6 @@ public abstract class APITests extends TestBase {
     }
 
     @Test
-    @Tag("interop")
     @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadUpdateDeleteXml() throws InterruptedException {
