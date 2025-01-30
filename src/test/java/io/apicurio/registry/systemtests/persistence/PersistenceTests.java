@@ -25,7 +25,7 @@ public abstract class PersistenceTests extends TestBase {
                     registry,
                     Constants.SSO_ADMIN_USER,
                     Constants.SSO_USER_PASSWORD,
-                    ArtifactType.AVRO, // TODO: Remove type?
+                    ArtifactType.AVRO,
                     true
             );
         } else {
@@ -33,7 +33,7 @@ public abstract class PersistenceTests extends TestBase {
                     registry,
                     null,
                     null,
-                    ArtifactType.AVRO, // TODO: Remove type
+                    ArtifactType.AVRO,
                     false
             );
         }
