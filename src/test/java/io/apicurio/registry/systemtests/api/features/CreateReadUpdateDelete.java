@@ -12,36 +12,10 @@ import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class CreateReadUpdateDelete {
     protected static Logger LOGGER = LoggerUtils.getLogger();
-
-    private static final HashMap<ArtifactType, String> artifacts = new HashMap<>(){{
-        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO);
-        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF);
-        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON);
-        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI);
-        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI);
-        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL);
-        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT);
-        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL);
-        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD);
-        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML);
-    }};
-    private static final HashMap<ArtifactType, String> updatedArtifacts = new HashMap<>(){{
-        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED);
-        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_UPDATED);
-        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_UPDATED);
-        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_UPDATED);
-        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_UPDATED);
-        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_UPDATED);
-        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_UPDATED);
-        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_UPDATED);
-        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_UPDATED);
-        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_UPDATED);
-    }};
 
     public static void testCreateReadUpdateDeleteAvro(ApicurioRegistry apicurioRegistry) {
         testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.AVRO, false);
@@ -98,8 +72,8 @@ public class CreateReadUpdateDelete {
         // Prepare necessary variables
         String artifactGroupId = "registry-" + UUID.randomUUID();
         String artifactId = "registry-" + UUID.randomUUID();
-        String artifactContent = artifacts.get(artifactType);
-        String updatedArtifactContent = updatedArtifacts.get(artifactType);
+        String artifactContent = ArtifactContent.ARTIFACTS_BY_TYPE.get(artifactType);
+        String updatedArtifactContent = ArtifactContent.UPDATED_ARTIFACTS_BY_TYPE.get(artifactType);
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
         // Get API client

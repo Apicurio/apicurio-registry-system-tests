@@ -1,5 +1,7 @@
 package io.apicurio.registry.systemtests.client;
 
+import java.util.HashMap;
+
 public final class ArtifactContent {
     public static final String DEFAULT_AVRO = "{\"name\":\"price\",\"namespace\":\"com.example\",\"type\":\"record\"," +
             "\"fields\":[{\"name\":\"symbol\",\"type\":\"string\"},{\"name\":\"price\",\"type\":\"string\"}]}";
@@ -299,4 +301,28 @@ public final class ArtifactContent {
             "    <price>10.50</price>\n" +
             "  </item>\n" +
             "</shiporder>";
+    public static final HashMap<ArtifactType, String> ARTIFACTS_BY_TYPE = new HashMap<>(){{
+        put(ArtifactType.AVRO, DEFAULT_AVRO);
+        put(ArtifactType.PROTOBUF, DEFAULT_PROTOBUF);
+        put(ArtifactType.JSON, DEFAULT_JSON);
+        put(ArtifactType.OPENAPI, DEFAULT_OPENAPI);
+        put(ArtifactType.ASYNCAPI, DEFAULT_ASYNCAPI);
+        put(ArtifactType.GRAPHQL, DEFAULT_GRAPHQL);
+        put(ArtifactType.KCONNECT, DEFAULT_KCONNECT);
+        put(ArtifactType.WSDL, DEFAULT_WSDL);
+        put(ArtifactType.XSD, DEFAULT_XSD);
+        put(ArtifactType.XML, DEFAULT_XML);
+    }};
+    public static final HashMap<ArtifactType, String> UPDATED_ARTIFACTS_BY_TYPE = new HashMap<>(){{
+        put(ArtifactType.AVRO, DEFAULT_AVRO_UPDATED);
+        put(ArtifactType.PROTOBUF, DEFAULT_PROTOBUF_UPDATED);
+        put(ArtifactType.JSON, DEFAULT_JSON_UPDATED);
+        put(ArtifactType.OPENAPI, DEFAULT_OPENAPI_UPDATED);
+        put(ArtifactType.ASYNCAPI, DEFAULT_ASYNCAPI_UPDATED);
+        put(ArtifactType.GRAPHQL, DEFAULT_GRAPHQL_UPDATED);
+        put(ArtifactType.KCONNECT, DEFAULT_KCONNECT_UPDATED);
+        put(ArtifactType.WSDL, DEFAULT_WSDL_UPDATED);
+        put(ArtifactType.XSD, DEFAULT_XSD_UPDATED);
+        put(ArtifactType.XML, DEFAULT_XML_UPDATED);
+    }};
 }
