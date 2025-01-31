@@ -17,55 +17,6 @@ import java.util.UUID;
 public class CreateReadUpdateDelete {
     protected static Logger LOGGER = LoggerUtils.getLogger();
 
-    private static final HashMap<ArtifactType, String> artifacts = new HashMap<>(){{
-        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO);
-        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF);
-        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON);
-        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI);
-        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI);
-        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL);
-        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT);
-        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL);
-        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD);
-        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML);
-    }};
-    private static final HashMap<ArtifactType, String> artifactsPlain = new HashMap<>(){{
-        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_PLAIN);
-        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_PLAIN);
-        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_PLAIN);
-        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_PLAIN);
-        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_PLAIN);
-        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_PLAIN);
-        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_PLAIN);
-        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_PLAIN);
-        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_PLAIN);
-        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_PLAIN);
-    }};
-    private static final HashMap<ArtifactType, String> updatedArtifacts = new HashMap<>(){{
-        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED);
-        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_UPDATED);
-        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_UPDATED);
-        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_UPDATED);
-        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_UPDATED);
-        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_UPDATED);
-        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_UPDATED);
-        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_UPDATED);
-        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_UPDATED);
-        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_UPDATED);
-    }};
-    private static final HashMap<ArtifactType, String> artifactsUpdatedPlain = new HashMap<>(){{
-        put(ArtifactType.AVRO, ArtifactContent.DEFAULT_AVRO_UPDATED_PLAIN);
-        put(ArtifactType.PROTOBUF, ArtifactContent.DEFAULT_PROTOBUF_UPDATED_PLAIN);
-        put(ArtifactType.JSON, ArtifactContent.DEFAULT_JSON_UPDATED_PLAIN);
-        put(ArtifactType.OPENAPI, ArtifactContent.DEFAULT_OPENAPI_UPDATED_PLAIN);
-        put(ArtifactType.ASYNCAPI, ArtifactContent.DEFAULT_ASYNCAPI_UPDATED_PLAIN);
-        put(ArtifactType.GRAPHQL, ArtifactContent.DEFAULT_GRAPHQL_UPDATED_PLAIN);
-        put(ArtifactType.KCONNECT, ArtifactContent.DEFAULT_KCONNECT_UPDATED_PLAIN);
-        put(ArtifactType.WSDL, ArtifactContent.DEFAULT_WSDL_UPDATED_PLAIN);
-        put(ArtifactType.XSD, ArtifactContent.DEFAULT_XSD_UPDATED_PLAIN);
-        put(ArtifactType.XML, ArtifactContent.DEFAULT_XML_UPDATED_PLAIN);
-    }};
-
     public static void testCreateReadUpdateDeleteAvro(ApicurioRegistry3 apicurioRegistry) {
         testCreateReadUpdateDelete(apicurioRegistry, null, null, ArtifactType.AVRO, false);
     }
@@ -121,13 +72,8 @@ public class CreateReadUpdateDelete {
         // Prepare necessary variables
         String artifactGroupId = "registry-" + UUID.randomUUID();
         String artifactId = "registry-" + UUID.randomUUID();
-<<<<<<< HEAD
         String artifactContent = ArtifactContent.ARTIFACTS_BY_TYPE.get(artifactType);
         String updatedArtifactContent = ArtifactContent.UPDATED_ARTIFACTS_BY_TYPE.get(artifactType);
-=======
-        String artifactContent = artifacts.get(artifactType);
-        String updatedArtifactContent = updatedArtifacts.get(artifactType);
->>>>>>> 9b97fabc7 (Fix(testsuite): Artifact type tests)
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
         // Get API client
@@ -158,12 +104,12 @@ public class CreateReadUpdateDelete {
         Assertions.assertNotNull(artifactList);
         // Check creation of artifact
         Assertions.assertTrue(artifactList.contains(artifactGroupId, artifactId));
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactsPlain.get(artifactType));
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), ArtifactContent.ARTIFACTS_PLAIN_BY_TYPE.get(artifactType));
 
         // Update artifact
         Assertions.assertTrue(client.updateArtifact(artifactGroupId, artifactId, updatedArtifactContent));
         // Check update of artifact
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactsUpdatedPlain.get(artifactType));
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), ArtifactContent.UPDATED_ARTIFACTS_PLAIN_BY_TYPE.get(artifactType));
 
         // Delete artifact
         Assertions.assertTrue(client.deleteArtifact(artifactGroupId, artifactId));
