@@ -44,6 +44,7 @@ public abstract class PersistenceTests extends TestBase {
     /* TESTS - PostgreSQL */
 
     @Test
+    @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlNoIAMCreateReadRestartReadDelete() throws InterruptedException {
         runCreateReadRestartReadDeleteTest(PersistenceKind.SQL, null, false);
@@ -51,7 +52,6 @@ public abstract class PersistenceTests extends TestBase {
 
     @Test
     @Tag("interop")
-    @Tag("smoke")
     @Tag("sql")
     public void testRegistrySqlKeycloakCreateReadRestartReadDelete() throws InterruptedException {
         runCreateReadRestartReadDeleteTest(PersistenceKind.SQL, null, true);
@@ -60,6 +60,7 @@ public abstract class PersistenceTests extends TestBase {
     /* TESTS - KafkaSQL */
 
     @Test
+    @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlNoAuthNoIAMCreateReadRestartReadDelete() throws InterruptedException {
         runCreateReadRestartReadDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
@@ -79,7 +80,6 @@ public abstract class PersistenceTests extends TestBase {
 
     @Test
     @Tag("interop")
-    @Tag("smoke")
     @Tag("kafkasql")
     public void testRegistryKafkasqlTLSKeycloakCreateReadRestartReadDelete() throws InterruptedException {
         runCreateReadRestartReadDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.TLS, true);
