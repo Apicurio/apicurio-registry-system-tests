@@ -700,6 +700,18 @@ public final class ArtifactContent {
         put(ArtifactType.XSD, DEFAULT_XSD);
         put(ArtifactType.XML, DEFAULT_XML);
     }};
+    public static final HashMap<ArtifactType, String> ARTIFACTS_PLAIN_BY_TYPE = new HashMap<>(){{
+        put(ArtifactType.AVRO, DEFAULT_AVRO_PLAIN);
+        put(ArtifactType.PROTOBUF, DEFAULT_PROTOBUF_PLAIN);
+        put(ArtifactType.JSON, DEFAULT_JSON_PLAIN);
+        put(ArtifactType.OPENAPI, DEFAULT_OPENAPI_PLAIN);
+        put(ArtifactType.ASYNCAPI, DEFAULT_ASYNCAPI_PLAIN);
+        put(ArtifactType.GRAPHQL, DEFAULT_GRAPHQL_PLAIN);
+        put(ArtifactType.KCONNECT, DEFAULT_KCONNECT_PLAIN);
+        put(ArtifactType.WSDL, DEFAULT_WSDL_PLAIN);
+        put(ArtifactType.XSD, DEFAULT_XSD_PLAIN);
+        put(ArtifactType.XML, DEFAULT_XML_PLAIN);
+    }};
     public static final HashMap<ArtifactType, String> UPDATED_ARTIFACTS_BY_TYPE = new HashMap<>(){{
         put(ArtifactType.AVRO, DEFAULT_AVRO_UPDATED);
         put(ArtifactType.PROTOBUF, DEFAULT_PROTOBUF_UPDATED);
@@ -711,5 +723,17 @@ public final class ArtifactContent {
         put(ArtifactType.WSDL, DEFAULT_WSDL_UPDATED);
         put(ArtifactType.XSD, DEFAULT_XSD_UPDATED);
         put(ArtifactType.XML, DEFAULT_XML_UPDATED);
+    }};
+    public static final HashMap<ArtifactType, String> UPDATED_ARTIFACTS_PLAIN_BY_TYPE = new HashMap<>(){{
+        put(ArtifactType.AVRO, DEFAULT_AVRO_UPDATED_PLAIN);
+        put(ArtifactType.PROTOBUF, DEFAULT_PROTOBUF_UPDATED_PLAIN);
+        put(ArtifactType.JSON, DEFAULT_JSON_UPDATED_PLAIN);
+        put(ArtifactType.OPENAPI, DEFAULT_OPENAPI_UPDATED_PLAIN);
+        put(ArtifactType.ASYNCAPI, DEFAULT_ASYNCAPI_UPDATED_PLAIN);
+        put(ArtifactType.GRAPHQL, DEFAULT_GRAPHQL_UPDATED_PLAIN);
+        put(ArtifactType.KCONNECT, DEFAULT_KCONNECT_UPDATED_PLAIN);
+        put(ArtifactType.WSDL, DEFAULT_WSDL_UPDATED_PLAIN);
+        put(ArtifactType.XSD, DEFAULT_XSD_UPDATED_PLAIN);
+        put(ArtifactType.XML, DEFAULT_XML_UPDATED_PLAIN);
     }};
 }
