@@ -32,6 +32,7 @@ public class CreateReadRestartReadDelete {
         String artifactGroupId = "registry-" + UUID.randomUUID();
         String artifactId = "registry-" + UUID.randomUUID();
         String artifactContent = ArtifactContent.ARTIFACTS_BY_TYPE.get(artifactType);
+        String artifactContentPlain = ArtifactContent.ARTIFACTS_PLAIN_BY_TYPE.get(artifactType);
         String hostname = ApicurioRegistryUtils.getApicurioRegistryHostname(apicurioRegistry);
 
         // Get API client
@@ -64,7 +65,7 @@ public class CreateReadRestartReadDelete {
 
         // Check creation of artifact
         Assertions.assertTrue(artifactList.contains(artifactGroupId, artifactId));
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactContent);
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactContentPlain);
 
         // SETTING OF ENVIRONMENT VARIABLE SHOULD RESTART REGISTRY POD
         // Set environment variable RESTART_POD of registry to true
@@ -82,7 +83,7 @@ public class CreateReadRestartReadDelete {
 
         // Check presence of artifact
         Assertions.assertTrue(artifactList.contains(artifactGroupId, artifactId));
-        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactContent);
+        Assertions.assertEquals(client.readArtifactContent(artifactGroupId, artifactId), artifactContentPlain);
 
         // Delete artifact
         Assertions.assertTrue(client.deleteArtifact(artifactGroupId, artifactId));
