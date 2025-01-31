@@ -1,7 +1,7 @@
 package io.apicurio.registry.systemtests.persistence.features;
 
-import io.apicur.registry.v1.ApicurioRegistry;
-import io.apicur.registry.v1.apicurioregistryspec.configuration.Env;
+import io.apicur.registry.v1.ApicurioRegistry3;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.client.ApicurioRegistryApiClient;
 import io.apicurio.registry.systemtests.client.ArtifactContent;
 import io.apicurio.registry.systemtests.client.ArtifactList;
@@ -19,7 +19,7 @@ public class CreateReadRestartReadDelete {
     protected static Logger LOGGER = LoggerUtils.getLogger();
 
     public static void testCreateReadRestartReadDelete(
-            ApicurioRegistry apicurioRegistry,
+            ApicurioRegistry3 apicurioRegistry,
             String username,
             String password,
             ArtifactType artifactType,
