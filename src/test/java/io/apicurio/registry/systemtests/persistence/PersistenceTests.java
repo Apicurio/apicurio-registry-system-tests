@@ -1,6 +1,6 @@
 package io.apicurio.registry.systemtests.persistence;
 
-import io.apicur.registry.v1.ApicurioRegistry;
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.framework.Constants;
@@ -18,7 +18,7 @@ public abstract class PersistenceTests extends TestBase {
             KafkaKind kafkaKind,
             boolean useKeycloak
     ) throws InterruptedException {
-        ApicurioRegistry registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
+        ApicurioRegistry3 registry = deployTestRegistry(persistenceKind, kafkaKind, useKeycloak);
 
         if (useKeycloak) {
             CreateReadRestartReadDelete.testCreateReadRestartReadDelete(
