@@ -24,6 +24,9 @@ public class CleanupTests {
         ApicurioRegistry3 apicurioRegistry3 = apicurioRegistry3ResourceType.get(Environment.NAMESPACE, Constants.REGISTRY);
         // Check if ApicurioRegistry3 instance exists
         if (apicurioRegistry3 != null) {
+            // Log action
+            LOGGER.info("Deleting ApicurioRegistry3 {}...", apicurioRegistry3.getMetadata().getName());
+
             // Delete ApicurioRegistry3 instance
             Kubernetes.deleteResources(Environment.NAMESPACE, Collections.singletonList(apicurioRegistry3));
         }
