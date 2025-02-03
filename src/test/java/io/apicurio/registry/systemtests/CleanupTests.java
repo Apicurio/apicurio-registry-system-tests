@@ -1,18 +1,33 @@
 package io.apicurio.registry.systemtests;
 
+import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.LoggerUtils;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
+import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry3ResourceType;
 import io.fabric8.openshift.api.model.operatorhub.v1alpha1.ClusterServiceVersion;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
+
+import java.util.Collections;
 
 public class CleanupTests {
     private static final Logger LOGGER = LoggerUtils.getLogger();
 
     @Test
     public void cleanupCluster() {
+        // ### Delete ApicurioRegistry3 instance
+        // Get resource type instance
+        ApicurioRegistry3ResourceType apicurioRegistry3ResourceType = new ApicurioRegistry3ResourceType();
+        // Get ApicurioRegistry3 instance
+        ApicurioRegistry3 apicurioRegistry3 = apicurioRegistry3ResourceType.get(Environment.NAMESPACE, Constants.REGISTRY);
+        // Check if ApicurioRegistry3 instance exists
+        if (apicurioRegistry3 != null) {
+            // Delete ApicurioRegistry3 instance
+            Kubernetes.deleteResources(Environment.NAMESPACE, Collections.singletonList(apicurioRegistry3));
+        }
+
         // Namespace with all test resources
         if (Kubernetes.getNamespace(Environment.NAMESPACE) != null) {
             LOGGER.info("Deleting Namespace {}...", Environment.NAMESPACE);
