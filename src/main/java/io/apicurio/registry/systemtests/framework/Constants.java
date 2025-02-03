@@ -13,7 +13,7 @@ public class Constants {
     public static final String KAFKA_CSV_PREFIX = "amqstreams";
     public static final String REGISTRY = "registry";
     public static final String REGISTRY_SUBSCRIPTION = "registry-subscription";
-    public static final String REGISTRY_CSV_PREFIX = "service-registry-operator";
+    public static final String REGISTRY_CSV_PREFIX = "apicurio-registry-3";
     public static final String SSO_ADMIN_CLIENT_ID = "admin-cli";
     public static final String SSO_ADMIN_USER = "registry-admin"; // Defined in kubefiles/keycloak-realm.yaml
     public static final String SSO_CLIENT_API = "registry-client-api"; // Defined in kubefiles/keycloak-realm.yaml
