@@ -13,18 +13,18 @@ public class CleanupTests {
 
     @Test
     public void cleanupCluster() {
-        // Namespace with PostgreSQL database
-        if (Kubernetes.getNamespace(Constants.DB_NAMESPACE) != null) {
-            LOGGER.info("Deleting Namespace {}...", Constants.DB_NAMESPACE);
-
-            Kubernetes.deleteNamespace(Constants.DB_NAMESPACE);
-        }
-
         // Namespace with all test resources
         if (Kubernetes.getNamespace(Environment.NAMESPACE) != null) {
             LOGGER.info("Deleting Namespace {}...", Environment.NAMESPACE);
 
             Kubernetes.deleteNamespace(Environment.NAMESPACE);
+        }
+
+        // Namespace with PostgreSQL database
+        if (Kubernetes.getNamespace(Constants.DB_NAMESPACE) != null) {
+            LOGGER.info("Deleting Namespace {}...", Constants.DB_NAMESPACE);
+
+            Kubernetes.deleteNamespace(Constants.DB_NAMESPACE);
         }
 
         // ### KAFKA OPERATOR
@@ -59,17 +59,40 @@ public class CleanupTests {
         }
 
         // ClusterServiceVersion of Registry operator
-        ClusterServiceVersion csvRegistry = Kubernetes.getClusterServiceVersionByPrefix(
+        ClusterServiceVersion csvRegistryClusterWide = Kubernetes.getClusterServiceVersionByPrefix(
                 Environment.CLUSTER_WIDE_NAMESPACE,
                 Constants.REGISTRY_CSV_PREFIX
         );
 
-        if (csvRegistry != null) {
-            LOGGER.info("Deleting ClusterServiceVersion {}...", csvRegistry.getMetadata().getName());
+        if (csvRegistryClusterWide != null) {
+            LOGGER.info("Deleting ClusterServiceVersion {}...", csvRegistryClusterWide.getMetadata().getName());
 
             Kubernetes.deleteClusterServiceVersion(
-                    csvRegistry.getMetadata().getNamespace(),
-                    csvRegistry.getMetadata().getName()
+                    csvRegistryClusterWide.getMetadata().getNamespace(),
+                    csvRegistryClusterWide.getMetadata().getName()
+            );
+        }
+
+        // ### REGISTRY OPERATOR
+        // Subscription of namespace Registry operator
+        if (Kubernetes.getSubscription(Environment.NAMESPACE, Constants.REGISTRY_SUBSCRIPTION) != null) {
+            LOGGER.info("Deleting Subscription {}...", Constants.REGISTRY_SUBSCRIPTION);
+
+            Kubernetes.deleteSubscription(Environment.NAMESPACE, Constants.REGISTRY_SUBSCRIPTION);
+        }
+
+        // ClusterServiceVersion of Registry operator
+        ClusterServiceVersion csvRegistryNamespaced = Kubernetes.getClusterServiceVersionByPrefix(
+                Environment.NAMESPACE,
+                Constants.REGISTRY_CSV_PREFIX
+        );
+
+        if (csvRegistryNamespaced != null) {
+            LOGGER.info("Deleting ClusterServiceVersion {}...", csvRegistryNamespaced.getMetadata().getName());
+
+            Kubernetes.deleteClusterServiceVersion(
+                    csvRegistryNamespaced.getMetadata().getNamespace(),
+                    csvRegistryNamespaced.getMetadata().getName()
             );
         }
 
