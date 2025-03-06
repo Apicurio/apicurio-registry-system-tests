@@ -44,7 +44,7 @@ public final class Environment {
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
-    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v1.3.1-redhat.1";
+    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v3.0.6-beta.r1";
     public static final String REGISTRY_PACKAGE_DEFAULT = "apicurio-registry-3"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
     public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
