@@ -28,7 +28,7 @@
         <version.apache.commons.io>2.18.0</version.apache.commons.io>
         <version.apache.httpcomponents>5.3.4</version.apache.httpcomponents>
         <version.apache.maven.artifact>3.9.9</version.apache.maven.artifact>
-        <version.surefire>3.5.2</version.surefire>
+        <version.surefire>3.5.3</version.surefire>
         <version.failsafe>3.5.2</version.failsafe>
         <version.checkstyle>3.6.0</version.checkstyle>
         <version.download>1.13.0</version.download>
