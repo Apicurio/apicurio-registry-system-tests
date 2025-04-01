@@ -98,8 +98,6 @@ public class PrepareIntegrationTests {
                     .endApp()
                     .withNewUi()
                     .endUi()
-                    .withNewStudioUi()
-                    .endStudioUi()
                 .endSpec()
                 .build();
     }
