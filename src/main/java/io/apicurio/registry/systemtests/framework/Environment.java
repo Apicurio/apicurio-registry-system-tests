@@ -47,7 +47,7 @@ public final class Environment {
     public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v1.3.1-redhat.1";
     public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
-    public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
+    public static final String SSO_CHANNEL_DEFAULT = "stable-v22";
     public static final String TESTSUITE_PATH_DEFAULT = System.getProperty("user.dir");
     public static final String TMP_PATH_DEFAULT = "/tmp";
 
