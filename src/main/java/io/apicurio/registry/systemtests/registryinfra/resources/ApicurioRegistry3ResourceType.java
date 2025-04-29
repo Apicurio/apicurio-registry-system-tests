@@ -176,7 +176,12 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return new DataSourceBuilder()
                 .withUrl(sqlUrl)
                 .withUsername(Constants.DB_USERNAME)
-                .withPassword(new PasswordBuilder().withName("postgresql-password").withKey("password").build())
+                .withPassword(
+                        new PasswordBuilder()
+                                .withName(Constants.DB_PASSWORD_SECRET_NAME)
+                                .withKey(Constants.DB_PASSWORD_SECRET_KEY)
+                                .build()
+                )
                 .build();
     }
 
