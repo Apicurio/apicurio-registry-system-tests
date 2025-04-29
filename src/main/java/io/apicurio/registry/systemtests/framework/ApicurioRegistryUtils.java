@@ -5,6 +5,7 @@ import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry3ResourceType;
+import io.apicurio.registry.systemtests.registryinfra.resources.SecretResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.openshift.api.model.Route;
 import org.junit.jupiter.api.Assertions;
@@ -50,6 +51,8 @@ public class ApicurioRegistryUtils {
     }*/
 
     public static ApicurioRegistry3 deployDefaultApicurioRegistrySql(boolean useKeycloak) throws InterruptedException {
+        ResourceManager.getInstance().createResource(true, SecretResourceType.getDefaultPostgresqlSecret());
+
         // Get Apicurio Registry
         ApicurioRegistry3 apicurioRegistrySql = ApicurioRegistry3ResourceType.getDefaultSql(
                 Constants.REGISTRY,
