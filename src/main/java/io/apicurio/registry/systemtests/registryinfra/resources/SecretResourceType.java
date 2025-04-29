@@ -1,5 +1,6 @@
 package io.apicurio.registry.systemtests.registryinfra.resources;
 
+import io.apicurio.registry.systemtests.framework.Base64Utils;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
@@ -90,7 +91,7 @@ public class SecretResourceType implements ResourceType<Secret> {
                 .endMetadata()
                 .withType("Opaque")
                 .withData(new HashMap<>() {{
-                        put(Constants.DB_PASSWORD_SECRET_KEY, Constants.DB_PASSWORD);
+                        put(Constants.DB_PASSWORD_SECRET_KEY, Base64Utils.encode(Constants.DB_PASSWORD));
                     }})
                 .build();
     }
