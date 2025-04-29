@@ -220,12 +220,6 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                             .endSpec()
                         .endPodTemplateSpec()
                     .endApp()
-                    .withNewUi()
-                        .withEnv(getDefaultUiEnv())
-                        .withNewIngress()
-                            .withHost(getHost("apicurio-registry-ui"))
-                        .endIngress()
-                    .endUi()
                 .endSpec()
                 .build();
 
@@ -262,12 +256,6 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                             .endSpec()
                         .endPodTemplateSpec()
                     .endApp()
-                    .withNewUi()
-                        .withEnv(getDefaultUiEnv())
-                        .withNewIngress()
-                            .withHost(getHost("apicurio-registry-ui"))
-                        .endIngress()
-                    .endUi()
                 .endSpec()
                .build();
     }
