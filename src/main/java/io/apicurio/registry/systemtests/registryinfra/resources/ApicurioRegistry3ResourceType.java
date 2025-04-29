@@ -4,6 +4,7 @@ import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicur.registry.v1.ApicurioRegistry3Builder;
 import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
 import io.apicur.registry.v1.apicurioregistry3spec.app.Storage;
+import io.apicur.registry.v1.apicurioregistry3spec.app.StorageBuilder;
 import io.apicur.registry.v1.apicurioregistry3spec.app.env.ValueFrom;
 import io.apicur.registry.v1.apicurioregistry3spec.app.env.valuefrom.SecretKeyRef;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Containers;
@@ -12,7 +13,6 @@ import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.cont
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.volumes.Secret;
 import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.DataSource;
 import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.DataSourceBuilder;
-import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.datasource.Password;
 import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.datasource.PasswordBuilder;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
@@ -189,6 +189,15 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         }};
     }
 
+    public static Storage getDefaultSqlStorage(String sqlUrl) {
+        return new StorageBuilder()
+                .withType(Storage.Type.POSTGRESQL)
+                .withNewSql()
+                    .withDataSource(getDefaultSqlDataSource(sqlUrl))
+                .endSql()
+                .build();
+    }
+
     public static ApicurioRegistry3 getDefaultSql(String name, String namespace, String sqlName, String sqlNamespace) {
         String sqlUrl = "jdbc:postgresql://" + sqlName + "." + sqlNamespace + ".svc.cluster.local:5432/postgresdb";
 
@@ -203,12 +212,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                         .withNewIngress()
                             .withHost(getHost("apicurio-registry-api"))
                         .endIngress()
-                        .withNewStorage()
-                            .withType(Storage.Type.POSTGRESQL)
-                            .withNewSql()
-                                .withDataSource(getDefaultSqlDataSource(sqlUrl))
-                            .endSql()
-                        .endStorage()
+                        .withStorage(getDefaultSqlStorage(sqlUrl))
                         .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
@@ -226,6 +230,18 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .build();
 
     }
+
+    public static Storage getDefaultKafkasqlStorage() {
+        return new StorageBuilder()
+                .withType(Storage.Type.KAFKASQL)
+                .withNewKafkasql()
+                    .withBootstrapServers(
+                        Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE + ".svc.cluster.local:9092"
+                    )
+                .endKafkasql()
+                .build();
+    }
+
     public static ApicurioRegistry3 getDefaultKafkasql(String name, String namespace) {
        return new ApicurioRegistry3Builder()
                .withNewMetadata()
@@ -238,15 +254,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                         .withNewIngress()
                             .withHost(getHost("apicurio-registry-api"))
                         .endIngress()
-                        .withNewStorage()
-                            .withType(Storage.Type.KAFKASQL)
-                            .withNewKafkasql()
-                                .withBootstrapServers(
-                                        Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
-                                                ".svc.cluster.local:9092"
-                                )
-                            .endKafkasql()
-                        .endStorage()
+                        .withStorage(getDefaultKafkasqlStorage())
                         .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
