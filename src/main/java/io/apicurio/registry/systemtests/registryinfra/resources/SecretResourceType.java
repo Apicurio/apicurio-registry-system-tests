@@ -77,4 +77,21 @@ public class SecretResourceType implements ResourceType<Secret> {
                 }})
                 .build();
     }
+
+    public static Secret getDefaultPostgresqlSecret() {
+        return getDefaultPostgresqlSecret(Environment.NAMESPACE);
+    }
+
+    public static Secret getDefaultPostgresqlSecret(String namespace) {
+        return new SecretBuilder()
+                .withNewMetadata()
+                    .withName(Constants.DB_PASSWORD_SECRET_NAME)
+                    .withNamespace(namespace)
+                .endMetadata()
+                .withType("Opaque")
+                .withData(new HashMap<>() {{
+                        put(Constants.DB_PASSWORD_SECRET_KEY, Constants.DB_PASSWORD);
+                    }})
+                .build();
+    }
 }

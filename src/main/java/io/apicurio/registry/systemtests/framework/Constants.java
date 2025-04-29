@@ -36,6 +36,8 @@ public class Constants {
     public static final String DB_PORT_NAME = "postgresql";
     public static final String DB_MOUNT_PATH = "postgresql";
     public static final String DB_PASSWORD = "password";
+    public static final String DB_PASSWORD_SECRET_NAME = "postgresql-password";
+    public static final String DB_PASSWORD_SECRET_KEY = "password";
     public static final String DB_USERNAME = "username";
     public static final String TRUSTSTORE_SECRET_NAME = "mytruststore-secret";
     public static final String TRUSTSTORE_DATA_NAME = "myTrustStore";
