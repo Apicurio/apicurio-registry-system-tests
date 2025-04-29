@@ -3,14 +3,17 @@ package io.apicurio.registry.systemtests.registryinfra.resources;
 import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicur.registry.v1.ApicurioRegistry3Builder;
 import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
+import io.apicur.registry.v1.apicurioregistry3spec.app.Storage;
 import io.apicur.registry.v1.apicurioregistry3spec.app.env.ValueFrom;
 import io.apicur.registry.v1.apicurioregistry3spec.app.env.valuefrom.SecretKeyRef;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Containers;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Volumes;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.containers.VolumeMounts;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.volumes.Secret;
-import io.apicur.registry.v1.apicurioregistry3spec.app.sql.DataSource;
-import io.apicur.registry.v1.apicurioregistry3spec.app.sql.DataSourceBuilder;
+import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.DataSource;
+import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.DataSourceBuilder;
+import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.datasource.Password;
+import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.datasource.PasswordBuilder;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.framework.Environment;
 import io.apicurio.registry.systemtests.framework.KeycloakUtils;
@@ -173,7 +176,7 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return new DataSourceBuilder()
                 .withUrl(sqlUrl)
                 .withUsername(Constants.DB_USERNAME)
-                .withPassword(Constants.DB_PASSWORD)
+                .withPassword(new PasswordBuilder().withName("postgresql-password").withKey("password").build())
                 .build();
     }
 
@@ -198,9 +201,12 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                     .withNewApp()
                         .withEnv(getDefaultAppEnv())
                         .withHost(getHost("apicurio-registry-api"))
-                        .withNewSql()
-                            .withDataSource(getDefaultSqlDataSource(sqlUrl))
-                        .endSql()
+                        .withNewStorage()
+                            .withType(Storage.Type.POSTGRESQL)
+                            .withNewSql()
+                                .withDataSource(getDefaultSqlDataSource(sqlUrl))
+                            .endSql()
+                        .endStorage()
                         .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
@@ -226,12 +232,15 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                     .withNewApp()
                         .withEnv(getDefaultAppEnv())
                         .withHost(getHost("apicurio-registry-api"))
-                        .withNewKafkasql()
-                            .withBootstrapServers(
-                                    Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
-                                            ".svc.cluster.local:9092"
-                            )
-                        .endKafkasql()
+                        .withNewStorage()
+                            .withType(Storage.Type.KAFKASQL)
+                            .withNewKafkasql()
+                                .withBootstrapServers(
+                                        Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
+                                                ".svc.cluster.local:9092"
+                                )
+                            .endKafkasql()
+                        .endStorage()
                         .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultContainers())
@@ -397,15 +406,18 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 .withNewSpec()
                     .withNewApp()
                         .withEnv(getDefaultOAuthKafkaEnv())
-                        .withNewKafkasql()
-                            .withBootstrapServers(
-                                    // TODO: Use "public" URL with 443 port
-                                    Kubernetes.getRouteHost(
-                                            Environment.NAMESPACE,
-                                            Constants.OAUTH_KAFKA_NAME + "-kafka-oauth-bootstrap"
-                                    ) + ":443"
-                            )
-                        .endKafkasql()
+                        .withNewStorage()
+                            .withType(Storage.Type.KAFKASQL)
+                            .withNewKafkasql()
+                                .withBootstrapServers(
+                                        // TODO: Use "public" URL with 443 port
+                                        Kubernetes.getRouteHost(
+                                                Environment.NAMESPACE,
+                                                Constants.OAUTH_KAFKA_NAME + "-kafka-oauth-bootstrap"
+                                        ) + ":443"
+                                )
+                            .endKafkasql()
+                        .endStorage()
                         .withNewPodTemplateSpec()
                             .withNewSpec()
                                 .withContainers(getDefaultOAuthKafkaContainers())
