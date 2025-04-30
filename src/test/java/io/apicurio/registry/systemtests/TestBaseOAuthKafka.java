@@ -81,17 +81,23 @@ public abstract class TestBaseOAuthKafka {
 
     @AfterAll
     protected void afterAllTests() throws InterruptedException {
-        LoggerUtils.logDelimiter("#");
-        LOGGER.info("Cleaning shared resources!");
-        LoggerUtils.logDelimiter("#");
-        resourceManager.deleteKafka();
-        KeycloakUtils.removeOAuthKafkaKeycloak(Environment.NAMESPACE);
-        Thread.sleep(Duration.ofMinutes(1).toMillis());
-        operatorManager.uninstallSharedOperators();
-        resourceManager.deleteSharedResources();
-        LoggerUtils.logDelimiter("#");
-        LOGGER.info("Cleaning done!");
-        LoggerUtils.logDelimiter("#");
+        if (Environment.DELETE_RESOURCES) {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("Cleaning shared resources!");
+            LoggerUtils.logDelimiter("#");
+            resourceManager.deleteKafka();
+            KeycloakUtils.removeOAuthKafkaKeycloak(Environment.NAMESPACE);
+            Thread.sleep(Duration.ofMinutes(1).toMillis());
+            operatorManager.uninstallSharedOperators();
+            resourceManager.deleteSharedResources();
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("Cleaning done!");
+            LoggerUtils.logDelimiter("#");
+        } else {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("NOT cleaning shared resources!");
+            LoggerUtils.logDelimiter("#");
+        }
     }
 
     @BeforeEach
@@ -108,9 +114,15 @@ public abstract class TestBaseOAuthKafka {
 
     @AfterEach
     protected void afterEachTest(ExtensionContext testContext) {
-        resourceManager.deleteResources();
+        if (Environment.DELETE_RESOURCES) {
+            resourceManager.deleteResources();
 
-        operatorManager.uninstallOperators();
+            operatorManager.uninstallOperators();
+        } else {
+            LoggerUtils.logDelimiter("#");
+            LOGGER.info("NOT cleaning test resources!");
+            LoggerUtils.logDelimiter("#");
+        }
 
         LOGGER.info("");
         LoggerUtils.logDelimiter("#");
