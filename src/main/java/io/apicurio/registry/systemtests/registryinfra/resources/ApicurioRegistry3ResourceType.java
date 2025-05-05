@@ -11,6 +11,7 @@ import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Cont
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.Volumes;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.containers.VolumeMounts;
 import io.apicur.registry.v1.apicurioregistry3spec.app.podtemplatespec.spec.volumes.Secret;
+import io.apicur.registry.v1.apicurioregistry3spec.app.storage.kafkasql.TlsBuilder;
 import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.DataSource;
 import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.DataSourceBuilder;
 import io.apicur.registry.v1.apicurioregistry3spec.app.storage.sql.datasource.PasswordBuilder;
@@ -462,35 +463,58 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
         return getDefaultKafkasql(Constants.REGISTRY);
     }
 
-    /*public static void updateWithDefaultTLS(ApicurioRegistry3 apicurioRegistry) {
+    public static void updateWithDefaultTLS(ApicurioRegistry3 apicurioRegistry) {
         apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
+                .getStorage()
                 .getKafkasql()
-                .setSecurity(
-                        new SecurityBuilder()
-                                .withNewTls()
-                                    .withKeystoreSecretName(Constants.KAFKA_USER + "-keystore")
-                                    .withTruststoreSecretName(Constants.KAFKA + "-cluster-ca-truststore")
-                                .endTls()
-                                .build()
+                .setTls(new TlsBuilder()
+                        .withNewKeystoreSecretRef()
+                            .withName(Constants.KAFKA_USER + "-keystore")
+                        .endKeystoreSecretRef()
+                        .withNewKeystorePasswordSecretRef()
+                            .withName(Constants.KAFKA_USER + "-keystore")
+                        .endKeystorePasswordSecretRef()
+                        .withNewTruststoreSecretRef()
+                            .withName(Constants.KAFKA + "-cluster-ca-truststore")
+                        .endTruststoreSecretRef()
+                        .withNewTruststorePasswordSecretRef()
+                            .withName(Constants.KAFKA + "-cluster-ca-truststore")
+                        .endTruststorePasswordSecretRef()
+                        .build()
                 );
 
         apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
+                .getStorage()
                 .getKafkasql()
                 .setBootstrapServers(
-                        Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
-                                ".svc.cluster.local:9093"
+                        Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE + ".svc.cluster.local:9093"
                 );
-    }*/
+    }
 
     /*public static void updateWithDefaultSCRAM(ApicurioRegistry3 apicurioRegistry) {
+        ApicurioRegistry3 apicurioRegistry3 = new ApicurioRegistry3Builder()
+                .withNewSpec()
+                .withNewApp()
+                .withNewStorage()
+                .withNewKafkasql()
+                .withNewAuth()
+                    .withEnabled(true)
+                    .withMechanism("SCRAM-SHA-512")
+                    .withClientIdRef()
+                    .withClientSecretRef()
+                    .with
+                .build();
+
         apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
+                .getStorage()
                 .getKafkasql()
+                .setAuth(new AuthBuilder().with);
                 .setSecurity(
                         new SecurityBuilder()
                                 .withNewScram()
@@ -503,7 +527,8 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
 
         apicurioRegistry
                 .getSpec()
-                .getConfiguration()
+                .getApp()
+                .getStorage()
                 .getKafkasql()
                 .setBootstrapServers(
                         Constants.KAFKA + "-kafka-bootstrap." + Environment.NAMESPACE +
