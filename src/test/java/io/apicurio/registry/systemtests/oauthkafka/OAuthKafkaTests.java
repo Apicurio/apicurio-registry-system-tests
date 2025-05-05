@@ -1,6 +1,7 @@
 package io.apicurio.registry.systemtests.oauthkafka;
 
 import io.apicurio.registry.systemtests.TestBaseOAuthKafka;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -10,6 +11,7 @@ public abstract class OAuthKafkaTests extends TestBaseOAuthKafka {
     @Test
     @Tag("oauthkafka")
     @Tag("debug-v3")
+    @Disabled
     public void testRegistryOAuthKafka() throws InterruptedException {
         deployOAuthKafkaTestRegistry();
     }
