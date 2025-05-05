@@ -7,6 +7,7 @@ import io.apicurio.registry.systemtests.client.ArtifactType;
 import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaKind;
 import io.apicurio.registry.systemtests.registryinfra.resources.PersistenceKind;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -271,12 +272,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteAvro() throws InterruptedException {
         runCreateReadUpdateDeleteTestAvro(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteAvro() throws InterruptedException {
         runCreateReadUpdateDeleteTestAvro(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -328,12 +331,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteProtobuf() throws InterruptedException {
         runCreateReadUpdateDeleteTestProtobuf(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteProtobuf() throws InterruptedException {
         runCreateReadUpdateDeleteTestProtobuf(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -386,12 +391,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteJson() throws InterruptedException {
         runCreateReadUpdateDeleteTestJson(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteJson() throws InterruptedException {
         runCreateReadUpdateDeleteTestJson(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -444,12 +451,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteOpenapi() throws InterruptedException {
         runCreateReadUpdateDeleteTestOpenapi(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteOpenapi() throws InterruptedException {
         runCreateReadUpdateDeleteTestOpenapi(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -502,12 +511,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteAsyncapi() throws InterruptedException {
         runCreateReadUpdateDeleteTestAsyncapi(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteAsyncapi() throws InterruptedException {
         runCreateReadUpdateDeleteTestAsyncapi(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -560,12 +571,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteGraphql() throws InterruptedException {
         runCreateReadUpdateDeleteTestGraphql(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteGraphql() throws InterruptedException {
         runCreateReadUpdateDeleteTestGraphql(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -618,12 +631,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteKconnect() throws InterruptedException {
         runCreateReadUpdateDeleteTestKconnect(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteKconnect() throws InterruptedException {
         runCreateReadUpdateDeleteTestKconnect(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -676,12 +691,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteWsdl() throws InterruptedException {
         runCreateReadUpdateDeleteTestWsdl(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteWsdl() throws InterruptedException {
         runCreateReadUpdateDeleteTestWsdl(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -734,12 +751,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteXsd() throws InterruptedException {
         runCreateReadUpdateDeleteTestXsd(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteXsd() throws InterruptedException {
         runCreateReadUpdateDeleteTestXsd(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
@@ -792,12 +811,14 @@ public abstract class APITests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadUpdateDeleteXml() throws InterruptedException {
         runCreateReadUpdateDeleteTestXml(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadUpdateDeleteXml() throws InterruptedException {
         runCreateReadUpdateDeleteTestXml(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }

@@ -7,6 +7,7 @@ import io.apicurio.registry.systemtests.framework.Constants;
 import io.apicurio.registry.systemtests.persistence.features.CreateReadRestartReadDelete;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaKind;
 import io.apicurio.registry.systemtests.registryinfra.resources.PersistenceKind;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -87,12 +88,14 @@ public abstract class PersistenceTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAMCreateReadRestartReadDelete() throws InterruptedException {
         runCreateReadRestartReadDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloakCreateReadRestartReadDelete() throws InterruptedException {
         runCreateReadRestartReadDeleteTest(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }

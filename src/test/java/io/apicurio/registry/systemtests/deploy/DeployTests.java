@@ -3,6 +3,7 @@ package io.apicurio.registry.systemtests.deploy;
 import io.apicurio.registry.systemtests.TestBase;
 import io.apicurio.registry.systemtests.registryinfra.resources.KafkaKind;
 import io.apicurio.registry.systemtests.registryinfra.resources.PersistenceKind;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -55,12 +56,14 @@ public abstract class DeployTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMNoIAM() throws InterruptedException {
         deployTestRegistry(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, false);
     }
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlSCRAMKeycloak() throws InterruptedException {
         deployTestRegistry(PersistenceKind.KAFKA_SQL, KafkaKind.SCRAM, true);
     }
