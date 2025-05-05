@@ -2,12 +2,14 @@ package io.apicurio.registry.systemtests.framework;
 
 import io.apicur.registry.v1.ApicurioRegistry3;
 import io.apicur.registry.v1.apicurioregistry3spec.app.Env;
+import io.apicur.registry.v1.apicurioregistry3spec.app.storage.Kafkasql;
 import io.apicurio.registry.systemtests.platform.Kubernetes;
 import io.apicurio.registry.systemtests.registryinfra.ResourceManager;
 import io.apicurio.registry.systemtests.registryinfra.resources.ApicurioRegistry3ResourceType;
 import io.apicurio.registry.systemtests.registryinfra.resources.SecretResourceType;
 import io.apicurio.registry.systemtests.time.TimeoutBudget;
 import io.fabric8.openshift.api.model.Route;
+import io.strimzi.api.kafka.model.kafka.Kafka;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 
@@ -20,35 +22,33 @@ import java.util.List;
 public class ApicurioRegistryUtils {
     private static final Logger LOGGER = LoggerUtils.getLogger();
 
-    /*private static String getTruststoreSecretName(ApicurioRegistry3 registry) {
-        Security security = registry
+    private static String getTruststoreSecretName(ApicurioRegistry3 registry) {
+        Kafkasql kafkasql = registry
                 .getSpec()
-                .getConfiguration()
-                .getKafkasql()
-                .getSecurity();
+                .getApp()
+                .getStorage()
+                .getKafkasql();
 
-        if (security.getTls() != null) {
-            return security.getTls().getTruststoreSecretName();
-        } else if (security.getScram() != null) {
-            return security.getScram().getTruststoreSecretName();
+        if (kafkasql.getTls() != null) {
+            return kafkasql.getTls().getTruststoreSecretRef().getName();
         }
 
         return null;
-    }*/
+    }
 
-    /*private static String getKeystoreSecretName(ApicurioRegistry3 registry) {
-        Security security = registry
+    private static String getKeystoreSecretName(ApicurioRegistry3 registry) {
+        Kafkasql kafkasql = registry
                 .getSpec()
-                .getConfiguration()
-                .getKafkasql()
-                .getSecurity();
+                .getApp()
+                .getStorage()
+                .getKafkasql();
 
-        if (security.getTls() != null) {
-            return security.getTls().getKeystoreSecretName();
+        if (kafkasql.getTls() != null) {
+            return kafkasql.getTls().getKeystoreSecretRef().getName();
         }
 
         return null;
-    }*/
+    }
 
     public static ApicurioRegistry3 deployDefaultApicurioRegistrySql(boolean useKeycloak) throws InterruptedException {
         ResourceManager.getInstance().createResource(true, SecretResourceType.getDefaultPostgresqlSecret());
@@ -88,7 +88,7 @@ public class ApicurioRegistryUtils {
         return apicurioRegistryKafkasqlNoAuth;
     }
 
-    /*public static ApicurioRegistry3 deployDefaultApicurioRegistryKafkasqlTLS(
+    public static ApicurioRegistry3 deployDefaultApicurioRegistryKafkasqlTLS(
             Kafka kafka,
             boolean useKeycloak
     ) throws InterruptedException {
@@ -122,7 +122,7 @@ public class ApicurioRegistryUtils {
         ResourceManager.getInstance().createResource(true, apicurioRegistryKafkasqlTLS);
 
         return apicurioRegistryKafkasqlTLS;
-    }*/
+    }
 
     /*public static ApicurioRegistry3 deployDefaultApicurioRegistryKafkasqlSCRAM(
             Kafka kafka,
