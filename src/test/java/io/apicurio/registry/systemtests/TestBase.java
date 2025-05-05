@@ -207,12 +207,12 @@ public abstract class TestBase {
                 KafkaUtils.deployDefaultKafkaNoAuth();
 
                 return ApicurioRegistryUtils.deployDefaultApicurioRegistryKafkasqlNoAuth(useKeycloak);
-            /*} else if (kafkaKind.equals(KafkaKind.TLS)) {
+            } else if (kafkaKind.equals(KafkaKind.TLS)) {
                 // Deploy tlsKafka
                 kafka = KafkaUtils.deployDefaultKafkaTls();
 
                 return ApicurioRegistryUtils.deployDefaultApicurioRegistryKafkasqlTLS(kafka, useKeycloak);
-            } else if (kafkaKind.equals(KafkaKind.SCRAM)) {
+            /*} else if (kafkaKind.equals(KafkaKind.SCRAM)) {
                 // Deploy scramKafka
                 kafka = KafkaUtils.deployDefaultKafkaScram();
 
