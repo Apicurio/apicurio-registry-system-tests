@@ -394,6 +394,20 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+        <profile>
+            <id>olm-namespace-persistence</id>
+            <properties>
+                <groups>olm-namespace-persistence</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>olm-clusterwide-persistence</id>
+            <properties>
+                <groups>olm-clusterwide-persistence</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
 
         <!-- auth tests -->
 
