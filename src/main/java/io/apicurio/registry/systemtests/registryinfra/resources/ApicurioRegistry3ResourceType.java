@@ -192,6 +192,10 @@ public class ApicurioRegistry3ResourceType implements ResourceType<ApicurioRegis
                 setName("APICURIO_REST_DELETION_ARTIFACT_ENABLED");
                 setValue("true");
             }});
+            add(new Env() {{
+                setName("APICURIO_REST_DELETION_GROUP_ENABLED");
+                setValue("true");
+            }});
         }};
     }
 
