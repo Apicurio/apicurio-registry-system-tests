@@ -385,6 +385,16 @@
             </properties>
         </profile>
 
+        <!-- persistence tests -->
+
+        <profile>
+            <id>bundle-persistence</id>
+            <properties>
+                <groups>bundle-persistence</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
         <!-- auth tests -->
 
         <profile>
