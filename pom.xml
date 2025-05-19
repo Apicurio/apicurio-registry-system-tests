@@ -23,7 +23,7 @@
         <version.slf4j>2.0.17</version.slf4j>
         <version.strimzi.api>0.46.0</version.strimzi.api>
         <version.eclipse.jgit>7.2.1.202505142326-r</version.eclipse.jgit>
-        <version.org.json>20250107</version.org.json>
+        <version.org.json>20250517</version.org.json>
         <version.apache.commons>3.17.0</version.apache.commons>
         <version.apache.commons.io>2.19.0</version.apache.commons.io>
         <version.apache.httpcomponents>5.3.4</version.apache.httpcomponents>
