@@ -689,6 +689,16 @@
             </properties>
         </profile>
 
+        <!-- Full tests -->
+
+        <profile>
+            <id>full-bundle</id>
+            <properties>
+                <groups>bundle-auth | bundle-config | bundle-oauthkafka | bundle-persistence</groups>
+                <skip.tests>false</skip.tests>
+            </properties>
+        </profile>
+
         <!-- Upgrade tests -->
 
         <profile>
