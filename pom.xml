@@ -698,6 +698,13 @@
                 <skip.tests>false</skip.tests>
             </properties>
         </profile>
+        <profile>
+            <id>full-olm</id>
+            <properties>
+                <groups>olm-auth | olm-config | olm-oauthkafka | olm-persistence</groups>
+                <skip.test>false</skip.test>
+            </properties>
+        </profile>
 
         <!-- Upgrade tests -->
 
