@@ -699,9 +699,16 @@
             </properties>
         </profile>
         <profile>
-            <id>full-olm</id>
+            <id>full-olm-clusterwide</id>
             <properties>
-                <groups>olm-auth | olm-config | olm-oauthkafka | olm-persistence</groups>
+                <groups>olm-clusterwide-auth | olm-clusterwide-config | olm-clusterwide-oauthkafka | olm-clusterwide-persistence</groups>
+                <skip.test>false</skip.test>
+            </properties>
+        </profile>
+        <profile>
+            <id>full-olm-namespace</id>
+            <properties>
+                <groups>olm-namespace-auth | olm-namespace-config | olm-namespace-oauthkafka | olm-namespace-persistence</groups>
                 <skip.test>false</skip.test>
             </properties>
         </profile>
