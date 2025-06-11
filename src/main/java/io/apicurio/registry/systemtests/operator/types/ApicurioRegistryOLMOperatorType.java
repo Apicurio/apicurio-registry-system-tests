@@ -262,8 +262,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         setClusterServiceVersion(newCSV);
 
         // Wait for creation of new CSV and its readiness
-        Assertions.assertTrue(
-                waitClusterServiceVersionReady(),
+        Assertions.assertTrue(waitClusterServiceVersionReady(),
                 MessageFormat.format("New CSV {0} failed readiness check.", newCSV)
         );
 
