@@ -25,6 +25,7 @@ import java.time.Duration;
 public class ApicurioRegistryOLMOperatorType extends OLMOperator implements OperatorType {
     protected static final Logger LOGGER = LoggerUtils.getLogger();
     private CatalogSource catalogSource = null;
+    private String deploymentName = Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME;
 
     public ApicurioRegistryOLMOperatorType() {
         super(Environment.CATALOG_IMAGE, Environment.CLUSTER_WIDE_NAMESPACE, true);
@@ -124,7 +125,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
 
     @Override
     public String getDeploymentName() {
-        return Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME;
+        return deploymentName;
     }
 
     @Override
@@ -265,6 +266,8 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
                 waitClusterServiceVersionReady(),
                 MessageFormat.format("New CSV {0} failed readiness check.", newCSV)
         );
+
+        deploymentName = "apicurio-registry-operator-v1.3.2-redhat.1";
 
         // Wait for operator readiness
         Assertions.assertTrue(waitReady(), "Operator failed readiness check after upgrade.");
