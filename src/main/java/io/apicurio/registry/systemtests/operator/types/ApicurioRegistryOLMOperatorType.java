@@ -25,7 +25,7 @@ import java.time.Duration;
 public class ApicurioRegistryOLMOperatorType extends OLMOperator implements OperatorType {
     protected static final Logger LOGGER = LoggerUtils.getLogger();
     private CatalogSource catalogSource = null;
-    private String deploymentName = Environment.REGISTRY_CSV;
+    private String deploymentName = Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME;
 
     public ApicurioRegistryOLMOperatorType() {
         super(Environment.CATALOG_IMAGE, Environment.CLUSTER_WIDE_NAMESPACE, true);
@@ -125,7 +125,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
 
     @Override
     public String getDeploymentName() {
-        return Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME;
+        return deploymentName;
     }
 
     @Override
@@ -268,7 +268,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         );
 
         // Update name of operator Deployment
-        deploymentName = Environment.REGISTRY_CSV_UPGRADE;
+        deploymentName = Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME_UPGRADE;
 
         // Wait for operator readiness
         Assertions.assertTrue(waitReady(), "Operator failed readiness check after upgrade.");
