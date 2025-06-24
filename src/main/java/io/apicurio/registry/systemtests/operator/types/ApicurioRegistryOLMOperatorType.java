@@ -264,8 +264,7 @@ public class ApicurioRegistryOLMOperatorType extends OLMOperator implements Oper
         // Wait for creation of new CSV and its readiness
         Assertions.assertTrue(
                 waitClusterServiceVersionReady(),
-                MessageFormat.format("New CSV {0} failed readiness check.", newCSV)
-        );
+                MessageFormat.format("New CSV {0} failed readiness check.", newCSV));
 
         // Update name of operator Deployment
         deploymentName = Environment.REGISTRY_OPERATOR_DEPLOYMENT_NAME_UPGRADE;
