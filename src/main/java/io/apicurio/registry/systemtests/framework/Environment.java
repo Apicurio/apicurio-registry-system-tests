@@ -48,7 +48,7 @@ public final class Environment {
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
     public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v3.0.9-r1";
     public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_UPGRADE_DEFAULT
-            = "apicurio-registry-operator-v3.0.9-r1";
+            = "apicurio-registry-operator-v3.0.9-r2";
     public static final String REGISTRY_PACKAGE_DEFAULT = "apicurio-registry-3"; // Default from catalog
     public static final String SSO_PACKAGE_DEFAULT = "rhbk-operator"; // Default from catalog
     public static final String SSO_CHANNEL_DEFAULT = "stable-v26";
