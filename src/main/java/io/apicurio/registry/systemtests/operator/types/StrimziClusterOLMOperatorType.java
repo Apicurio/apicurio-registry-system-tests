@@ -75,7 +75,9 @@ public class StrimziClusterOLMOperatorType extends OLMOperator implements Operat
 
         ResourceUtils.waitPackageManifestExists(catalogName, kafkaPackage);
 
-        String channelName = OperatorUtils.getDefaultChannel(catalogName, kafkaPackage);
+        // 2025-08-05 rkubis - new constant for Streams channel
+        // String channelName = OperatorUtils.getDefaultChannel(catalogName, kafkaPackage);
+        String channelName = Constants.KAFKA_CHANNEL;
         setClusterServiceVersion(OperatorUtils.getCurrentCSV(catalogName, kafkaPackage, channelName));
 
         LOGGER.info("OLM operator CSV: {}", getClusterServiceVersion());

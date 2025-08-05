@@ -5,6 +5,7 @@ public class Constants {
     public static final String CATALOG_NAME = "testsuite-operators";
     public static final String CATALOG_NAMESPACE = "openshift-marketplace";
     public static final String KAFKA_CONNECT = "kafka-connect-for-registry";
+    public static final String KAFKA_CHANNEL = "amq-streams-2.x";
     public static final String KAFKA = "kafka-for-registry";
     public static final String KAFKA_USER = "kafka-user-for-registry";
     public static final String KAFKA_SUBSCRIPTION_NAME = "kafka-subscription";
