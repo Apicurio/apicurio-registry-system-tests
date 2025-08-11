@@ -272,7 +272,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://www.radimkubis.cz/install3.yaml</url>
+                            <url>https://raw.githubusercontent.com/Apicurio/apicurio-registry/refs/heads/main/operator/install/install.yaml</url>
                             <outputFileName>registry.apicur.io_apicurioregistries.yaml</outputFileName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <skipCache>true</skipCache>
