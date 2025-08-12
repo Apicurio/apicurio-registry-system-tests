@@ -42,11 +42,11 @@ public final class Environment {
     public static final String KAFKA_PACKAGE_DEFAULT = "amq-streams"; // Default from catalog
     public static final String POSTGRESQL_VERSION_DEFAULT = "17";
     public static final String REGISTRY_CHANNEL_DEFAULT = "2.x";
-    public static final String REGISTRY_CSV_DEFAULT = "service-registry-operator.v2.6.12-r1";
+    public static final String REGISTRY_CSV_DEFAULT = "service-registry-operator.v2.6.13-r1";
     public static final String REGISTRY_BUNDLE_DEFAULT =
             "https://raw.githubusercontent.com/Apicurio/apicurio-registry-operator/main/install/" +
                     "apicurio-registry-operator-1.0.0-v2.0.0.final.yaml";
-    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v2.6.12-r1";
+    public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_DEFAULT = "apicurio-registry-operator-v2.6.13-r1";
     public static final String REGISTRY_OPERATOR_DEPLOYMENT_NAME_UPGRADE_DEFAULT
             = "apicurio-registry-operator-v2.6.13-r1";
     public static final String REGISTRY_PACKAGE_DEFAULT = "service-registry-operator"; // Default from catalog
