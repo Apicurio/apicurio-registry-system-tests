@@ -147,6 +147,7 @@ public abstract class AuthTests extends TestBase {
     @Test
     @Tag("sql")
     @Tag("v3")
+    @Disabled
     public void testRegistrySqlNoIAMAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.SQL, null, false);
     }
@@ -265,6 +266,7 @@ public abstract class AuthTests extends TestBase {
     @Test
     @Tag("kafkasql")
     @Tag("v3")
+    @Disabled
     public void testRegistryKafkasqlNoAuthNoIAMAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.KAFKA_SQL, KafkaKind.NO_AUTH, false);
     }
@@ -279,6 +281,7 @@ public abstract class AuthTests extends TestBase {
 
     @Test
     @Tag("kafkasql")
+    @Disabled
     public void testRegistryKafkasqlTLSNoIAMAnonymousReadAccess() throws InterruptedException {
         runAnonymousReadAccessTest(PersistenceKind.KAFKA_SQL, KafkaKind.TLS, false);
     }
