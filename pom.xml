@@ -32,7 +32,7 @@
         <version.failsafe>3.5.4</version.failsafe>
         <version.checkstyle>3.6.0</version.checkstyle>
         <version.download>1.13.0</version.download>
-        <version.jar>3.4.2</version.jar>
+        <version.jar>3.5.0</version.jar>
         <version.javax>2.0.1.Final</version.javax>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
