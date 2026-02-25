@@ -12,7 +12,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <version.junit.jupiter>6.0.2</version.junit.jupiter>
+        <version.junit.jupiter>6.0.3</version.junit.jupiter>
         <version.junit.platform>1.10.1</version.junit.platform>
         <version.fabric8>7.5.2</version.fabric8>
         <version.jackson>2.19.2</version.jackson>
@@ -21,14 +21,14 @@
         <version.operator>1.1.3-v2.6.4.final</version.operator>
         <version.hamcrest>3.0</version.hamcrest>
         <version.slf4j>2.0.17</version.slf4j>
-        <version.strimzi.api>0.50.0</version.strimzi.api>
+        <version.strimzi.api>0.50.1</version.strimzi.api>
         <version.eclipse.jgit>7.5.0.202512021534-r</version.eclipse.jgit>
         <version.org.json>20251224</version.org.json>
         <version.apache.commons>3.20.0</version.apache.commons>
         <version.apache.commons.io>2.21.0</version.apache.commons.io>
         <version.apache.httpcomponents>5.4.1</version.apache.httpcomponents>
         <version.apache.maven.artifact>3.9.12</version.apache.maven.artifact>
-        <version.surefire>3.5.4</version.surefire>
+        <version.surefire>3.5.5</version.surefire>
         <version.failsafe>3.5.5</version.failsafe>
         <version.checkstyle>3.6.0</version.checkstyle>
         <version.download>1.13.0</version.download>
